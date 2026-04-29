@@ -12,21 +12,23 @@ export function LanguageSwitcher() {
   ];
 
   return (
-    <div className="flex items-center gap-2 bg-card/80 backdrop-blur-md p-1 rounded-full border border-primary/10 shadow-sm relative z-50">
+    <div className="flex items-center gap-1 bg-background/95 backdrop-blur-md p-1.5 rounded-full border border-primary/30 shadow-lg relative z-50">
       {languages.map((lang) => {
         const isActive = language === lang.code;
         return (
           <button
             key={lang.code}
             onClick={() => setLanguage(lang.code)}
-            className={`relative px-4 py-1.5 text-sm font-medium transition-colors duration-300 rounded-full ${
-              isActive ? "text-primary-foreground" : "text-foreground/70 hover:text-foreground"
+            className={`relative px-4 py-2 text-sm font-semibold transition-colors duration-300 rounded-full whitespace-nowrap ${
+              isActive
+                ? "text-primary-foreground"
+                : "text-foreground hover:text-primary"
             }`}
           >
             {isActive && (
               <motion.div
                 layoutId="active-pill"
-                className="absolute inset-0 bg-primary rounded-full"
+                className="absolute inset-0 bg-primary rounded-full shadow-md"
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               />
             )}

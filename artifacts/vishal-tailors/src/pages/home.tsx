@@ -51,7 +51,8 @@ export default function Home() {
 
   const addressQuery = encodeURIComponent("Janaki Chowk-3, Janakpur Dham, Dhanusha, Nepal");
   const mapsLink = `https://maps.google.com/?q=${addressQuery}`;
-  const mapsEmbed = `https://maps.google.com/maps?q=${addressQuery}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+  // Coordinate-anchored embed drops a labeled pin on Janaki Chowk, Janakpur Dham
+  const mapsEmbed = `https://maps.google.com/maps?q=26.7263,85.9269+(${encodeURIComponent("New Vishal Tailors - Janaki Chowk-3, Janakpur Dham")})&t=&z=16&ie=UTF8&iwloc=B&output=embed`;
 
   return (
     <div className="min-h-screen bg-background selection:bg-secondary selection:text-secondary-foreground">
@@ -142,7 +143,7 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 1 }}
             className="relative aspect-[3/4] w-full max-w-md mx-auto"
           >
@@ -208,7 +209,7 @@ export default function Home() {
               key={`owner-text-${language}`}
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.8 }}
               className="md:col-span-3 order-2 md:order-1"
             >
@@ -234,7 +235,7 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 1 }}
             className="md:col-span-2 order-1 md:order-2 relative aspect-[3/4] w-full max-w-sm mx-auto"
           >
@@ -271,7 +272,7 @@ export default function Home() {
                 <p className="text-secondary text-sm tracking-widest uppercase mb-4">
                   {t("garments_eyebrow")}
                 </p>
-                <SectionHeader title={t("garments_title")} centered={true} />
+                <SectionHeader title={t("garments_title")} centered={true} invert={true} />
                 <p className="text-primary-foreground/70 text-lg mt-4 max-w-2xl mx-auto">
                   {t("garments_subtitle")}
                 </p>
@@ -283,10 +284,10 @@ export default function Home() {
             {garments.map((garment, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.9, delay: idx * 0.12, ease: [0.22, 1, 0.36, 1] }}
                 className="group relative overflow-hidden aspect-square cursor-pointer"
               >
                 <img
@@ -340,10 +341,10 @@ export default function Home() {
             {fabrics.map((fabric, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: idx * 0.15 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.9, delay: idx * 0.15, ease: [0.22, 1, 0.36, 1] }}
                 className="group bg-card border border-border overflow-hidden hover:shadow-2xl transition-all duration-500"
               >
                 <div className="aspect-[4/3] overflow-hidden">
@@ -401,10 +402,10 @@ export default function Home() {
               return (
                 <motion.div
                   key={idx}
-                  initial={{ opacity: 0, y: 40 }}
+                  initial={{ opacity: 0, y: 60 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.6, delay: idx * 0.1 }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{ duration: 0.85, delay: idx * 0.12, ease: [0.22, 1, 0.36, 1] }}
                   className="relative bg-background p-8 border border-border hover:border-secondary transition-colors duration-500 group"
                 >
                   <div className="absolute -top-4 -left-4 w-12 h-12 bg-secondary text-secondary-foreground flex items-center justify-center font-bold text-lg shadow-lg">
@@ -458,10 +459,10 @@ export default function Home() {
             {testimonials.map((testimonial, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: idx * 0.15 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.9, delay: idx * 0.15, ease: [0.22, 1, 0.36, 1] }}
                 className="bg-primary-foreground/5 backdrop-blur-sm border border-primary-foreground/10 p-8 hover:border-secondary/40 transition-all duration-500"
               >
                 <Quote className="text-secondary mb-6" size={32} />
@@ -518,7 +519,7 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.8 }}
               className="lg:col-span-3 relative"
             >
@@ -541,7 +542,7 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.8 }}
               className="lg:col-span-2 flex flex-col gap-6"
             >
