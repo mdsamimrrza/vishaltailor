@@ -17,7 +17,7 @@ export function SectionHeader({ title, subtitle, centered = true, invert = false
         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
       >
         <h2
-          className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight ${
+          className={`text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 tracking-tight ${
             invert ? "text-primary-foreground" : "text-primary"
           }`}
         >
