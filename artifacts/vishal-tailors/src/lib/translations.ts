@@ -10,7 +10,7 @@ export const translations: TranslationDictionary = {
   ne: {
     // Core details
     name: "न्यू विशाल टेलर्स",
-    owner: "मोल्बी मन्सुरी",
+    owner: "मौलबी मन्सुरी",
     tagline: "सूट स्पेशलिस्ट",
     description: "यहाँ कोट-पेन्ट, सफारी सूट, सर्ट-पेन्ट, जिन्स, शेरवानी, बण्डी तथा लेहंगा/चोलीको उत्तम सिलाई उचित मूल्यमा गरिन्छ।",
     fabric: "यहाँ आधुनिक डिजाइनको कपडा हरू पाइन्छ।",
@@ -34,9 +34,9 @@ export const translations: TranslationDictionary = {
 
     // Owner portrait section
     owner_section_eyebrow: "हाम्रा मालिक",
-    owner_section_title: "मोल्बी मन्सुरी",
+    owner_section_title: "मौलबी मन्सुरी",
     owner_section_subtitle: "संस्थापक एवम् प्रमुख कारीगर",
-    owner_section_desc: "जनकपुरको गल्ली-गल्लीमा परिचित नाम, मोल्बी मन्सुरीले आफ्नो जीवन सुई र धागोलाई समर्पित गर्नुभएको छ। उहाँको हातबाट निस्केको हरेक पहिरनले सम्मान र अपनत्वको कथा बोल्छ।",
+    owner_section_desc: "जनकपुरको गल्ली-गल्लीमा परिचित नाम, मौलबी मन्सुरीले आफ्नो जीवन सुई र धागोलाई समर्पित गर्नुभएको छ। उहाँको हातबाट निस्केको हरेक पहिरनले सम्मान र अपनत्वको कथा बोल्छ।",
 
     // Garments
     garments_eyebrow: "हाम्रो संग्रह",
@@ -124,7 +124,7 @@ export const translations: TranslationDictionary = {
   hi: {
     // Core details
     name: "न्यू विशाल टेलर्स",
-    owner: "मोल्बी मंसूरी",
+    owner: "मौलवी मंसूरी",
     tagline: "सूट स्पेशलिस्ट",
     description: "यहाँ कोट-पैंट, सफारी सूट, शर्ट-पैंट, जींस, शेरवानी, कुर्ता-पायजामा और लेहंगा-चोली की उत्तम सिलाई उचित मूल्य पर की जाती है।",
     fabric: "यहाँ आधुनिक डिजाइन के कपड़े उपलब्ध हैं।",
@@ -140,7 +140,7 @@ export const translations: TranslationDictionary = {
     // About
     about_eyebrow: "मास्टर कारीगर",
     about_title: "मास्टर के बारे में",
-    about_desc: "दशकों से जनकपुर के हृदय में, मास्टर मोल्बी मंसूरी मिथिला की परंपरा और आधुनिक सिलाई को जोड़कर उत्कृष्ट परिधान तैयार कर रहे हैं। हर सिलाई में श्रद्धा और कला झलकती है।",
+    about_desc: "दशकों से जनकपुर के हृदय में, मास्टर मौलवी मंसूरी मिथिला की परंपरा और आधुनिक सिलाई को जोड़कर उत्कृष्ट परिधान तैयार कर रहे हैं। हर सिलाई में श्रद्धा और कला झलकती है।",
     about_quote: "“कपड़े सुई-धागे से जुड़ते हैं, परिधान मन से बनते हैं।”",
     about_stat_years: "वर्षों का अनुभव",
     about_stat_garments: "तैयार परिधान",
@@ -148,9 +148,9 @@ export const translations: TranslationDictionary = {
 
     // Owner portrait
     owner_section_eyebrow: "हमारे मालिक",
-    owner_section_title: "मोल्बी मंसूरी",
+    owner_section_title: "मौलवी मंसूरी",
     owner_section_subtitle: "संस्थापक एवं प्रमुख कारीगर",
-    owner_section_desc: "जनकपुर की गली-गली में पहचाना नाम, मोल्बी मंसूरी ने अपना जीवन सुई और धागे को समर्पित किया है। उनके हाथों से बना हर परिधान सम्मान और अपनेपन की कहानी कहता है।",
+    owner_section_desc: "जनकपुर की गली-गली में पहचाना नाम, मौलवी मंसूरी ने अपना जीवन सुई और धागे को समर्पित किया है। उनके हाथों से बना हर परिधान सम्मान और अपनेपन की कहानी कहता है।",
 
     // Garments
     garments_eyebrow: "हमारा संग्रह",
@@ -238,7 +238,7 @@ export const translations: TranslationDictionary = {
   en: {
     // Core details
     name: "New Vishal Tailors",
-    owner: "Molbi Mansuri",
+    owner: "Maulvi Mansuri",
     tagline: "Suit Specialist",
     description: "Premium tailoring for coat-pants, safari suits, shirts, jeans, sherwani, kurta-pajama, and lehenga-choli at honest, fair prices.",
     fabric: "Modern designer fabrics are available.",
@@ -254,7 +254,7 @@ export const translations: TranslationDictionary = {
     // About
     about_eyebrow: "The Master Craftsman",
     about_title: "About the Master",
-    about_desc: "For decades in the heart of Janakpur, Master Molbi Mansuri has blended Mithila tradition with modern tailoring to craft exquisite garments. Every stitch reflects devotion and artistry.",
+    about_desc: "For decades in the heart of Janakpur, Master Maulvi Mansuri has blended Mithila tradition with modern tailoring to craft exquisite garments. Every stitch reflects devotion and artistry.",
     about_quote: "“Cloth is joined by needle and thread, but a garment is woven by the heart.”",
     about_stat_years: "Years of Heritage",
     about_stat_garments: "Garments Crafted",
@@ -262,9 +262,9 @@ export const translations: TranslationDictionary = {
 
     // Owner portrait
     owner_section_eyebrow: "Our Owner",
-    owner_section_title: "Molbi Mansuri",
+    owner_section_title: "Maulvi Mansuri",
     owner_section_subtitle: "Founder & Master Tailor",
-    owner_section_desc: "A familiar name in every lane of Janakpur, Molbi Mansuri has devoted his life to needle and thread. Every garment from his hands tells a story of respect, care and craftsmanship.",
+    owner_section_desc: "A familiar name in every lane of Janakpur, Maulvi Mansuri has devoted his life to needle and thread. Every garment from his hands tells a story of respect, care and craftsmanship.",
 
     // Garments
     garments_eyebrow: "Our Collection",
