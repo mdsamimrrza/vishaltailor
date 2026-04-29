@@ -2,7 +2,19 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { SectionHeader } from "@/components/SectionHeader";
-import { Scissors, MapPin, Phone, Clock, Ruler, Needle } from "lucide-react";
+import {
+  MapPin,
+  Phone,
+  Clock,
+  Scissors,
+  Ruler,
+  Shirt,
+  Hand,
+  Package,
+  MessageCircle,
+  Quote,
+  Sparkles,
+} from "lucide-react";
 
 export default function Home() {
   const { t, language } = useLanguage();
@@ -16,11 +28,36 @@ export default function Home() {
     { key: "garments_bandi", img: "/images/tools.png" },
   ];
 
+  const fabrics = [
+    { titleKey: "fabric_silk_title", descKey: "fabric_silk_desc", img: "/images/fabric.png" },
+    { titleKey: "fabric_cotton_title", descKey: "fabric_cotton_desc", img: "/images/hands.png" },
+    { titleKey: "fabric_wool_title", descKey: "fabric_wool_desc", img: "/images/tools.png" },
+  ];
+
+  const processSteps = [
+    { titleKey: "process_step1_title", descKey: "process_step1_desc", Icon: MessageCircle },
+    { titleKey: "process_step2_title", descKey: "process_step2_desc", Icon: Ruler },
+    { titleKey: "process_step3_title", descKey: "process_step3_desc", Icon: Shirt },
+    { titleKey: "process_step4_title", descKey: "process_step4_desc", Icon: Scissors },
+    { titleKey: "process_step5_title", descKey: "process_step5_desc", Icon: Hand },
+    { titleKey: "process_step6_title", descKey: "process_step6_desc", Icon: Package },
+  ];
+
+  const testimonials = [
+    { quoteKey: "testimonial1", authorKey: "testimonial1_author" },
+    { quoteKey: "testimonial2", authorKey: "testimonial2_author" },
+    { quoteKey: "testimonial3", authorKey: "testimonial3_author" },
+  ];
+
+  const addressQuery = encodeURIComponent("Janaki Chowk-3, Janakpur Dham, Dhanusha, Nepal");
+  const mapsLink = `https://maps.google.com/?q=${addressQuery}`;
+  const mapsEmbed = `https://maps.google.com/maps?q=${addressQuery}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+
   return (
     <div className="min-h-screen bg-background selection:bg-secondary selection:text-secondary-foreground">
       {/* Navbar */}
       <nav className="fixed top-0 left-0 right-0 z-50 py-4 px-6 md:px-12 flex justify-between items-center mix-blend-difference text-primary-foreground">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
@@ -52,9 +89,9 @@ export default function Home() {
             transition={{ duration: 20, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
             className="w-full h-full"
           >
-            <img 
-              src="/images/hero.png" 
-              alt="Atelier Interior" 
+            <img
+              src="/images/hero.png"
+              alt="Atelier Interior"
               className="w-full h-full object-cover opacity-80"
             />
           </motion.div>
@@ -79,16 +116,16 @@ export default function Home() {
               <p className="text-xl md:text-2xl text-primary-foreground/90 font-light max-w-2xl mx-auto leading-relaxed drop-shadow-md">
                 {t("description")}
               </p>
-              
+
               <div className="mt-12 flex flex-col sm:flex-row gap-6 justify-center">
-                <a 
-                  href="#visit" 
+                <a
+                  href="#visit"
                   className="px-8 py-4 bg-secondary text-secondary-foreground font-semibold rounded-none tracking-widest hover:bg-secondary/90 transition-all uppercase text-sm border border-secondary"
                 >
                   {t("visit_title")}
                 </a>
-                <a 
-                  href="#garments" 
+                <a
+                  href="#garments"
                   className="px-8 py-4 bg-transparent text-primary-foreground font-semibold rounded-none tracking-widest hover:bg-primary-foreground/10 transition-all uppercase text-sm border border-primary-foreground backdrop-blur-sm"
                 >
                   {t("nav_garments")}
@@ -110,9 +147,9 @@ export default function Home() {
             className="relative aspect-[3/4] w-full max-w-md mx-auto"
           >
             <div className="absolute inset-0 bg-primary translate-x-4 translate-y-4 -z-10" />
-            <img 
-              src="/images/hands.png" 
-              alt="Master Tailor" 
+            <img
+              src="/images/hands.png"
+              alt="Master Tailor at work"
               className="w-full h-full object-cover shadow-2xl"
             />
           </motion.div>
@@ -125,19 +162,34 @@ export default function Home() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
             >
-              <h3 className="text-secondary text-sm tracking-widest uppercase mb-4 font-semibold">{t("owner")}</h3>
+              <h3 className="text-secondary text-sm tracking-widest uppercase mb-4 font-semibold">
+                {t("about_eyebrow")}
+              </h3>
               <h2 className="text-4xl md:text-5xl font-bold text-primary mb-8">{t("about_title")}</h2>
               <p className="text-lg md:text-xl text-foreground/80 leading-relaxed mb-8">
                 {t("about_desc")}
               </p>
-              <div className="grid grid-cols-2 gap-8 mt-12 border-t border-border pt-8">
+              <p className="text-lg md:text-xl italic text-primary/80 leading-relaxed border-l-2 border-secondary pl-6 mb-8">
+                {t("about_quote")}
+              </p>
+              <div className="grid grid-cols-3 gap-6 mt-12 border-t border-border pt-8">
                 <div>
-                  <h4 className="text-4xl font-bold text-secondary mb-2">30+</h4>
-                  <p className="text-sm uppercase tracking-wider text-foreground/60">Years of Heritage</p>
+                  <h4 className="text-3xl md:text-4xl font-bold text-secondary mb-2">30+</h4>
+                  <p className="text-xs md:text-sm uppercase tracking-wider text-foreground/60">
+                    {t("about_stat_years")}
+                  </p>
                 </div>
                 <div>
-                  <h4 className="text-4xl font-bold text-secondary mb-2">10k+</h4>
-                  <p className="text-sm uppercase tracking-wider text-foreground/60">Garments Crafted</p>
+                  <h4 className="text-3xl md:text-4xl font-bold text-secondary mb-2">10k+</h4>
+                  <p className="text-xs md:text-sm uppercase tracking-wider text-foreground/60">
+                    {t("about_stat_garments")}
+                  </p>
+                </div>
+                <div>
+                  <h4 className="text-3xl md:text-4xl font-bold text-secondary mb-2">5k+</h4>
+                  <p className="text-xs md:text-sm uppercase tracking-wider text-foreground/60">
+                    {t("about_stat_clients")}
+                  </p>
                 </div>
               </div>
             </motion.div>
@@ -145,14 +197,89 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Garments Marquee / Grid */}
+      {/* Owner Portrait Section */}
+      <section id="owner" className="py-24 md:py-32 px-6 md:px-12 bg-card relative overflow-hidden">
+        <div className="absolute -top-32 -right-32 w-96 h-96 bg-secondary/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-12 md:gap-20 items-center relative z-10">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`owner-text-${language}`}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+              className="md:col-span-3 order-2 md:order-1"
+            >
+              <h3 className="text-secondary text-sm tracking-widest uppercase mb-4 font-semibold">
+                {t("owner_section_eyebrow")}
+              </h3>
+              <h2 className="text-4xl md:text-6xl font-bold text-primary mb-2 leading-tight">
+                {t("owner_section_title")}
+              </h2>
+              <p className="text-lg md:text-xl text-secondary mb-8 italic">
+                {t("owner_section_subtitle")}
+              </p>
+              <p className="text-base md:text-lg text-foreground/80 leading-relaxed mb-10 max-w-2xl">
+                {t("owner_section_desc")}
+              </p>
+              <div className="flex items-center gap-4 text-foreground/60">
+                <Sparkles size={20} className="text-secondary" />
+                <span className="text-sm uppercase tracking-widest">{t("tagline")}</span>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1 }}
+            className="md:col-span-2 order-1 md:order-2 relative aspect-[3/4] w-full max-w-sm mx-auto"
+          >
+            <div className="absolute inset-0 border-2 border-secondary translate-x-5 translate-y-5" />
+            <div className="absolute inset-0 bg-primary -translate-x-3 -translate-y-3 -z-10" />
+            <img
+              src="/images/owner.png"
+              alt={t("owner_section_title")}
+              className="relative w-full h-full object-cover shadow-2xl"
+            />
+            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-background px-6 py-2 shadow-lg border border-border whitespace-nowrap">
+              <p className="text-xs uppercase tracking-widest text-foreground/70">
+                {t("owner")}
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Garments */}
       <section id="garments" className="py-24 md:py-32 bg-primary text-primary-foreground relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[url('/images/fabric.png')] bg-cover mix-blend-overlay pointer-events-none" />
-        
+
         <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-          <SectionHeader title={t("garments_title")} centered={true} />
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+          <div className="text-center mb-16">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`g-head-${language}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+              >
+                <p className="text-secondary text-sm tracking-widest uppercase mb-4">
+                  {t("garments_eyebrow")}
+                </p>
+                <SectionHeader title={t("garments_title")} centered={true} />
+                <p className="text-primary-foreground/70 text-lg mt-4 max-w-2xl mx-auto">
+                  {t("garments_subtitle")}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {garments.map((garment, idx) => (
               <motion.div
                 key={idx}
@@ -162,14 +289,14 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: idx * 0.1 }}
                 className="group relative overflow-hidden aspect-square cursor-pointer"
               >
-                <img 
-                  src={garment.img} 
-                  alt="" 
+                <img
+                  src={garment.img}
+                  alt=""
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-100"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-8">
                   <AnimatePresence mode="wait">
-                    <motion.h3 
+                    <motion.h3
                       key={language}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -186,63 +313,378 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Visit Section */}
-      <section id="visit" className="py-24 md:py-32 px-6 md:px-12 bg-card">
-        <div className="max-w-4xl mx-auto text-center">
-          <SectionHeader title={t("visit_title")} />
-          
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={language}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.5 }}
-              className="bg-background p-12 shadow-2xl border border-border relative overflow-hidden mt-12"
-            >
-              <div className="absolute top-0 left-0 w-full h-1 bg-secondary" />
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div className="flex flex-col items-center text-center space-y-4">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4">
-                    <MapPin size={32} />
-                  </div>
-                  <h4 className="text-xl font-bold text-foreground">Location</h4>
-                  <p className="text-foreground/70">{t("address")}</p>
-                  <a 
-                    href={`https://maps.google.com/?q=${encodeURIComponent("Janaki Chowk-3, Janakpur Dham, Dhanusha, Nepal")}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-6 px-6 py-3 border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors uppercase tracking-widest text-xs"
-                  >
-                    {t("get_directions")}
-                  </a>
-                </div>
+      {/* Fabrics */}
+      <section id="fabrics" className="py-24 md:py-32 px-6 md:px-12 bg-background">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`fab-head-${language}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+              >
+                <p className="text-secondary text-sm tracking-widest uppercase mb-4">
+                  {t("fabrics_eyebrow")}
+                </p>
+                <SectionHeader title={t("fabrics_title")} centered={true} />
+                <p className="text-foreground/70 text-lg mt-4 max-w-2xl mx-auto">
+                  {t("fabrics_desc")}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
-                <div className="flex flex-col items-center text-center space-y-4">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4">
-                    <Phone size={32} />
-                  </div>
-                  <h4 className="text-xl font-bold text-foreground">Contact</h4>
-                  <p className="text-foreground/70">+977 980-0000000</p>
-                  <a 
-                    href="tel:+9779800000000"
-                    className="mt-6 px-6 py-3 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors uppercase tracking-widest text-xs"
-                  >
-                    {t("call_now")}
-                  </a>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {fabrics.map((fabric, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: idx * 0.15 }}
+                className="group bg-card border border-border overflow-hidden hover:shadow-2xl transition-all duration-500"
+              >
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={fabric.img}
+                    alt=""
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
                 </div>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={`fab-${idx}-${language}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="p-8"
+                  >
+                    <h3 className="text-2xl font-bold text-primary mb-3">{t(fabric.titleKey)}</h3>
+                    <p className="text-foreground/70 leading-relaxed">{t(fabric.descKey)}</p>
+                  </motion.div>
+                </AnimatePresence>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Process */}
+      <section id="process" className="py-24 md:py-32 px-6 md:px-12 bg-card relative overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-20">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`pr-head-${language}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+              >
+                <p className="text-secondary text-sm tracking-widest uppercase mb-4">
+                  {t("process_eyebrow")}
+                </p>
+                <SectionHeader title={t("process_title")} centered={true} />
+                <p className="text-foreground/70 text-lg mt-4 max-w-2xl mx-auto">
+                  {t("process_subtitle")}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative">
+            {processSteps.map((step, idx) => {
+              const Icon = step.Icon;
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: idx * 0.1 }}
+                  className="relative bg-background p-8 border border-border hover:border-secondary transition-colors duration-500 group"
+                >
+                  <div className="absolute -top-4 -left-4 w-12 h-12 bg-secondary text-secondary-foreground flex items-center justify-center font-bold text-lg shadow-lg">
+                    {String(idx + 1).padStart(2, "0")}
+                  </div>
+                  <div className="mb-6 text-primary group-hover:text-secondary transition-colors duration-500">
+                    <Icon size={36} strokeWidth={1.5} />
+                  </div>
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={`pr-${idx}-${language}`}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      <h3 className="text-xl font-bold text-primary mb-3">{t(step.titleKey)}</h3>
+                      <p className="text-foreground/70 leading-relaxed">{t(step.descKey)}</p>
+                    </motion.div>
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-24 md:py-32 px-6 md:px-12 bg-primary text-primary-foreground relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5 bg-[url('/images/hands.png')] bg-cover mix-blend-overlay pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`tes-head-${language}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+              >
+                <p className="text-secondary text-sm tracking-widest uppercase mb-4">
+                  {t("testimonials_eyebrow")}
+                </p>
+                <h2 className="text-4xl md:text-5xl font-bold mb-4">{t("testimonials_title")}</h2>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: idx * 0.15 }}
+                className="bg-primary-foreground/5 backdrop-blur-sm border border-primary-foreground/10 p-8 hover:border-secondary/40 transition-all duration-500"
+              >
+                <Quote className="text-secondary mb-6" size={32} />
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={`tes-${idx}-${language}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <p className="text-lg leading-relaxed mb-8 text-primary-foreground/90 italic">
+                      {t(testimonial.quoteKey)}
+                    </p>
+                    <div className="flex items-center gap-3 pt-4 border-t border-primary-foreground/10">
+                      <div className="w-1 h-8 bg-secondary" />
+                      <p className="text-sm uppercase tracking-widest text-primary-foreground/70">
+                        {t(testimonial.authorKey)}
+                      </p>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Visit Section */}
+      <section id="visit" className="py-24 md:py-32 px-6 md:px-12 bg-background">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`vh-${language}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+              >
+                <p className="text-secondary text-sm tracking-widest uppercase mb-4">
+                  {t("visit_eyebrow")}
+                </p>
+                <SectionHeader title={t("visit_title")} centered={true} />
+                <p className="text-foreground/70 text-lg mt-4 max-w-2xl mx-auto">
+                  {t("visit_subtitle")}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+            {/* Map */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+              className="lg:col-span-3 relative"
+            >
+              <div className="absolute inset-0 bg-primary translate-x-4 translate-y-4 -z-10" />
+              <div className="relative bg-card border border-border overflow-hidden shadow-2xl h-[500px] lg:h-full min-h-[500px]">
+                <iframe
+                  title={t("map_title")}
+                  src={mapsEmbed}
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0, minHeight: 500 }}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="w-full h-full"
+                />
               </div>
             </motion.div>
-          </AnimatePresence>
+
+            {/* Contact details */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+              className="lg:col-span-2 flex flex-col gap-6"
+            >
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={`vd-${language}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.4 }}
+                  className="flex flex-col gap-6 h-full"
+                >
+                  {/* Address */}
+                  <div className="bg-card border border-border p-8 hover:border-secondary transition-colors duration-500 group">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary group-hover:bg-secondary group-hover:text-secondary-foreground transition-colors duration-500 shrink-0">
+                        <MapPin size={22} />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="text-xs uppercase tracking-widest text-foreground/60 mb-2">
+                          {t("visit_location")}
+                        </h4>
+                        <p className="text-foreground font-medium leading-relaxed mb-4">
+                          {t("address")}
+                        </p>
+                        <a
+                          href={mapsLink}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-block text-xs uppercase tracking-widest text-secondary border-b border-secondary/50 hover:border-secondary pb-1 transition-all"
+                        >
+                          {t("get_directions")}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Phone */}
+                  <div className="bg-card border border-border p-8 hover:border-secondary transition-colors duration-500 group">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary group-hover:bg-secondary group-hover:text-secondary-foreground transition-colors duration-500 shrink-0">
+                        <Phone size={22} />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="text-xs uppercase tracking-widest text-foreground/60 mb-2">
+                          {t("visit_phone")}
+                        </h4>
+                        <p className="text-foreground font-medium leading-relaxed mb-4">
+                          +977 980-0000000
+                        </p>
+                        <a
+                          href="tel:+9779800000000"
+                          className="inline-block text-xs uppercase tracking-widest text-secondary border-b border-secondary/50 hover:border-secondary pb-1 transition-all"
+                        >
+                          {t("call_now")}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Hours */}
+                  <div className="bg-card border border-border p-8 hover:border-secondary transition-colors duration-500 group flex-1">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary group-hover:bg-secondary group-hover:text-secondary-foreground transition-colors duration-500 shrink-0">
+                        <Clock size={22} />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="text-xs uppercase tracking-widest text-foreground/60 mb-3">
+                          {t("visit_hours")}
+                        </h4>
+                        <div className="space-y-2">
+                          <div className="flex justify-between items-baseline gap-4">
+                            <span className="text-foreground/80 text-sm">{t("hours_weekday")}</span>
+                            <span className="text-foreground font-medium text-sm">
+                              {t("hours_weekday_time")}
+                            </span>
+                          </div>
+                          <div className="flex justify-between items-baseline gap-4">
+                            <span className="text-foreground/80 text-sm">{t("hours_saturday")}</span>
+                            <span className="text-foreground font-medium text-sm">
+                              {t("hours_saturday_time")}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-foreground text-background py-12 px-6 md:px-12 text-center">
-        <p className="text-background/60 font-light">
-          &copy; {new Date().getFullYear()} {t("name")}. {t("footer_rights")}
-        </p>
+      <footer className="bg-foreground text-background py-16 px-6 md:px-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+            <div>
+              <h4 className="text-xl font-bold tracking-widest uppercase mb-4">{t("name")}</h4>
+              <p className="text-background/60 leading-relaxed">{t("footer_tagline")}</p>
+            </div>
+            <div>
+              <h5 className="text-xs uppercase tracking-widest text-secondary mb-4 font-semibold">
+                {t("footer_explore")}
+              </h5>
+              <ul className="space-y-2">
+                <li>
+                  <a href="#craft" className="text-background/70 hover:text-background transition-colors">
+                    {t("nav_craft")}
+                  </a>
+                </li>
+                <li>
+                  <a href="#garments" className="text-background/70 hover:text-background transition-colors">
+                    {t("nav_garments")}
+                  </a>
+                </li>
+                <li>
+                  <a href="#fabrics" className="text-background/70 hover:text-background transition-colors">
+                    {t("nav_fabrics")}
+                  </a>
+                </li>
+                <li>
+                  <a href="#process" className="text-background/70 hover:text-background transition-colors">
+                    {t("nav_process")}
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h5 className="text-xs uppercase tracking-widest text-secondary mb-4 font-semibold">
+                {t("footer_contact")}
+              </h5>
+              <p className="text-background/70 leading-relaxed mb-2">{t("address")}</p>
+              <p className="text-background/70">+977 980-0000000</p>
+            </div>
+          </div>
+          <div className="border-t border-background/10 pt-8 text-center">
+            <p className="text-background/50 font-light text-sm">
+              &copy; {new Date().getFullYear()} {t("name")}. {t("footer_rights")}
+            </p>
+          </div>
+        </div>
       </footer>
     </div>
   );
