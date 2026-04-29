@@ -10,9 +10,9 @@ export const translations: TranslationDictionary = {
   ne: {
     // Core details
     name: "न्यू विशाल टेलर्स",
-    owner: "मौलबी मन्सुरी",
+    owner: "मोल्बी मन्सुरी",
     tagline: "सूट स्पेशलिस्ट",
-    description: "यहाँ सफारी सूट, पेन्ट, सर्ट, सिवानी, बण्डी तथा लेहंगा/चोली को उत्तम सिलाई उचित मूल्यमा गरिन्छ।",
+    description: "यहाँ कोट-पेन्ट, सफारी सूट, सर्ट-पेन्ट, जिन्स, शेरवानी, बण्डी तथा लेहंगा/चोलीको उत्तम सिलाई उचित मूल्यमा गरिन्छ।",
     fabric: "यहाँ आधुनिक डिजाइनको कपडा हरू पाइन्छ।",
     address: "जानकी चौक-३, जनकपुरधाम, धनुषा, नेपाल",
 
@@ -26,7 +26,7 @@ export const translations: TranslationDictionary = {
     // About / Master
     about_eyebrow: "मास्टर कारीगर",
     about_title: "मास्टरको बारेमा",
-    about_desc: "दशकौं देखि जनकपुरको मुटुमा, मास्टर मौलबी मन्सुरीले मिथिलाको परम्परा र आधुनिक सिलाईलाई जोडेर उत्कृष्ट पहिरन तयार गर्दै आउनुभएको छ। हरेक सिलाईमा श्रद्धा र कला झल्किन्छ।",
+    about_desc: "दशकौंदेखि जनकपुरको मुटुमा, मास्टर मोल्बी मन्सुरीले मिथिलाको परम्परा र आधुनिक सिलाईलाई जोडेर उत्कृष्ट पहिरन तयार गर्दै आउनुभएको छ। हरेक सिलाईमा श्रद्धा र कला झल्किन्छ।",
     about_quote: "“कपडा त सुई-धागोले जोडिन्छ, तर पहिरन भने मनले बनाइन्छ।”",
     about_stat_years: "वर्षको अनुभव",
     about_stat_garments: "तयार पहिरन",
@@ -34,9 +34,9 @@ export const translations: TranslationDictionary = {
 
     // Owner portrait section
     owner_section_eyebrow: "हाम्रा मालिक",
-    owner_section_title: "मौलबी मन्सुरी",
+    owner_section_title: "मोल्बी मन्सुरी",
     owner_section_subtitle: "संस्थापक एवम् प्रमुख कारीगर",
-    owner_section_desc: "जनकपुरको गल्ली-गल्लीमा परिचित नाम, मौलबी मन्सुरीले आफ्नो जीवन सुई र धागोलाई समर्पित गर्नुभएको छ। उहाँको हातबाट निस्केको हरेक पहिरनले सम्मान र अपनत्वको कथा बोल्छ।",
+    owner_section_desc: "जनकपुरको गल्ली-गल्लीमा परिचित नाम, मोल्बी मन्सुरीले आफ्नो जीवन सुई र धागोलाई समर्पित गर्नुभएको छ। उहाँको हातबाट निस्केको हरेक पहिरनले सम्मान र अपनत्वको कथा बोल्छ।",
 
     // Garments
     garments_eyebrow: "हाम्रो संग्रह",
@@ -83,7 +83,7 @@ export const translations: TranslationDictionary = {
     // Testimonials
     testimonials_eyebrow: "ग्राहकका शब्दहरू",
     testimonials_title: "हाम्रा परिवार के भन्छन्",
-    testimonial1: "मेरो विवाहको शेरवानी जति सुन्दर थियो, सिलाई पनि त्यतिकै नाप मिल्दो थियो। मौलबी जीको हातमा साँच्चै जादु छ।",
+    testimonial1: "मेरो विवाहको शेरवानी जति सुन्दर थियो, सिलाई पनि त्यतिकै नाप मिल्दो थियो। मोल्बी जीको हातमा साँच्चै जादु छ।",
     testimonial1_author: "रामेश्वर साह — विराटनगर",
     testimonial2: "वर्षौं देखि हाम्रो परिवारले यहीँबाट सिलाउँछौं। एकपटक नाप लिएपछि सधैं उत्तम फिट हुन्छ।",
     testimonial2_author: "सुनीता देवी — जनकपुर",
@@ -124,9 +124,9 @@ export const translations: TranslationDictionary = {
   hi: {
     // Core details
     name: "न्यू विशाल टेलर्स",
-    owner: "मौलवी मंसूरी",
+    owner: "मोल्बी मंसूरी",
     tagline: "सूट स्पेशलिस्ट",
-    description: "यहाँ आधुनिक डिजाइन के शर्ट-पेन्ट, सूट, शेरवानी, कुर्ता-पायजामा की सिलाई की जाती है।",
+    description: "यहाँ कोट-पैंट, सफारी सूट, शर्ट-पैंट, जींस, शेरवानी, कुर्ता-पायजामा और लेहंगा-चोली की उत्तम सिलाई उचित मूल्य पर की जाती है।",
     fabric: "यहाँ आधुनिक डिजाइन के कपड़े उपलब्ध हैं।",
     address: "जानकी चौक-3, जनकपुरधाम, धनुषा, नेपाल",
 
@@ -140,7 +140,7 @@ export const translations: TranslationDictionary = {
     // About
     about_eyebrow: "मास्टर कारीगर",
     about_title: "मास्टर के बारे में",
-    about_desc: "दशकों से जनकपुर के हृदय में, मास्टर मौलवी मंसूरी मिथिला की परंपरा और आधुनिक सिलाई को जोड़कर उत्कृष्ट परिधान तैयार कर रहे हैं। हर सिलाई में श्रद्धा और कला झलकती है।",
+    about_desc: "दशकों से जनकपुर के हृदय में, मास्टर मोल्बी मंसूरी मिथिला की परंपरा और आधुनिक सिलाई को जोड़कर उत्कृष्ट परिधान तैयार कर रहे हैं। हर सिलाई में श्रद्धा और कला झलकती है।",
     about_quote: "“कपड़े सुई-धागे से जुड़ते हैं, परिधान मन से बनते हैं।”",
     about_stat_years: "वर्षों का अनुभव",
     about_stat_garments: "तैयार परिधान",
@@ -148,9 +148,9 @@ export const translations: TranslationDictionary = {
 
     // Owner portrait
     owner_section_eyebrow: "हमारे मालिक",
-    owner_section_title: "मौलवी मंसूरी",
+    owner_section_title: "मोल्बी मंसूरी",
     owner_section_subtitle: "संस्थापक एवं प्रमुख कारीगर",
-    owner_section_desc: "जनकपुर की गली-गली में पहचाना नाम, मौलवी मंसूरी ने अपना जीवन सुई और धागे को समर्पित किया है। उनके हाथों से बना हर परिधान सम्मान और अपनेपन की कहानी कहता है।",
+    owner_section_desc: "जनकपुर की गली-गली में पहचाना नाम, मोल्बी मंसूरी ने अपना जीवन सुई और धागे को समर्पित किया है। उनके हाथों से बना हर परिधान सम्मान और अपनेपन की कहानी कहता है।",
 
     // Garments
     garments_eyebrow: "हमारा संग्रह",
@@ -197,7 +197,7 @@ export const translations: TranslationDictionary = {
     // Testimonials
     testimonials_eyebrow: "ग्राहकों के शब्द",
     testimonials_title: "हमारे परिवार क्या कहते हैं",
-    testimonial1: "मेरी शादी की शेरवानी जितनी सुंदर थी, सिलाई भी उतनी ही सटीक थी। मौलवी जी के हाथों में सच में जादू है।",
+    testimonial1: "मेरी शादी की शेरवानी जितनी सुंदर थी, सिलाई भी उतनी ही सटीक थी। मोल्बी जी के हाथों में सच में जादू है।",
     testimonial1_author: "रामेश्वर साह — विराटनगर",
     testimonial2: "वर्षों से हमारा परिवार यहीं से सिलवाता है। एक बार नाप लेने के बाद हमेशा बेहतरीन फिट होता है।",
     testimonial2_author: "सुनीता देवी — जनकपुर",
@@ -206,7 +206,7 @@ export const translations: TranslationDictionary = {
 
     // Visit
     visit_eyebrow: "हमसे मिलें",
-    visit_title: "हमारे दुकान पर पधारें",
+    visit_title: "हमारी दुकान पर पधारें",
     visit_subtitle: "जनकपुरधाम के हृदय में, आपका स्वागत है।",
     visit_location: "पता",
     visit_phone: "फोन",
@@ -238,9 +238,9 @@ export const translations: TranslationDictionary = {
   en: {
     // Core details
     name: "New Vishal Tailors",
-    owner: "Maulvi Mansuri",
+    owner: "Molbi Mansuri",
     tagline: "Suit Specialist",
-    description: "We provide high-quality stitching services for suits, shirts, pants, sherwani, kurta-pajama, and lehenga-choli at affordable prices.",
+    description: "Premium tailoring for coat-pants, safari suits, shirts, jeans, sherwani, kurta-pajama, and lehenga-choli at honest, fair prices.",
     fabric: "Modern designer fabrics are available.",
     address: "Janaki Chowk-3, Janakpur Dham, Dhanusha, Nepal",
 
@@ -254,7 +254,7 @@ export const translations: TranslationDictionary = {
     // About
     about_eyebrow: "The Master Craftsman",
     about_title: "About the Master",
-    about_desc: "For decades in the heart of Janakpur, Master Maulvi Mansuri has blended Mithila tradition with modern tailoring to craft exquisite garments. Every stitch reflects devotion and artistry.",
+    about_desc: "For decades in the heart of Janakpur, Master Molbi Mansuri has blended Mithila tradition with modern tailoring to craft exquisite garments. Every stitch reflects devotion and artistry.",
     about_quote: "“Cloth is joined by needle and thread, but a garment is woven by the heart.”",
     about_stat_years: "Years of Heritage",
     about_stat_garments: "Garments Crafted",
@@ -262,9 +262,9 @@ export const translations: TranslationDictionary = {
 
     // Owner portrait
     owner_section_eyebrow: "Our Owner",
-    owner_section_title: "Maulvi Mansuri",
+    owner_section_title: "Molbi Mansuri",
     owner_section_subtitle: "Founder & Master Tailor",
-    owner_section_desc: "A familiar name in every lane of Janakpur, Maulvi Mansuri has devoted his life to needle and thread. Every garment from his hands tells a story of respect, care and craftsmanship.",
+    owner_section_desc: "A familiar name in every lane of Janakpur, Molbi Mansuri has devoted his life to needle and thread. Every garment from his hands tells a story of respect, care and craftsmanship.",
 
     // Garments
     garments_eyebrow: "Our Collection",
@@ -311,7 +311,7 @@ export const translations: TranslationDictionary = {
     // Testimonials
     testimonials_eyebrow: "In Their Words",
     testimonials_title: "What Our Family of Patrons Say",
-    testimonial1: "My wedding sherwani was as beautiful as it was perfectly fitted. Maulvi ji's hands truly carry magic.",
+    testimonial1: "My wedding sherwani was as beautiful as it was perfectly fitted. Molbi ji's hands truly carry magic.",
     testimonial1_author: "Rameshwar Sah — Biratnagar",
     testimonial2: "Our family has been stitching here for years. Once they take your measure, every garment fits flawlessly.",
     testimonial2_author: "Sunita Devi — Janakpur",
@@ -320,7 +320,7 @@ export const translations: TranslationDictionary = {
 
     // Visit
     visit_eyebrow: "Come See Us",
-    visit_title: "Visit Our Atelier",
+    visit_title: "Visit Our Shop",
     visit_subtitle: "In the heart of Janakpur Dham, you are always welcome.",
     visit_location: "Address",
     visit_phone: "Phone",

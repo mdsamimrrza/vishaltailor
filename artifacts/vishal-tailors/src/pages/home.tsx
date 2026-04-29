@@ -134,7 +134,7 @@ export default function Home() {
                 href={link.href}
                 className={`text-sm uppercase tracking-widest font-semibold transition-colors duration-300 ${
                   scrolled
-                    ? "text-foreground/80 hover:text-primary"
+                    ? "text-foreground hover:text-primary"
                     : "text-white/90 hover:text-secondary drop-shadow-md"
                 }`}
               >
@@ -288,7 +288,7 @@ export default function Home() {
                 </a>
                 <a
                   href="#garments"
-                  className="px-8 py-4 bg-white/15 backdrop-blur-md text-white font-bold rounded-none tracking-widest hover:bg-white hover:text-primary transition-all uppercase text-sm border-2 border-white shadow-lg"
+                  className="px-8 py-4 bg-white text-primary font-bold rounded-none tracking-widest hover:bg-secondary hover:text-secondary-foreground transition-all uppercase text-sm border-2 border-white shadow-lg"
                 >
                   {t("nav_garments")}
                 </a>
@@ -328,7 +328,7 @@ export default function Home() {
                 {t("about_eyebrow")}
               </h3>
               <h2 className="text-4xl md:text-5xl font-bold text-primary mb-8">{t("about_title")}</h2>
-              <p className="text-lg md:text-xl text-foreground/80 leading-relaxed mb-8">
+              <p className="text-lg md:text-xl text-foreground leading-relaxed mb-8">
                 {t("about_desc")}
               </p>
               <p className="text-lg md:text-xl italic text-primary/80 leading-relaxed border-l-2 border-secondary pl-6 mb-8">
@@ -383,7 +383,7 @@ export default function Home() {
               <p className="text-lg md:text-xl text-secondary mb-8 italic">
                 {t("owner_section_subtitle")}
               </p>
-              <p className="text-base md:text-lg text-foreground/80 leading-relaxed mb-10 max-w-2xl">
+              <p className="text-base md:text-lg text-foreground leading-relaxed mb-10 max-w-2xl">
                 {t("owner_section_desc")}
               </p>
               <div className="flex items-center gap-4 text-foreground/60">
@@ -434,7 +434,7 @@ export default function Home() {
                   {t("garments_eyebrow")}
                 </p>
                 <SectionHeader title={t("garments_title")} centered={true} invert={true} />
-                <p className="text-primary-foreground/90 text-lg mt-4 max-w-2xl mx-auto">
+                <p className="text-primary-foreground text-lg mt-4 max-w-2xl mx-auto">
                   {t("garments_subtitle")}
                 </p>
               </motion.div>
@@ -491,7 +491,7 @@ export default function Home() {
                   {t("fabrics_eyebrow")}
                 </p>
                 <SectionHeader title={t("fabrics_title")} centered={true} />
-                <p className="text-foreground/85 text-lg mt-4 max-w-2xl mx-auto">
+                <p className="text-foreground text-lg mt-4 max-w-2xl mx-auto">
                   {t("fabrics_desc")}
                 </p>
               </motion.div>
@@ -525,7 +525,7 @@ export default function Home() {
                     className="p-8"
                   >
                     <h3 className="text-2xl font-bold text-primary mb-3">{t(fabric.titleKey)}</h3>
-                    <p className="text-foreground/85 leading-relaxed">{t(fabric.descKey)}</p>
+                    <p className="text-foreground/90 leading-relaxed">{t(fabric.descKey)}</p>
                   </motion.div>
                 </AnimatePresence>
               </motion.div>
@@ -550,7 +550,7 @@ export default function Home() {
                   {t("process_eyebrow")}
                 </p>
                 <SectionHeader title={t("process_title")} centered={true} />
-                <p className="text-foreground/85 text-lg mt-4 max-w-2xl mx-auto">
+                <p className="text-foreground text-lg mt-4 max-w-2xl mx-auto">
                   {t("process_subtitle")}
                 </p>
               </motion.div>
@@ -584,7 +584,7 @@ export default function Home() {
                       transition={{ duration: 0.4 }}
                     >
                       <h3 className="text-xl font-bold text-primary mb-3">{t(step.titleKey)}</h3>
-                      <p className="text-foreground/85 leading-relaxed">{t(step.descKey)}</p>
+                      <p className="text-foreground/90 leading-relaxed">{t(step.descKey)}</p>
                     </motion.div>
                   </AnimatePresence>
                 </motion.div>
@@ -635,7 +635,7 @@ export default function Home() {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.4 }}
                   >
-                    <p className="text-lg leading-relaxed mb-8 text-primary-foreground/90 italic">
+                    <p className="text-lg leading-relaxed mb-8 text-primary-foreground italic">
                       {t(testimonial.quoteKey)}
                     </p>
                     <div className="flex items-center gap-3 pt-4 border-t border-primary-foreground/10">
@@ -668,7 +668,7 @@ export default function Home() {
                   {t("visit_eyebrow")}
                 </p>
                 <SectionHeader title={t("visit_title")} centered={true} />
-                <p className="text-foreground/85 text-lg mt-4 max-w-2xl mx-auto">
+                <p className="text-foreground text-lg mt-4 max-w-2xl mx-auto">
                   {t("visit_subtitle")}
                 </p>
               </motion.div>
@@ -787,13 +787,13 @@ export default function Home() {
                         </h4>
                         <div className="space-y-2">
                           <div className="flex justify-between items-baseline gap-4">
-                            <span className="text-foreground/80 text-sm">{t("hours_weekday")}</span>
+                            <span className="text-foreground text-sm font-medium">{t("hours_weekday")}</span>
                             <span className="text-foreground font-medium text-sm">
                               {t("hours_weekday_time")}
                             </span>
                           </div>
                           <div className="flex justify-between items-baseline gap-4">
-                            <span className="text-foreground/80 text-sm">{t("hours_saturday")}</span>
+                            <span className="text-foreground text-sm font-medium">{t("hours_saturday")}</span>
                             <span className="text-foreground font-medium text-sm">
                               {t("hours_saturday_time")}
                             </span>
