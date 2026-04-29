@@ -1,0 +1,26 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "_oNT6W5bOE4zo3s3812m7"
+uri = "file://artifacts/vishal-tailors/public/images/hero.png"
+type = "image"
+title = "Luxurious tailor atelier interior"
+
+[[generated]]
+id = "Gle_5AXyMTMw74vYTFQsX"
+uri = "file://artifacts/vishal-tailors/public/images/hands.png"
+type = "image"
+title = "Master tailor hands stitching"
+
+[[generated]]
+id = "0Xds1snRzRA56zA-nbc9o"
+uri = "file://artifacts/vishal-tailors/public/images/fabric.png"
+type = "image"
+title = "Luxurious sherwani fabric texture"
+
+[[generated]]
+id = "cP5QAOx3zBpKMgrtAZcYI"
+uri = "file://artifacts/vishal-tailors/public/images/tools.png"
+type = "image"
+title = "Vintage brass tailoring tools"
