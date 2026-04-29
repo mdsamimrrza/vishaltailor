@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
@@ -14,18 +15,66 @@ import {
   MessageCircle,
   Quote,
   Sparkles,
+  Menu,
+  X,
 } from "lucide-react";
+
+const PHONE_PRIMARY = "+977 980-4833357";
+const PHONE_PRIMARY_TEL = "+9779804833357";
+const PHONE_SECONDARY = "+977 981-2097433";
+const PHONE_SECONDARY_TEL = "+9779812097433";
 
 export default function Home() {
   const { t, language } = useLanguage();
 
+  const [scrolled, setScrolled] = useState(false);
+  const [navVisible, setNavVisible] = useState(true);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 40);
+      if (y < 80) {
+        setNavVisible(true);
+      } else if (y > lastScrollY.current + 6) {
+        setNavVisible(false);
+        setMobileOpen(false);
+      } else if (y < lastScrollY.current - 6) {
+        setNavVisible(true);
+      }
+      lastScrollY.current = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
+  const navLinks = [
+    { href: "#craft", label: t("nav_craft") },
+    { href: "#garments", label: t("nav_garments") },
+    { href: "#fabrics", label: t("nav_fabrics") },
+    { href: "#process", label: t("nav_process") },
+    { href: "#visit", label: t("nav_visit") },
+  ];
+
   const garments = [
-    { key: "garments_safari", img: "/images/fabric.png" },
-    { key: "garments_sherwani", img: "/images/hands.png" },
-    { key: "garments_lehenga", img: "/images/fabric.png" },
+    { key: "garments_coatpant", img: "/images/fabric.png" },
+    { key: "garments_safari", img: "/images/hands.png" },
+    { key: "garments_mensdress", img: "/images/fabric.png" },
+    { key: "garments_pants", img: "/images/tools.png" },
+    { key: "garments_jeans", img: "/images/fabric.png" },
     { key: "garments_kurta", img: "/images/hands.png" },
-    { key: "garments_pants", img: "/images/fabric.png" },
+    { key: "garments_sherwani", img: "/images/fabric.png" },
     { key: "garments_bandi", img: "/images/tools.png" },
+    { key: "garments_lehenga", img: "/images/hands.png" },
   ];
 
   const fabrics = [
@@ -49,37 +98,149 @@ export default function Home() {
     { quoteKey: "testimonial3", authorKey: "testimonial3_author" },
   ];
 
-  const addressQuery = encodeURIComponent("Janaki Chowk-3, Janakpur Dham, Dhanusha, Nepal");
-  const mapsLink = `https://maps.google.com/?q=${addressQuery}`;
-  // Coordinate-anchored embed drops a labeled pin on Janaki Chowk, Janakpur Dham
-  const mapsEmbed = `https://maps.google.com/maps?q=26.7263,85.9269+(${encodeURIComponent("New Vishal Tailors - Janaki Chowk-3, Janakpur Dham")})&t=&z=16&ie=UTF8&iwloc=B&output=embed`;
+  // Map pin uses the actual Plus Code address on Janaki Mandir Marg, Janakpur 45600.
+  // The displayed address text on screen is intentionally kept as Janaki Chowk-3 (translations).
+  const mapsAddr = "PWJG+2PH, Janaki Mandir Marg, Janakpur 45600, Nepal";
+  const mapsLink = `https://maps.google.com/?q=${encodeURIComponent(mapsAddr)}`;
+  const mapsEmbed = `https://maps.google.com/maps?q=${encodeURIComponent(mapsAddr)}&t=&z=17&ie=UTF8&iwloc=B&output=embed`;
 
   return (
     <div className="min-h-screen bg-background selection:bg-secondary selection:text-secondary-foreground">
-      {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 py-4 px-6 md:px-12 flex justify-between items-center mix-blend-difference text-primary-foreground">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-xl font-bold tracking-widest uppercase"
-        >
-          {t("name")}
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          className="hidden md:block mix-blend-normal"
-        >
-          <LanguageSwitcher />
-        </motion.div>
-      </nav>
+      {/* Navbar - hides on scroll down, reappears on scroll up */}
+      <motion.nav
+        animate={{ y: navVisible ? 0 : -120 }}
+        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ${
+          scrolled
+            ? "bg-background/95 backdrop-blur-lg shadow-md border-b border-border/60"
+            : "bg-gradient-to-b from-black/40 via-black/20 to-transparent"
+        }`}
+      >
+        <div className="py-4 px-6 md:px-12 flex justify-between items-center gap-4">
+          <a
+            href="#"
+            className={`text-base md:text-xl font-bold tracking-widest uppercase transition-colors duration-500 ${
+              scrolled ? "text-primary" : "text-white drop-shadow-md"
+            }`}
+          >
+            {t("name")}
+          </a>
 
-      {/* Mobile Lang Switcher */}
-      <div className="fixed bottom-6 right-6 z-50 md:hidden mix-blend-normal shadow-lg rounded-full">
-        <LanguageSwitcher />
-      </div>
+          {/* Desktop nav links */}
+          <div className="hidden lg:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className={`text-sm uppercase tracking-widest font-semibold transition-colors duration-300 ${
+                  scrolled
+                    ? "text-foreground/80 hover:text-primary"
+                    : "text-white/90 hover:text-secondary drop-shadow-md"
+                }`}
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+
+          {/* Desktop language switcher */}
+          <div className="hidden md:block">
+            <LanguageSwitcher />
+          </div>
+
+          {/* Mobile hamburger */}
+          <button
+            type="button"
+            aria-label={mobileOpen ? t("menu_close") : t("menu_open")}
+            aria-expanded={mobileOpen}
+            onClick={() => setMobileOpen((v) => !v)}
+            className={`md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full border-2 transition-colors duration-300 ${
+              scrolled
+                ? "border-primary/30 text-primary bg-background/80 hover:bg-primary hover:text-primary-foreground"
+                : "border-white/70 text-white bg-black/30 backdrop-blur-md hover:bg-white hover:text-primary"
+            }`}
+          >
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+      </motion.nav>
+
+      {/* Mobile drawer */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setMobileOpen(false)}
+              className="fixed inset-0 z-40 bg-foreground/60 backdrop-blur-sm md:hidden"
+            />
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="fixed top-0 right-0 bottom-0 z-50 w-[82%] max-w-sm bg-background shadow-2xl md:hidden flex flex-col"
+            >
+              <div className="flex items-center justify-between px-6 py-4 border-b border-border">
+                <span className="text-base font-bold tracking-widest uppercase text-primary">
+                  {t("name")}
+                </span>
+                <button
+                  type="button"
+                  aria-label={t("menu_close")}
+                  onClick={() => setMobileOpen(false)}
+                  className="inline-flex items-center justify-center w-10 h-10 rounded-full border-2 border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              <nav className="flex-1 overflow-y-auto px-6 py-8">
+                <ul className="flex flex-col gap-1">
+                  {navLinks.map((link) => (
+                    <li key={link.href}>
+                      <a
+                        href={link.href}
+                        onClick={() => setMobileOpen(false)}
+                        className="block py-3 text-lg font-semibold text-foreground hover:text-primary transition-colors border-b border-border/50"
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-10">
+                  <p className="text-xs uppercase tracking-widest text-foreground/75 font-semibold mb-4">
+                    {t("menu_language")}
+                  </p>
+                  <LanguageSwitcher />
+                </div>
+
+                <div className="mt-10 pt-6 border-t border-border space-y-3">
+                  <a
+                    href={`tel:${PHONE_PRIMARY_TEL}`}
+                    className="flex items-center gap-3 text-foreground hover:text-primary transition-colors"
+                  >
+                    <Phone size={16} className="text-secondary" />
+                    <span className="font-medium">{PHONE_PRIMARY}</span>
+                  </a>
+                  <a
+                    href={`tel:${PHONE_SECONDARY_TEL}`}
+                    className="flex items-center gap-3 text-foreground hover:text-primary transition-colors"
+                  >
+                    <Phone size={16} className="text-secondary" />
+                    <span className="font-medium">{PHONE_SECONDARY}</span>
+                  </a>
+                </div>
+              </nav>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -118,16 +279,16 @@ export default function Home() {
                 {t("description")}
               </p>
 
-              <div className="mt-12 flex flex-col sm:flex-row gap-6 justify-center">
+              <div className="mt-12 flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
                 <a
                   href="#visit"
-                  className="px-8 py-4 bg-secondary text-secondary-foreground font-semibold rounded-none tracking-widest hover:bg-secondary/90 transition-all uppercase text-sm border border-secondary"
+                  className="px-8 py-4 bg-secondary text-secondary-foreground font-bold rounded-none tracking-widest hover:bg-secondary/90 transition-all uppercase text-sm border-2 border-secondary shadow-lg"
                 >
                   {t("visit_title")}
                 </a>
                 <a
                   href="#garments"
-                  className="px-8 py-4 bg-transparent text-primary-foreground font-semibold rounded-none tracking-widest hover:bg-primary-foreground/10 transition-all uppercase text-sm border border-primary-foreground backdrop-blur-sm"
+                  className="px-8 py-4 bg-white/15 backdrop-blur-md text-white font-bold rounded-none tracking-widest hover:bg-white hover:text-primary transition-all uppercase text-sm border-2 border-white shadow-lg"
                 >
                   {t("nav_garments")}
                 </a>
@@ -273,7 +434,7 @@ export default function Home() {
                   {t("garments_eyebrow")}
                 </p>
                 <SectionHeader title={t("garments_title")} centered={true} invert={true} />
-                <p className="text-primary-foreground/70 text-lg mt-4 max-w-2xl mx-auto">
+                <p className="text-primary-foreground/90 text-lg mt-4 max-w-2xl mx-auto">
                   {t("garments_subtitle")}
                 </p>
               </motion.div>
@@ -330,7 +491,7 @@ export default function Home() {
                   {t("fabrics_eyebrow")}
                 </p>
                 <SectionHeader title={t("fabrics_title")} centered={true} />
-                <p className="text-foreground/70 text-lg mt-4 max-w-2xl mx-auto">
+                <p className="text-foreground/85 text-lg mt-4 max-w-2xl mx-auto">
                   {t("fabrics_desc")}
                 </p>
               </motion.div>
@@ -364,7 +525,7 @@ export default function Home() {
                     className="p-8"
                   >
                     <h3 className="text-2xl font-bold text-primary mb-3">{t(fabric.titleKey)}</h3>
-                    <p className="text-foreground/70 leading-relaxed">{t(fabric.descKey)}</p>
+                    <p className="text-foreground/85 leading-relaxed">{t(fabric.descKey)}</p>
                   </motion.div>
                 </AnimatePresence>
               </motion.div>
@@ -389,7 +550,7 @@ export default function Home() {
                   {t("process_eyebrow")}
                 </p>
                 <SectionHeader title={t("process_title")} centered={true} />
-                <p className="text-foreground/70 text-lg mt-4 max-w-2xl mx-auto">
+                <p className="text-foreground/85 text-lg mt-4 max-w-2xl mx-auto">
                   {t("process_subtitle")}
                 </p>
               </motion.div>
@@ -423,7 +584,7 @@ export default function Home() {
                       transition={{ duration: 0.4 }}
                     >
                       <h3 className="text-xl font-bold text-primary mb-3">{t(step.titleKey)}</h3>
-                      <p className="text-foreground/70 leading-relaxed">{t(step.descKey)}</p>
+                      <p className="text-foreground/85 leading-relaxed">{t(step.descKey)}</p>
                     </motion.div>
                   </AnimatePresence>
                 </motion.div>
@@ -507,7 +668,7 @@ export default function Home() {
                   {t("visit_eyebrow")}
                 </p>
                 <SectionHeader title={t("visit_title")} centered={true} />
-                <p className="text-foreground/70 text-lg mt-4 max-w-2xl mx-auto">
+                <p className="text-foreground/85 text-lg mt-4 max-w-2xl mx-auto">
                   {t("visit_subtitle")}
                 </p>
               </motion.div>
@@ -587,15 +748,26 @@ export default function Home() {
                         <Phone size={22} />
                       </div>
                       <div className="flex-1">
-                        <h4 className="text-xs uppercase tracking-widest text-foreground/60 mb-2">
+                        <h4 className="text-xs uppercase tracking-widest text-foreground/70 mb-3 font-semibold">
                           {t("visit_phone")}
                         </h4>
-                        <p className="text-foreground font-medium leading-relaxed mb-4">
-                          +977 980-0000000
-                        </p>
+                        <div className="space-y-2 mb-4">
+                          <a
+                            href={`tel:${PHONE_PRIMARY_TEL}`}
+                            className="block text-foreground font-semibold leading-relaxed hover:text-primary transition-colors"
+                          >
+                            {PHONE_PRIMARY}
+                          </a>
+                          <a
+                            href={`tel:${PHONE_SECONDARY_TEL}`}
+                            className="block text-foreground font-semibold leading-relaxed hover:text-primary transition-colors"
+                          >
+                            {PHONE_SECONDARY}
+                          </a>
+                        </div>
                         <a
-                          href="tel:+9779800000000"
-                          className="inline-block text-xs uppercase tracking-widest text-secondary border-b border-secondary/50 hover:border-secondary pb-1 transition-all"
+                          href={`tel:${PHONE_PRIMARY_TEL}`}
+                          className="inline-block text-xs uppercase tracking-widest text-secondary border-b border-secondary/50 hover:border-secondary pb-1 transition-all font-semibold"
                         >
                           {t("call_now")}
                         </a>
@@ -643,7 +815,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
             <div>
               <h4 className="text-xl font-bold tracking-widest uppercase mb-4">{t("name")}</h4>
-              <p className="text-background/60 leading-relaxed">{t("footer_tagline")}</p>
+              <p className="text-background/80 leading-relaxed">{t("footer_tagline")}</p>
             </div>
             <div>
               <h5 className="text-xs uppercase tracking-widest text-secondary mb-4 font-semibold">
@@ -651,22 +823,22 @@ export default function Home() {
               </h5>
               <ul className="space-y-2">
                 <li>
-                  <a href="#craft" className="text-background/70 hover:text-background transition-colors">
+                  <a href="#craft" className="text-background/85 hover:text-secondary transition-colors">
                     {t("nav_craft")}
                   </a>
                 </li>
                 <li>
-                  <a href="#garments" className="text-background/70 hover:text-background transition-colors">
+                  <a href="#garments" className="text-background/85 hover:text-secondary transition-colors">
                     {t("nav_garments")}
                   </a>
                 </li>
                 <li>
-                  <a href="#fabrics" className="text-background/70 hover:text-background transition-colors">
+                  <a href="#fabrics" className="text-background/85 hover:text-secondary transition-colors">
                     {t("nav_fabrics")}
                   </a>
                 </li>
                 <li>
-                  <a href="#process" className="text-background/70 hover:text-background transition-colors">
+                  <a href="#process" className="text-background/85 hover:text-secondary transition-colors">
                     {t("nav_process")}
                   </a>
                 </li>
@@ -676,8 +848,19 @@ export default function Home() {
               <h5 className="text-xs uppercase tracking-widest text-secondary mb-4 font-semibold">
                 {t("footer_contact")}
               </h5>
-              <p className="text-background/70 leading-relaxed mb-2">{t("address")}</p>
-              <p className="text-background/70">+977 980-0000000</p>
+              <p className="text-background/80 leading-relaxed mb-3">{t("address")}</p>
+              <a
+                href={`tel:${PHONE_PRIMARY_TEL}`}
+                className="block text-background/80 hover:text-secondary transition-colors"
+              >
+                {PHONE_PRIMARY}
+              </a>
+              <a
+                href={`tel:${PHONE_SECONDARY_TEL}`}
+                className="block text-background/80 hover:text-secondary transition-colors"
+              >
+                {PHONE_SECONDARY}
+              </a>
             </div>
           </div>
           <div className="border-t border-background/10 pt-8 text-center">

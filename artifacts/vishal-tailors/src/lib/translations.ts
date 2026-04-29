@@ -42,23 +42,26 @@ export const translations: TranslationDictionary = {
     garments_eyebrow: "हाम्रो संग्रह",
     garments_title: "हाम्रा परिधानहरू",
     garments_subtitle: "हरेक अवसरका लागि नापमा सिलाइएको पहिरन।",
+    garments_coatpant: "कोट-पेन्ट",
     garments_safari: "सफारी सूट",
-    garments_sherwani: "शेरवानी",
-    garments_lehenga: "लेहंगा र चोली",
+    garments_mensdress: "पुरुष ड्रेस",
+    garments_pants: "सर्ट र पेन्ट",
+    garments_jeans: "जिन्स",
     garments_kurta: "कुर्ता-पायजामा",
-    garments_pants: "पेन्ट र सर्ट",
+    garments_sherwani: "शेरवानी",
     garments_bandi: "बण्डी",
+    garments_lehenga: "लेहंगा र चोली",
 
     // Fabrics
     fabrics_eyebrow: "कपडाको चयन",
     fabrics_title: "उत्कृष्ट कपडाहरू",
-    fabrics_desc: "हामी उत्कृष्ट रेसम, सुती, र ऊनका कपडाहरू प्रयोग गर्छौं जसले पहिरनलाई शाही र आरामदायी बनाउँछ।",
-    fabric_silk_title: "बनारसी रेसम",
-    fabric_silk_desc: "उत्सव र विवाहका लागि चम्किलो र शाही रेसम।",
-    fabric_cotton_title: "शुद्ध सुती",
-    fabric_cotton_desc: "दैनिक प्रयोगका लागि सास फेर्ने र आरामदायी कपडा।",
-    fabric_wool_title: "उच्च गुणस्तरको ऊन",
-    fabric_wool_desc: "जाडोको लागि न्यानो, टिकाउ र संभ्रान्त सूट कपडा।",
+    fabrics_desc: "कोट-पेन्ट, फर्मल सर्ट र जिन्सका लागि हामी प्रिमियम सुटिङ, सर्टिङ र डेनिम कपडाहरू मात्र प्रयोग गर्छौं।",
+    fabric_silk_title: "प्रिमियम सुटिङ",
+    fabric_silk_desc: "कोट-पेन्ट र फर्मल सूटका लागि उच्च गुणस्तरको ऊनी मिश्रित कपडा — टिकाउ र शाही।",
+    fabric_cotton_title: "सर्टिङ कटन",
+    fabric_cotton_desc: "अफिस र दैनिक पहिरनका लागि सास फेर्ने, चम्किलो र आरामदायी फर्मल सर्ट कपडा।",
+    fabric_wool_title: "प्रिमियम डेनिम",
+    fabric_wool_desc: "जिन्सका लागि बलियो, गाढा र फेसन-फर्वार्ड डेनिम — हरेक नापमा परफेक्ट फिट।",
 
     // Process
     process_eyebrow: "हाम्रो विधि",
@@ -111,7 +114,12 @@ export const translations: TranslationDictionary = {
     footer_tagline: "जनकपुरको हृदयबाट सिलाइएको परम्परा।",
     footer_explore: "अन्वेषण गर्नुहोस्",
     footer_contact: "सम्पर्क",
-    footer_rights: "सर्वाधिकार सुरक्षित।"
+    footer_rights: "सर्वाधिकार सुरक्षित।",
+
+    // Mobile menu
+    menu_open: "मेनू खोल्नुहोस्",
+    menu_close: "मेनू बन्द गर्नुहोस्",
+    menu_language: "भाषा छान्नुहोस्"
   },
   hi: {
     // Core details
@@ -148,23 +156,26 @@ export const translations: TranslationDictionary = {
     garments_eyebrow: "हमारा संग्रह",
     garments_title: "हमारे परिधान",
     garments_subtitle: "हर अवसर के लिए नाप पर सिले हुए परिधान।",
+    garments_coatpant: "कोट-पैंट",
     garments_safari: "सफारी सूट",
-    garments_sherwani: "शेरवानी",
-    garments_lehenga: "लेहंगा और चोली",
+    garments_mensdress: "पुरुष ड्रेस",
+    garments_pants: "शर्ट और पैंट",
+    garments_jeans: "जींस",
     garments_kurta: "कुर्ता-पायजामा",
-    garments_pants: "शर्ट-पेन्ट",
+    garments_sherwani: "शेरवानी",
     garments_bandi: "बंडी",
+    garments_lehenga: "लेहंगा और चोली",
 
     // Fabrics
     fabrics_eyebrow: "कपड़े का चयन",
     fabrics_title: "उत्कृष्ट कपड़े",
-    fabrics_desc: "हम बेहतरीन रेशम, सूती और ऊनी कपड़ों का उपयोग करते हैं जो परिधान को शाही और आरामदायक बनाते हैं।",
-    fabric_silk_title: "बनारसी रेशम",
-    fabric_silk_desc: "उत्सव और विवाह के लिए चमकदार और शाही रेशम।",
-    fabric_cotton_title: "शुद्ध सूती",
-    fabric_cotton_desc: "दैनिक उपयोग के लिए सांस लेने वाला, आरामदायक कपड़ा।",
-    fabric_wool_title: "उच्च गुणवत्ता का ऊन",
-    fabric_wool_desc: "सर्दी के लिए गर्म, टिकाऊ और संभ्रांत सूट का कपड़ा।",
+    fabrics_desc: "कोट-पैंट, फॉर्मल शर्ट और जींस के लिए हम केवल प्रीमियम सूटिंग, शर्टिंग और डेनिम कपड़े का उपयोग करते हैं।",
+    fabric_silk_title: "प्रीमियम सूटिंग",
+    fabric_silk_desc: "कोट-पैंट और फॉर्मल सूट के लिए उच्च गुणवत्ता वाला ऊनी मिश्रित कपड़ा — टिकाऊ और शाही।",
+    fabric_cotton_title: "शर्टिंग कॉटन",
+    fabric_cotton_desc: "ऑफिस और दैनिक पहनावे के लिए सांस लेने वाला, चमकदार और आरामदायक फॉर्मल शर्ट कपड़ा।",
+    fabric_wool_title: "प्रीमियम डेनिम",
+    fabric_wool_desc: "जींस के लिए मजबूत, गहरा और फैशन-फॉरवर्ड डेनिम — हर नाप पर परफेक्ट फिट।",
 
     // Process
     process_eyebrow: "हमारी विधि",
@@ -217,7 +228,12 @@ export const translations: TranslationDictionary = {
     footer_tagline: "जनकपुर के हृदय से सिली हुई परंपरा।",
     footer_explore: "अन्वेषण",
     footer_contact: "संपर्क",
-    footer_rights: "सर्वाधिकार सुरक्षित।"
+    footer_rights: "सर्वाधिकार सुरक्षित।",
+
+    // Mobile menu
+    menu_open: "मेनू खोलें",
+    menu_close: "मेनू बंद करें",
+    menu_language: "भाषा चुनें"
   },
   en: {
     // Core details
@@ -254,23 +270,26 @@ export const translations: TranslationDictionary = {
     garments_eyebrow: "Our Collection",
     garments_title: "Our Garments",
     garments_subtitle: "Tailored to measure for every occasion you cherish.",
+    garments_coatpant: "Coat-Pant",
     garments_safari: "Safari Suits",
-    garments_sherwani: "Sherwani",
-    garments_lehenga: "Lehenga & Choli",
-    garments_kurta: "Kurta-Pajama",
+    garments_mensdress: "Men's Dress",
     garments_pants: "Shirts & Pants",
+    garments_jeans: "Jeans",
+    garments_kurta: "Kurta-Pajama",
+    garments_sherwani: "Sherwani",
     garments_bandi: "Bandi",
+    garments_lehenga: "Lehenga & Choli",
 
     // Fabrics
     fabrics_eyebrow: "Cloth & Selection",
     fabrics_title: "Exquisite Fabrics",
-    fabrics_desc: "We source the finest silks, cottons, and wools to ensure each garment feels as regal as it looks.",
-    fabric_silk_title: "Banarasi Silk",
-    fabric_silk_desc: "Lustrous, regal silk for weddings and ceremonial wear.",
-    fabric_cotton_title: "Pure Cotton",
-    fabric_cotton_desc: "Breathable, comfortable cotton crafted for everyday elegance.",
-    fabric_wool_title: "Fine Wool",
-    fabric_wool_desc: "Warm, durable, sophisticated suiting cloth for the cooler months.",
+    fabrics_desc: "For coat-pants, formal shirts and jeans, we source only premium suiting, shirting and denim cloth.",
+    fabric_silk_title: "Premium Suiting",
+    fabric_silk_desc: "High-grade wool-blend cloth for coat-pants and formal suits — durable and regal.",
+    fabric_cotton_title: "Shirting Cotton",
+    fabric_cotton_desc: "Breathable, lustrous cotton crafted for office shirts and everyday formal wear.",
+    fabric_wool_title: "Premium Denim",
+    fabric_wool_desc: "Strong, deep-toned, fashion-forward denim cut to your exact measurements.",
 
     // Process
     process_eyebrow: "Our Method",
@@ -323,6 +342,11 @@ export const translations: TranslationDictionary = {
     footer_tagline: "Tradition stitched from the heart of Janakpur.",
     footer_explore: "Explore",
     footer_contact: "Contact",
-    footer_rights: "All rights reserved."
+    footer_rights: "All rights reserved.",
+
+    // Mobile menu
+    menu_open: "Open menu",
+    menu_close: "Close menu",
+    menu_language: "Choose language"
   }
 };
