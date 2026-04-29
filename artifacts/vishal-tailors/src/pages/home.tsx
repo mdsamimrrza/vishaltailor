@@ -4,6 +4,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { SectionHeader } from "@/components/SectionHeader";
 import {
+  ArrowLeft,
   MapPin,
   Phone,
   Clock,
@@ -30,6 +31,7 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [navVisible, setNavVisible] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [ownerImageOpen, setOwnerImageOpen] = useState(false);
   const lastScrollY = useRef(0);
 
   useEffect(() => {
@@ -51,11 +53,48 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    document.body.style.overflow = mobileOpen || ownerImageOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [mobileOpen]);
+  }, [mobileOpen, ownerImageOpen]);
+
+  useEffect(() => {
+    if (!ownerImageOpen) {
+      return;
+    }
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOwnerImageOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [ownerImageOpen]);
+
+  const scrollToSection = (href: string) => {
+    if (!href.startsWith("#")) {
+      return;
+    }
+
+    const id = href.slice(1);
+    const target = id ? document.getElementById(id) : document.body;
+
+    if (!target) {
+      return;
+    }
+
+    setNavVisible(true);
+    setMobileOpen(false);
+
+    window.history.replaceState(null, "", href);
+    window.scrollTo({
+      top: target.offsetTop,
+      behavior: "smooth",
+    });
+  };
 
   const navLinks = [
     { href: "#craft", label: t("nav_craft") },
@@ -66,20 +105,17 @@ export default function Home() {
   ];
 
   const garments = [
-    { key: "garments_coatpant", img: "/images/fabric.png" },
-    { key: "garments_safari", img: "/images/hands.png" },
-    { key: "garments_mensdress", img: "/images/fabric.png" },
-    { key: "garments_pants", img: "/images/tools.png" },
-    { key: "garments_jeans", img: "/images/fabric.png" },
-    { key: "garments_kurta", img: "/images/hands.png" },
-    { key: "garments_sherwani", img: "/images/fabric.png" },
-    { key: "garments_bandi", img: "/images/tools.png" },
-    { key: "garments_lehenga", img: "/images/hands.png" },
+    { key: "garments_coatpant", img: "/images/coatpant.png" },
+    { key: "garments_safari", img: "/images/Safari Suits.png" },
+    { key: "garments_pants", img: "/images/Shirts & Pants.png" },
+    { key: "garments_kurta", img: "/images/Kurta-Pajama.png" },
+    { key: "garments_sherwani", img: "/images/Sherwani.png" },
+    { key: "garments_bandi", img: "/images/Bandi.png" },
   ];
 
   const fabrics = [
-    { titleKey: "fabric_silk_title", descKey: "fabric_silk_desc", img: "/images/fabric.png" },
-    { titleKey: "fabric_cotton_title", descKey: "fabric_cotton_desc", img: "/images/hands.png" },
+    { titleKey: "fabric_silk_title", descKey: "fabric_silk_desc", img: "/images/Premium Suiting.png" },
+    { titleKey: "fabric_cotton_title", descKey: "fabric_cotton_desc", img: "/images/Shirting Cotton.png" },
     { titleKey: "fabric_wool_title", descKey: "fabric_wool_desc", img: "/images/tools.png" },
   ];
 
@@ -98,14 +134,54 @@ export default function Home() {
     { quoteKey: "testimonial3", authorKey: "testimonial3_author" },
   ];
 
-  // Map pin uses the actual Plus Code address on Janaki Mandir Marg, Janakpur 45600.
-  // The displayed address text on screen is intentionally kept as Janaki Chowk-3 (translations).
-  const mapsAddr = "PWJG+2PH, Janaki Mandir Marg, Janakpur 45600, Nepal";
+  // The displayed address text on screen is intentionally kept from the translations,
+  // but the embedded map uses the exact coordinates provided by the user.
+  const mapsAddr = "26.730175, 85.926883";
   const mapsLink = `https://maps.google.com/?q=${encodeURIComponent(mapsAddr)}`;
   const mapsEmbed = `https://maps.google.com/maps?q=${encodeURIComponent(mapsAddr)}&t=&z=17&ie=UTF8&iwloc=B&output=embed`;
 
   return (
     <div className="min-h-screen bg-background selection:bg-secondary selection:text-secondary-foreground">
+      <AnimatePresence>
+        {ownerImageOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md px-4 py-6 md:px-8 md:py-8"
+          >
+            <button
+              type="button"
+              onClick={() => setOwnerImageOpen(false)}
+              className="relative z-20 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-white hover:text-primary"
+            >
+              <ArrowLeft size={18} />
+              Back
+            </button>
+
+            <button
+              type="button"
+              aria-label="Close full screen portrait"
+              onClick={() => setOwnerImageOpen(false)}
+              className="absolute inset-0 z-0 cursor-zoom-out"
+            />
+
+            <div className="pointer-events-none absolute inset-x-4 top-24 bottom-6 z-10 flex items-center justify-center md:inset-x-8 md:top-28 md:bottom-8">
+              <motion.img
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                src="/images/molbi_nadaf.png"
+                alt={t("owner_section_title")}
+                className="pointer-events-auto max-h-full max-w-full object-contain shadow-[0_30px_120px_rgba(0,0,0,0.45)]"
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Navbar - hides on scroll down, reappears on scroll up */}
       <motion.nav
         animate={{ y: navVisible ? 0 : -120 }}
@@ -132,6 +208,10 @@ export default function Home() {
               <a
                 key={link.href}
                 href={link.href}
+                onClick={(event) => {
+                  event.preventDefault();
+                  scrollToSection(link.href);
+                }}
                 className={`text-sm uppercase tracking-widest font-semibold transition-colors duration-300 ${
                   scrolled
                     ? "text-foreground hover:text-primary"
@@ -204,7 +284,10 @@ export default function Home() {
                     <li key={link.href}>
                       <a
                         href={link.href}
-                        onClick={() => setMobileOpen(false)}
+                        onClick={(event) => {
+                          event.preventDefault();
+                          scrollToSection(link.href);
+                        }}
                         className="block py-3 text-lg font-semibold text-foreground hover:text-primary transition-colors border-b border-border/50"
                       >
                         {link.label}
@@ -214,7 +297,7 @@ export default function Home() {
                 </ul>
 
                 <div className="mt-10">
-                  <p className="text-xs uppercase tracking-widest text-foreground/75 font-semibold mb-4">
+                  <p className="text-xs uppercase tracking-widest text-foreground/85 font-semibold mb-4">
                     {t("menu_language")}
                   </p>
                   <LanguageSwitcher />
@@ -254,10 +337,10 @@ export default function Home() {
             <img
               src="/images/hero.png"
               alt="Atelier Interior"
-              className="w-full h-full object-cover opacity-80"
+              className="w-full h-full object-cover opacity-95"
             />
           </motion.div>
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/10 to-black/20" />
         </div>
 
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto mt-20">
@@ -275,20 +358,28 @@ export default function Home() {
               <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold text-primary-foreground mb-8 drop-shadow-lg leading-tight">
                 {t("name")}
               </h1>
-              <p className="text-xl md:text-2xl text-primary-foreground/90 font-light max-w-2xl mx-auto leading-relaxed drop-shadow-md">
+              <p className="text-xl md:text-2xl text-primary-foreground font-light max-w-2xl mx-auto leading-relaxed drop-shadow-md">
                 {t("description")}
               </p>
 
               <div className="mt-12 flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
                 <a
                   href="#visit"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    scrollToSection("#visit");
+                  }}
                   className="px-8 py-4 bg-secondary text-secondary-foreground font-bold rounded-none tracking-widest hover:bg-secondary/90 transition-all uppercase text-sm border-2 border-secondary shadow-lg"
                 >
                   {t("visit_title")}
                 </a>
                 <a
                   href="#garments"
-                  className="px-8 py-4 bg-white text-primary font-bold rounded-none tracking-widest hover:bg-secondary hover:text-secondary-foreground transition-all uppercase text-sm border-2 border-white shadow-lg"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    scrollToSection("#garments");
+                  }}
+                  className="px-8 py-4 bg-white/90 text-primary font-bold rounded-none tracking-widest hover:bg-secondary hover:text-secondary-foreground transition-all uppercase text-sm border-2 border-white/80 shadow-lg backdrop-blur-sm"
                 >
                   {t("nav_garments")}
                 </a>
@@ -337,19 +428,19 @@ export default function Home() {
               <div className="grid grid-cols-3 gap-6 mt-12 border-t border-border pt-8">
                 <div>
                   <h4 className="text-3xl md:text-4xl font-bold text-secondary mb-2">30+</h4>
-                  <p className="text-xs md:text-sm uppercase tracking-wider text-foreground/60">
+                  <p className="text-xs md:text-sm uppercase tracking-wider text-foreground/80">
                     {t("about_stat_years")}
                   </p>
                 </div>
                 <div>
                   <h4 className="text-3xl md:text-4xl font-bold text-secondary mb-2">10k+</h4>
-                  <p className="text-xs md:text-sm uppercase tracking-wider text-foreground/60">
+                  <p className="text-xs md:text-sm uppercase tracking-wider text-foreground/80">
                     {t("about_stat_garments")}
                   </p>
                 </div>
                 <div>
                   <h4 className="text-3xl md:text-4xl font-bold text-secondary mb-2">5k+</h4>
-                  <p className="text-xs md:text-sm uppercase tracking-wider text-foreground/60">
+                  <p className="text-xs md:text-sm uppercase tracking-wider text-foreground/80">
                     {t("about_stat_clients")}
                   </p>
                 </div>
@@ -386,7 +477,7 @@ export default function Home() {
               <p className="text-base md:text-lg text-foreground leading-relaxed mb-10 max-w-2xl">
                 {t("owner_section_desc")}
               </p>
-              <div className="flex items-center gap-4 text-foreground/60">
+              <div className="flex items-center gap-4 text-foreground/80">
                 <Sparkles size={20} className="text-secondary" />
                 <span className="text-sm uppercase tracking-widest">{t("tagline")}</span>
               </div>
@@ -398,19 +489,35 @@ export default function Home() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 1 }}
-            className="md:col-span-2 order-1 md:order-2 relative aspect-[3/4] w-full max-w-sm mx-auto"
+            className="md:col-span-2 order-1 md:order-2 relative w-full max-w-sm mx-auto pb-14"
           >
-            <div className="absolute inset-0 border-2 border-secondary translate-x-5 translate-y-5" />
-            <div className="absolute inset-0 bg-primary -translate-x-3 -translate-y-3 -z-10" />
-            <img
-              src="/images/owner.png"
-              alt={t("owner_section_title")}
-              className="relative w-full h-full object-cover shadow-2xl"
-            />
-            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-background px-6 py-2 shadow-lg border border-border whitespace-nowrap">
-              <p className="text-xs uppercase tracking-widest text-foreground/70">
+            <div className="relative aspect-[3/4] w-full">
+              <div className="absolute inset-0 border-2 border-secondary translate-x-5 translate-y-5" />
+              <div className="absolute inset-0 bg-primary -translate-x-3 -translate-y-3 -z-10" />
+              <button
+                type="button"
+                onClick={() => setOwnerImageOpen(true)}
+                className="group relative block h-full w-full overflow-hidden shadow-2xl"
+                aria-label="Open full screen portrait"
+              >
+                <img
+                  src="/images/molbi_nadaf.png"
+                  alt={t("owner_section_title")}
+                  className="relative w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                />
+                <div className="absolute inset-x-0 bottom-0 flex justify-center bg-gradient-to-t from-black/75 via-black/20 to-transparent px-5 pb-6 pt-10">
+                  <span className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-5 py-2 text-center text-[11px] font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-sm transition-colors group-hover:bg-white group-hover:text-primary">
+                    View Full Screen
+                  </span>
+                </div>
+              </button>
+            </div>
+            <div className="absolute bottom-0 left-1/2 z-10 w-[calc(100%-2rem)] -translate-x-1/2 md:w-auto">
+              <div className="mx-auto flex justify-center bg-primary px-7 py-3 shadow-xl border border-secondary/40 whitespace-nowrap">
+                <p className="text-sm font-bold uppercase tracking-[0.22em] text-center text-primary-foreground">
                 {t("owner")}
-              </p>
+                </p>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -723,7 +830,7 @@ export default function Home() {
                         <MapPin size={22} />
                       </div>
                       <div className="flex-1">
-                        <h4 className="text-xs uppercase tracking-widest text-foreground/60 mb-2">
+                        <h4 className="text-xs uppercase tracking-widest text-foreground/80 mb-2">
                           {t("visit_location")}
                         </h4>
                         <p className="text-foreground font-medium leading-relaxed mb-4">
@@ -748,7 +855,7 @@ export default function Home() {
                         <Phone size={22} />
                       </div>
                       <div className="flex-1">
-                        <h4 className="text-xs uppercase tracking-widest text-foreground/70 mb-3 font-semibold">
+                        <h4 className="text-xs uppercase tracking-widest text-foreground/85 mb-3 font-semibold">
                           {t("visit_phone")}
                         </h4>
                         <div className="space-y-2 mb-4">
@@ -782,7 +889,7 @@ export default function Home() {
                         <Clock size={22} />
                       </div>
                       <div className="flex-1">
-                        <h4 className="text-xs uppercase tracking-widest text-foreground/60 mb-3">
+                        <h4 className="text-xs uppercase tracking-widest text-foreground/80 mb-3">
                           {t("visit_hours")}
                         </h4>
                         <div className="space-y-2">

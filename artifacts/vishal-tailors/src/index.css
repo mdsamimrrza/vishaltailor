@@ -130,7 +130,7 @@
   }
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 96px;
+    scroll-padding-top: 0;
   }
   @media (prefers-reduced-motion: reduce) {
     html {

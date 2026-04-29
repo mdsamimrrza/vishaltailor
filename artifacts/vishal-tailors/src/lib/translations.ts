@@ -60,7 +60,7 @@ export const translations: TranslationDictionary = {
     fabric_silk_desc: "कोट-पेन्ट र फर्मल सूटका लागि उच्च गुणस्तरको ऊनी मिश्रित कपडा — टिकाउ र शाही।",
     fabric_cotton_title: "सर्टिङ कटन",
     fabric_cotton_desc: "अफिस र दैनिक पहिरनका लागि सास फेर्ने, चम्किलो र आरामदायी फर्मल सर्ट कपडा।",
-    fabric_wool_title: "प्रिमियम डेनिम",
+    fabric_wool_title: "प्रिमियम टेलरिंग",
     fabric_wool_desc: "जिन्सका लागि बलियो, गाढा र फेसन-फर्वार्ड डेनिम — हरेक नापमा परफेक्ट फिट।",
 
     // Process
@@ -174,7 +174,7 @@ export const translations: TranslationDictionary = {
     fabric_silk_desc: "कोट-पैंट और फॉर्मल सूट के लिए उच्च गुणवत्ता वाला ऊनी मिश्रित कपड़ा — टिकाऊ और शाही।",
     fabric_cotton_title: "शर्टिंग कॉटन",
     fabric_cotton_desc: "ऑफिस और दैनिक पहनावे के लिए सांस लेने वाला, चमकदार और आरामदायक फॉर्मल शर्ट कपड़ा।",
-    fabric_wool_title: "प्रीमियम डेनिम",
+    fabric_wool_title: "प्रीमियम टेलरिंग",
     fabric_wool_desc: "जींस के लिए मजबूत, गहरा और फैशन-फॉरवर्ड डेनिम — हर नाप पर परफेक्ट फिट।",
 
     // Process
@@ -288,7 +288,7 @@ export const translations: TranslationDictionary = {
     fabric_silk_desc: "High-grade wool-blend cloth for coat-pants and formal suits — durable and regal.",
     fabric_cotton_title: "Shirting Cotton",
     fabric_cotton_desc: "Breathable, lustrous cotton crafted for office shirts and everyday formal wear.",
-    fabric_wool_title: "Premium Denim",
+    fabric_wool_title: "Premium Tailoring",
     fabric_wool_desc: "Strong, deep-toned, fashion-forward denim cut to your exact measurements.",
 
     // Process

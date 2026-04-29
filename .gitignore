@@ -47,3 +47,7 @@ Thumbs.db
 # Replit
 .cache/
 .local/
+
+# Local agent and package-manager state
+.agents/
+.pnpm-store/
