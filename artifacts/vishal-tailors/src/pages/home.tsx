@@ -186,18 +186,16 @@ export default function Home() {
       <motion.nav
         animate={{ y: navVisible ? 0 : -120 }}
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ${
-          scrolled
+        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ${scrolled
             ? "bg-background/95 backdrop-blur-lg shadow-md border-b border-border/60"
             : "bg-gradient-to-b from-black/40 via-black/20 to-transparent"
-        }`}
+          }`}
       >
         <div className="py-4 px-6 md:px-12 flex justify-between items-center gap-4">
           <a
             href="#"
-            className={`text-base md:text-xl font-bold tracking-widest uppercase transition-colors duration-500 ${
-              scrolled ? "text-primary" : "text-white drop-shadow-md"
-            }`}
+            className={`text-base md:text-xl font-bold tracking-widest uppercase transition-colors duration-500 ${scrolled ? "text-primary" : "text-white drop-shadow-md"
+              }`}
           >
             {t("name")}
           </a>
@@ -212,11 +210,10 @@ export default function Home() {
                   event.preventDefault();
                   scrollToSection(link.href);
                 }}
-                className={`text-sm uppercase tracking-widest font-semibold transition-colors duration-300 ${
-                  scrolled
+                className={`text-sm uppercase tracking-widest font-semibold transition-colors duration-300 ${scrolled
                     ? "text-foreground hover:text-primary"
                     : "text-white/90 hover:text-secondary drop-shadow-md"
-                }`}
+                  }`}
               >
                 {link.label}
               </a>
@@ -234,11 +231,10 @@ export default function Home() {
             aria-label={mobileOpen ? t("menu_close") : t("menu_open")}
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen((v) => !v)}
-            className={`md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full border-2 transition-colors duration-300 ${
-              scrolled
+            className={`md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full border-2 transition-colors duration-300 ${scrolled
                 ? "border-primary/30 text-primary bg-background/80 hover:bg-primary hover:text-primary-foreground"
                 : "border-white/70 text-white bg-black/30 backdrop-blur-md hover:bg-white hover:text-primary"
-            }`}
+              }`}
           >
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -415,10 +411,10 @@ export default function Home() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
             >
-              <h3 className="text-secondary text-sm tracking-widest uppercase mb-4 font-semibold">
+              <h3 className="text-secondary text-sm tracking-widest uppercase mb-4 font-bold">
                 {t("about_eyebrow")}
               </h3>
-              <h2 className="text-4xl md:text-5xl font-bold text-primary mb-8">{t("about_title")}</h2>
+              <h2 className="text-4xl md:text-5xl font-extrabold text-primary mb-8">{t("about_title")}</h2>
               <p className="text-lg md:text-xl text-foreground leading-relaxed mb-8">
                 {t("about_desc")}
               </p>
@@ -427,20 +423,20 @@ export default function Home() {
               </p>
               <div className="grid grid-cols-3 gap-6 mt-12 border-t border-border pt-8">
                 <div>
-                  <h4 className="text-3xl md:text-4xl font-bold text-secondary mb-2">30+</h4>
-                  <p className="text-xs md:text-sm uppercase tracking-wider text-foreground/80">
+                  <h4 className="text-3xl md:text-5xl font-black text-secondary mb-2">30+</h4>
+                  <p className="text-xs md:text-sm uppercase tracking-wider text-foreground/80 font-bold">
                     {t("about_stat_years")}
                   </p>
                 </div>
                 <div>
-                  <h4 className="text-3xl md:text-4xl font-bold text-secondary mb-2">10k+</h4>
-                  <p className="text-xs md:text-sm uppercase tracking-wider text-foreground/80">
+                  <h4 className="text-3xl md:text-5xl font-black text-secondary mb-2">10k+</h4>
+                  <p className="text-xs md:text-sm uppercase tracking-wider text-foreground/80 font-bold">
                     {t("about_stat_garments")}
                   </p>
                 </div>
                 <div>
-                  <h4 className="text-3xl md:text-4xl font-bold text-secondary mb-2">5k+</h4>
-                  <p className="text-xs md:text-sm uppercase tracking-wider text-foreground/80">
+                  <h4 className="text-3xl md:text-5xl font-black text-secondary mb-2">5k+</h4>
+                  <p className="text-xs md:text-sm uppercase tracking-wider text-foreground/80 font-bold">
                     {t("about_stat_clients")}
                   </p>
                 </div>
@@ -465,10 +461,10 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               className="md:col-span-3 order-2 md:order-1"
             >
-              <h3 className="text-secondary text-sm tracking-widest uppercase mb-4 font-semibold">
+              <h3 className="text-secondary text-sm tracking-widest uppercase mb-4 font-bold">
                 {t("owner_section_eyebrow")}
               </h3>
-              <h2 className="text-4xl md:text-6xl font-bold text-primary mb-2 leading-tight">
+              <h2 className="text-4xl md:text-6xl font-extrabold text-primary mb-2 leading-tight">
                 {t("owner_section_title")}
               </h2>
               <p className="text-lg md:text-xl text-secondary mb-8 italic">
@@ -515,7 +511,7 @@ export default function Home() {
             <div className="absolute bottom-0 left-1/2 z-10 w-[calc(100%-2rem)] -translate-x-1/2 md:w-auto">
               <div className="mx-auto flex justify-center bg-primary px-7 py-3 shadow-xl border border-secondary/40 whitespace-nowrap">
                 <p className="text-sm font-bold uppercase tracking-[0.22em] text-center text-primary-foreground">
-                {t("owner")}
+                  {t("owner")}
                 </p>
               </div>
             </div>

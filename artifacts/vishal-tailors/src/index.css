@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Tiro+Devanagari+Hindi:ital,wght@0,400;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Tiro+Devanagari+Hindi:ital,wght@0,400;1,400&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
@@ -51,73 +51,74 @@
 }
 
 :root {
-  /* Premium Fresh Green Palette
-     Background: Soft Mint White (135, 30%, 98%)
-     Foreground: Deep Forest Green (150, 30%, 15%)
-     Primary: Emerald Green (150, 40%, 25%)
-     Secondary: Sage Green (150, 30%, 75%)
-     Accent: Vibrant Mint (150, 50%, 50%)
+  /* Luxurious Heritage Palette
+     Background: Ivory / Warm Cream (46, 33%, 96%)
+     Foreground: Ink Black (0, 0%, 10%)
+     Primary: Deep Crimson/Maroon (350, 50%, 25%)
+     Primary Foreground: Ivory (46, 33%, 96%)
+     Secondary: Saffron/Gold (40, 80% , 45%)
+     Secondary Foreground: Ink Black
   */
-  --background: 135 30% 98%;
-  --foreground: 150 30% 15%;
+  --background: 46 33% 96%;
+  --foreground: 0 0% 10%;
 
-  --border: 150 20% 85%;
+  --border: 40 20% 80%;
 
-  --card: 135 40% 99%;
-  --card-foreground: 150 30% 15%;
-  --card-border: 150 20% 85%;
+  --card: 46 40% 98%;
+  --card-foreground: 0 0% 10%;
+  --card-border: 40 20% 80%;
 
-  --popover: 135 40% 99%;
-  --popover-foreground: 150 30% 15%;
-  --popover-border: 150 20% 85%;
+  --popover: 46 40% 98%;
+  --popover-foreground: 0 0% 10%;
+  --popover-border: 40 20% 80%;
 
-  --primary: 150 45% 20%;
-  --primary-foreground: 135 30% 98%;
+  --primary: 350 50% 25%;
+  --primary-foreground: 46 33% 96%;
 
-  --secondary: 150 25% 75%;
-  --secondary-foreground: 150 30% 15%;
+  --secondary: 40 80% 45%;
+  --secondary-foreground: 0 0% 10%;
 
-  --muted: 150 20% 92%;
-  --muted-foreground: 150 10% 40%;
+  --muted: 40 20% 90%;
+  --muted-foreground: 40 10% 40%;
 
-  --accent: 150 50% 45%;
-  --accent-foreground: 135 30% 98%;
+  --accent: 40 80% 45%;
+  --accent-foreground: 0 0% 10%;
 
   --destructive: 0 84% 60%;
   --destructive-foreground: 210 40% 98%;
 
-  --input: 150 20% 85%;
-  --ring: 150 45% 20%;
+  --input: 40 20% 80%;
+  --ring: 350 50% 25%;
 
   --app-font-sans: 'Outfit', 'Inter', sans-serif;
   --app-font-serif: 'Cormorant Garamond', serif;
   --app-font-devanagari: 'Tiro Devanagari Hindi', serif;
   
-  --radius: 1rem;
+  --radius: 0.5rem;
 }
 
 .dark {
-  --background: 150 30% 10%;
-  --foreground: 135 30% 98%;
-  --border: 150 20% 25%;
-  --card: 150 30% 12%;
-  --card-foreground: 135 30% 98%;
-  --card-border: 150 20% 25%;
-  --popover: 150 30% 12%;
-  --popover-foreground: 135 30% 98%;
-  --popover-border: 150 20% 25%;
-  --primary: 150 50% 50%;
-  --primary-foreground: 150 30% 10%;
-  --secondary: 150 20% 30%;
-  --secondary-foreground: 135 30% 98%;
-  --muted: 150 20% 20%;
-  --muted-foreground: 150 10% 70%;
-  --accent: 150 50% 45%;
-  --accent-foreground: 135 30% 98%;
+  --background: 0 0% 10%;
+  --foreground: 46 33% 96%;
+  --border: 350 50% 20%;
+  --card: 0 0% 12%;
+  --card-foreground: 46 33% 96%;
+  --card-border: 350 50% 20%;
+  --popover: 0 0% 12%;
+  --popover-foreground: 46 33% 96%;
+  --popover-border: 350 50% 20%;
+  --primary: 350 50% 25%;
+  --primary-foreground: 46 33% 96%;
+  --secondary: 40 80% 45%;
+  --secondary-foreground: 0 0% 10%;
+  --muted: 0 0% 20%;
+  --muted-foreground: 0 0% 70%;
+  --accent: 40 80% 45%;
+  --accent-foreground: 0 0% 10%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 210 40% 98%;
-  --input: 150 20% 25%;
-  --ring: 150 50% 50%;
+  --input: 350 50% 20%;
+  --ring: 350 50% 25%;
 }
 
 @layer base {
@@ -134,7 +135,7 @@
     }
   }
   body {
-    @apply font-sans antialiased bg-background text-foreground overflow-x-hidden;
+    @apply font-sans font-medium antialiased bg-background text-foreground overflow-x-hidden;
   }
 }
 
