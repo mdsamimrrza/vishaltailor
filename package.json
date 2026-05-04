@@ -4,10 +4,10 @@
   "license": "MIT",
   "scripts": {
     "preinstall": "node -e \"const fs=require('fs'); ['package-lock.json','yarn.lock'].forEach((file)=>{ try { fs.rmSync(file, { force: true }); } catch {} }); const ua=process.env.npm_config_user_agent||''; if (!ua.startsWith('pnpm/')) { console.error('Use pnpm instead'); process.exit(1); }\"",
-    "dev": "scripts\\dev-frontend.cmd",
-    "dev:frontend": "scripts\\dev-frontend.cmd",
-    "dev:api": "scripts\\dev-api.cmd",
-    "dev:all": "scripts\\dev-all.cmd",
+    "dev": "pnpm run dev:frontend",
+    "dev:frontend": "pnpm --filter @workspace/vishal-tailors dev",
+    "dev:api": "pnpm --filter @workspace/api-server dev",
+    "dev:all": "concurrently -n frontend,api -c cyan,magenta \"pnpm --filter @workspace/vishal-tailors dev\" \"pnpm --filter @workspace/api-server dev\"",
     "build:frontend": "pnpm --filter @workspace/vishal-tailors run build",
     "vercel-build": "pnpm run build:frontend",
     "build": "pnpm run typecheck && pnpm -r --if-present run build",
@@ -16,6 +16,7 @@
   },
   "private": true,
   "devDependencies": {
+    "concurrently": "^9.2.1",
     "typescript": "~5.9.2",
     "prettier": "^3.8.1"
   },
