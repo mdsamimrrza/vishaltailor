@@ -23,9 +23,8 @@ New Vishal Tailors is a multilingual bespoke tailoring website for Janakpur Dham
 
 ```text
 .
-├─ artifacts/
-│  ├─ api-server/          # Express backend
-│  └─ vishal-tailors/      # React + Vite frontend
+├─ api/                    # Express backend
+├─ frontend/               # React + Vite frontend
 ├─ lib/
 │  ├─ api-client-react/    # React API client
 │  ├─ api-spec/            # OpenAPI source/spec tooling
@@ -63,9 +62,9 @@ New Vishal Tailors is a multilingual bespoke tailoring website for Janakpur Dham
 
 ## Environment Variables
 
-Frontend: [artifacts/vishal-tailors/.env.example](artifacts/vishal-tailors/.env.example)
+Frontend: [frontend/.env.example](frontend/.env.example)
 
-API server: [artifacts/api-server/.env.example](artifacts/api-server/.env.example)
+API server: [api/.env.example](api/.env.example)
 
 ## Available Scripts
 
@@ -83,7 +82,7 @@ API server: [artifacts/api-server/.env.example](artifacts/api-server/.env.exampl
 1. Connect the repository to Vercel.
 2. Set the project root to the repository root.
 3. Configure the build command to `pnpm run vercel-build`.
-4. Set the output directory to `artifacts/vishal-tailors/dist/public`.
+4. Set the output directory to `frontend/dist/public`.
 5. Add the frontend environment variables from `.env.example`.
 6. Deploy the frontend.
 7. Deploy the API server separately if you are hosting the backend outside Vercel functions.
@@ -91,22 +90,22 @@ API server: [artifacts/api-server/.env.example](artifacts/api-server/.env.exampl
 
 ## i18n Guide
 
-- Translation strings live in [artifacts/vishal-tailors/src/lib/translations.ts](artifacts/vishal-tailors/src/lib/translations.ts).
+- Translation strings live in [frontend/src/lib/translations.ts](frontend/src/lib/translations.ts).
 - Add the new key to `ne`, `hi`, and `en`.
 - Use `useLanguage()` and `t("your_key")` in components.
 - Keep keys descriptive and stable.
 
 ## Frontend Component Structure
 
-- [artifacts/vishal-tailors/src/pages/home.tsx](artifacts/vishal-tailors/src/pages/home.tsx) - homepage sections.
-- [artifacts/vishal-tailors/src/components/Navbar.tsx](artifacts/vishal-tailors/src/components/Navbar.tsx) - adaptive navbar.
-- [artifacts/vishal-tailors/src/components/EnquiryForm.tsx](artifacts/vishal-tailors/src/components/EnquiryForm.tsx) - booking/enquiry form.
-- [artifacts/vishal-tailors/src/components/Testimonials.tsx](artifacts/vishal-tailors/src/components/Testimonials.tsx) - customer reviews.
-- [artifacts/vishal-tailors/src/components/WhyChooseUs.tsx](artifacts/vishal-tailors/src/components/WhyChooseUs.tsx) - differentiators.
-- [artifacts/vishal-tailors/src/components/FAQ.tsx](artifacts/vishal-tailors/src/components/FAQ.tsx) - FAQ accordion.
-- [artifacts/vishal-tailors/src/components/GuaranteeBanner.tsx](artifacts/vishal-tailors/src/components/GuaranteeBanner.tsx) - satisfaction strip.
-- [artifacts/vishal-tailors/src/components/OptimizedImage.tsx](artifacts/vishal-tailors/src/components/OptimizedImage.tsx) - image helper.
-- [artifacts/vishal-tailors/src/components/ErrorBoundary.tsx](artifacts/vishal-tailors/src/components/ErrorBoundary.tsx) - render fallback.
+- [frontend/src/pages/home.tsx](frontend/src/pages/home.tsx) - homepage sections.
+- [frontend/src/components/Navbar.tsx](frontend/src/components/Navbar.tsx) - adaptive navbar.
+- [frontend/src/components/EnquiryForm.tsx](frontend/src/components/EnquiryForm.tsx) - booking/enquiry form.
+- [frontend/src/components/Testimonials.tsx](frontend/src/components/Testimonials.tsx) - customer reviews.
+- [frontend/src/components/WhyChooseUs.tsx](frontend/src/components/WhyChooseUs.tsx) - differentiators.
+- [frontend/src/components/FAQ.tsx](frontend/src/components/FAQ.tsx) - FAQ accordion.
+- [frontend/src/components/GuaranteeBanner.tsx](frontend/src/components/GuaranteeBanner.tsx) - satisfaction strip.
+- [frontend/src/components/OptimizedImage.tsx](frontend/src/components/OptimizedImage.tsx) - image helper.
+- [frontend/src/components/ErrorBoundary.tsx](frontend/src/components/ErrorBoundary.tsx) - render fallback.
 
 ## API Endpoints
 
@@ -134,4 +133,4 @@ API server: [artifacts/api-server/.env.example](artifacts/api-server/.env.exampl
 
 - The frontend is the primary customer-facing app.
 - The API server currently provides health and enquiry endpoints.
-- SEO metadata and social preview tags live in [artifacts/vishal-tailors/index.html](artifacts/vishal-tailors/index.html).
+- SEO metadata and social preview tags live in [frontend/index.html](frontend/index.html).

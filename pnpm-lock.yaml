@@ -153,14 +153,14 @@ importers:
         specifier: ~5.9.2
         version: 5.9.3
 
-  artifacts/api-server:
+  api:
     dependencies:
       '@workspace/api-zod':
         specifier: workspace:*
-        version: link:../../lib/api-zod
+        version: link:../lib/api-zod
       '@workspace/db':
         specifier: workspace:*
-        version: link:../../lib/db
+        version: link:../lib/db
       cookie-parser:
         specifier: ^1.4.7
         version: 1.4.7
@@ -211,7 +211,7 @@ importers:
         specifier: 3.1.0
         version: 3.1.0
 
-  artifacts/vishal-tailors:
+  frontend:
     devDependencies:
       '@hookform/resolvers':
         specifier: ^3.10.0
@@ -320,7 +320,7 @@ importers:
         version: 5.1.4(vite@7.3.2(@types/node@25.3.5)(jiti@2.6.1)(lightningcss@1.31.1)(tsx@4.21.0)(yaml@2.8.2))
       '@workspace/api-client-react':
         specifier: workspace:*
-        version: link:../../lib/api-client-react
+        version: link:../lib/api-client-react
       class-variance-authority:
         specifier: 'catalog:'
         version: 0.7.1

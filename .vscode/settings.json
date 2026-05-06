@@ -1,0 +1,12 @@
+{
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/.pnpm-store": true,
+    "**/.turbo": true,
+    "**/dist": true,
+    "**/.cache": true,
+    "**/.replit-artifact": true,
+    "**/.DS_Store": true
+  },
+  "explorer.compactFolders": false
+}
