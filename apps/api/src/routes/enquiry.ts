@@ -1,6 +1,6 @@
 import { Router, type IRouter } from "express";
 import nodemailer from "nodemailer";
-import { EnquiryRequest, EnquiryResponse, type EnquiryRequestType } from "@workspace/api-zod";
+import { EnquiryRequest, EnquiryResponse, type EnquiryRequestType } from "@workspace/shared/api";
 import { logger } from "../lib/logger";
 
 const router: IRouter = Router();

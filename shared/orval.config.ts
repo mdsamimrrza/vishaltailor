@@ -1,9 +1,10 @@
 import { defineConfig, InputTransformerFn } from "orval";
 import path from "path";
 
-const root = path.resolve(__dirname, "..", "..");
-const apiClientReactSrc = path.resolve(root, "lib", "api-client-react", "src");
-const apiZodSrc = path.resolve(root, "lib", "api-zod", "src");
+const root = path.resolve(__dirname, "..");
+const sharedSrc = path.resolve(root, "shared", "src");
+const apiClientReactSrc = path.resolve(sharedSrc, "client-react");
+const apiZodSrc = path.resolve(sharedSrc, "api");
 
 // Our exports make assumptions about the title of the API being "Api" (i.e. generated output is `api.ts`).
 const titleTransformer: InputTransformerFn = (config) => {
@@ -16,7 +17,7 @@ const titleTransformer: InputTransformerFn = (config) => {
 export default defineConfig({
   "api-client-react": {
     input: {
-      target: "./openapi.yaml",
+      target: "./openapi/openapi.yaml",
       override: {
         transformer: titleTransformer,
       },
@@ -42,7 +43,7 @@ export default defineConfig({
   },
   zod: {
     input: {
-      target: "./openapi.yaml",
+      target: "./openapi/openapi.yaml",
       override: {
         transformer: titleTransformer,
       },

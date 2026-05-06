@@ -4,19 +4,25 @@
   "license": "MIT",
   "scripts": {
     "preinstall": "node -e \"const fs=require('fs'); ['package-lock.json','yarn.lock'].forEach((file)=>{ try { fs.rmSync(file, { force: true }); } catch {} }); const ua=process.env.npm_config_user_agent||''; if (!ua.startsWith('pnpm/')) { console.error('Use pnpm instead'); process.exit(1); }\"",
-    "dev": "pnpm run dev:frontend",
-    "dev:frontend": "pnpm --filter @workspace/vishal-tailors dev",
+    "dev": "pnpm run dev:web",
+    "dev:web": "pnpm --filter @workspace/vishal-tailors dev",
+    "dev:frontend": "pnpm run dev:web",
     "dev:api": "pnpm --filter @workspace/api-server dev",
-    "dev:all": "concurrently -n frontend,api -c cyan,magenta \"pnpm --filter @workspace/vishal-tailors dev\" \"pnpm --filter @workspace/api-server dev\"",
-    "build:frontend": "pnpm --filter @workspace/vishal-tailors run build",
-    "vercel-build": "pnpm run build:frontend",
+    "dev:all": "concurrently -n web,api -c cyan,magenta \"pnpm --filter @workspace/vishal-tailors dev\" \"pnpm --filter @workspace/api-server dev\"",
+    "build:web": "pnpm --filter @workspace/vishal-tailors run build",
+    "build:frontend": "pnpm run build:web",
+    "vercel-build": "pnpm run build:web",
+    "hello": "tsx ./scripts/hello.ts",
+    "codegen:api": "orval --config ./shared/orval.config.ts && pnpm run typecheck:libs",
     "build": "pnpm run typecheck && pnpm -r --if-present run build",
     "typecheck:libs": "tsc --build",
-    "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./frontend\" --filter \"./api\" --filter \"./scripts\" --if-present run typecheck"
+    "typecheck": "pnpm run typecheck:libs && pnpm -r --filter @workspace/vishal-tailors --filter @workspace/api-server --if-present run typecheck"
   },
   "private": true,
   "devDependencies": {
     "concurrently": "^9.2.1",
+    "orval": "^8.5.2",
+    "tsx": "^4.21.0",
     "typescript": "~5.9.2",
     "prettier": "^3.8.1"
   },

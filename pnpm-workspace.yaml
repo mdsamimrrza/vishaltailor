@@ -28,11 +28,8 @@
 minimumReleaseAge: 1440
 
 packages:
-  - frontend
-  - api
-  - lib/*
-  - lib/integrations/*
-  - scripts
+  - apps/*
+  - shared
 
 catalog:
   '@tailwindcss/vite': ^4.1.14

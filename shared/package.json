@@ -1,0 +1,17 @@
+{
+  "name": "@workspace/shared",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./api": "./src/api/index.ts",
+    "./client-react": "./src/client-react/index.ts"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "catalog:",
+    "zod": "catalog:"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  }
+}
