@@ -144,7 +144,7 @@ export function Navbar({ links, onNavigate }: NavbarProps) {
             aria-label={mobileOpen ? t("menu_close") : t("menu_open")}
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen((value) => !value)}
-            className="md:hidden inline-flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#C9A84C]/30 bg-[#4A0E0E]/70 text-white transition-colors duration-300 hover:bg-[#C9A84C] hover:text-[#4A0E0E]"
+            className="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#C9A84C]/30 bg-[#4A0E0E]/70 text-white transition-colors duration-300 hover:bg-[#C9A84C] hover:text-[#4A0E0E]"
           >
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -157,12 +157,12 @@ export function Navbar({ links, onNavigate }: NavbarProps) {
             type="button"
             aria-label={t("menu_close")}
             onClick={() => setMobileOpen(false)}
-            className="fixed inset-x-0 bottom-0 z-40 bg-black/40 backdrop-blur-sm md:hidden"
+            className="fixed inset-x-0 bottom-0 z-40 bg-black/40 backdrop-blur-sm lg:hidden"
             style={{ top: "var(--navbar-height)" }}
           />
 
           <div
-            className="fixed right-0 z-50 flex w-[85%] max-w-sm flex-col bg-[#1a0505] text-white shadow-2xl transition-transform duration-300 md:hidden"
+            className="fixed right-0 z-50 flex w-[85%] max-w-sm flex-col bg-[#1a0505] text-white shadow-2xl transition-transform duration-300 lg:hidden"
             style={{ top: "var(--navbar-height)", height: "calc(100vh - var(--navbar-height))" }}
           >
             <div className="flex items-center justify-between border-b border-[#C9A84C]/20 px-6 py-4">
@@ -212,11 +212,11 @@ export function Navbar({ links, onNavigate }: NavbarProps) {
               <div className="mt-10 space-y-3 border-t border-white/10 pt-6">
                 <a href={`tel:${PHONE_PRIMARY_TEL}`} className="flex items-center gap-3 text-white transition-colors hover:text-[#C9A84C]">
                   <Phone size={16} className="text-[#C9A84C]" />
-                  <span className="font-medium">{PHONE_PRIMARY}</span>
+                  <span className="font-medium font-sans tracking-wide">{PHONE_PRIMARY}</span>
                 </a>
                 <a href={`tel:${PHONE_SECONDARY_TEL}`} className="flex items-center gap-3 text-white transition-colors hover:text-[#C9A84C]">
                   <Phone size={16} className="text-[#C9A84C]" />
-                  <span className="font-medium">{PHONE_SECONDARY}</span>
+                  <span className="font-medium font-sans tracking-wide">{PHONE_SECONDARY}</span>
                 </a>
               </div>
             </nav>

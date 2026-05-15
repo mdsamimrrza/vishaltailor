@@ -268,7 +268,7 @@ export default function Home() {
           >
             <button
               type="button"
-              onClick={() => openImage("/images/hero.png", t("hero_image_alt"))}
+              onClick={() => openImage(window.innerWidth < 768 ? "/images/hero-mobile.png" : "/images/hero.png", t("hero_image_alt"))}
               aria-label={`Open full screen ${t("hero_image_alt")}`}
               className="block h-full w-full cursor-zoom-in"
             >
@@ -277,9 +277,18 @@ export default function Home() {
                 webpSrc="/images/hero.webp"
                 placeholderSrc="/images/hero.png"
                 alt={t("hero_image_alt")}
-                className="h-full w-full object-cover opacity-85"
+                className="hidden md:block h-full w-full object-cover opacity-85"
                 width={1600}
                 height={900}
+                loading="eager"
+                fetchPriority="high"
+              />
+              <OptimizedImage
+                src="/images/hero-mobile.png"
+                alt={t("hero_image_alt")}
+                className="md:hidden h-full w-full object-cover opacity-85"
+                width={900}
+                height={1600}
                 loading="eager"
                 fetchPriority="high"
               />
@@ -505,93 +514,93 @@ export default function Home() {
               const selectedVariant = garment.variants[selectedIndex];
 
               return (
-              <motion.div
-                key={garment.titleKey}
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
-                transition={{ duration: 0.9, delay: idx * 0.12, ease: [0.22, 1, 0.36, 1] }}
-                className="group relative overflow-hidden bg-[#2d0707] border border-white/10 shadow-2xl"
-              >
-                <div className="relative aspect-square overflow-hidden">
-                  <button
-                    type="button"
-                    onClick={() => openImage(selectedVariant.image, t(selectedVariant.labelKey))}
-                    aria-label={`Open full screen ${t(garment.titleKey)}`}
-                    className="group block h-full w-full cursor-zoom-in"
-                  >
-                    <img
-                      src={selectedVariant.image}
-                      alt={t(garment.titleKey)}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
-                      width={1000}
-                      height={1000}
-                      loading="lazy"
-                    />
-                  </button>
-                  <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent" />
-                </div>
-
-                <div className="p-6 md:p-8">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={`${garment.titleKey}-${language}-${selectedIndex}`}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="w-full"
+                <motion.div
+                  key={garment.titleKey}
+                  initial={{ opacity: 0, y: 60 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{ duration: 0.9, delay: idx * 0.12, ease: [0.22, 1, 0.36, 1] }}
+                  className="group relative overflow-hidden bg-[#2d0707] border border-white/10 shadow-2xl"
+                >
+                  <div className="relative aspect-square overflow-hidden">
+                    <button
+                      type="button"
+                      onClick={() => openImage(selectedVariant.image, t(selectedVariant.labelKey))}
+                      aria-label={`Open full screen ${t(garment.titleKey)}`}
+                      className="group block h-full w-full cursor-zoom-in"
                     >
-                      <h3 className="text-2xl md:text-3xl font-bold text-white drop-shadow-md">
-                        {t(garment.titleKey)}
-                      </h3>
-                      <p className="mt-2 text-sm font-semibold text-secondary">
-                        {t(selectedVariant.priceKey)}
-                      </p>
-                      <p className="mt-1 text-xs uppercase tracking-[0.2em] text-white/80">
-                        {t(selectedVariant.deliveryKey)}
-                      </p>
-                      <p className="mt-4 text-sm leading-relaxed text-white/85">
-                        {t(selectedVariant.descKey)}
-                      </p>
-                      <a
-                        href={getQuoteLink(t(garment.titleKey))}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="mt-5 inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-secondary-foreground transition-transform duration-300 hover:scale-[1.03]"
+                      <img
+                        src={selectedVariant.image}
+                        alt={t(garment.titleKey)}
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+                        width={1000}
+                        height={1000}
+                        loading="lazy"
+                      />
+                    </button>
+                    <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent" />
+                  </div>
+
+                  <div className="p-6 md:p-8">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={`${garment.titleKey}-${language}-${selectedIndex}`}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="w-full"
                       >
-                        Get Quote
-                      </a>
+                        <h3 className="text-2xl md:text-3xl font-bold text-white drop-shadow-md">
+                          {t(garment.titleKey)}
+                        </h3>
+                        <p className="mt-2 text-sm font-semibold text-secondary">
+                          {t(selectedVariant.priceKey)}
+                        </p>
+                        <p className="mt-1 text-xs uppercase tracking-[0.2em] text-white/80">
+                          {t(selectedVariant.deliveryKey)}
+                        </p>
+                        <p className="mt-4 text-sm leading-relaxed text-white/85">
+                          {t(selectedVariant.descKey)}
+                        </p>
+                        <a
+                          href={getQuoteLink(t(garment.titleKey))}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="mt-5 inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-secondary-foreground transition-transform duration-300 hover:scale-[1.03]"
+                        >
+                          Get Quote
+                        </a>
 
-                      {garment.variants.length > 1 && (
-                        <div className="mt-6 flex flex-wrap gap-3">
-                          {garment.variants.map((variant, variantIndex) => {
-                            const isSelected = variantIndex === selectedIndex;
+                        {garment.variants.length > 1 && (
+                          <div className="mt-6 flex flex-wrap gap-3">
+                            {garment.variants.map((variant, variantIndex) => {
+                              const isSelected = variantIndex === selectedIndex;
 
-                            return (
-                              <button
-                                key={variant.image}
-                                type="button"
-                                onClick={() => setSelectedVariantIndex((current) => ({ ...current, [garment.titleKey]: variantIndex }))}
-                                className={`overflow-hidden rounded-xl border transition-all duration-300 ${isSelected ? "border-secondary ring-2 ring-secondary/50" : "border-white/15 hover:border-secondary/50"}`}
-                                aria-label={`Select ${t(variant.labelKey)}`}
-                              >
-                                <img
-                                  src={variant.image}
-                                  alt={t(variant.labelKey)}
-                                  className="h-16 w-16 object-cover"
-                                  width={128}
-                                  height={128}
-                                  loading="lazy"
-                                />
-                              </button>
-                            );
-                          })}
-                        </div>
-                      )}
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-              </motion.div>
+                              return (
+                                <button
+                                  key={variant.image}
+                                  type="button"
+                                  onClick={() => setSelectedVariantIndex((current) => ({ ...current, [garment.titleKey]: variantIndex }))}
+                                  className={`overflow-hidden rounded-xl border transition-all duration-300 ${isSelected ? "border-secondary ring-2 ring-secondary/50" : "border-white/15 hover:border-secondary/50"}`}
+                                  aria-label={`Select ${t(variant.labelKey)}`}
+                                >
+                                  <img
+                                    src={variant.image}
+                                    alt={t(variant.labelKey)}
+                                    className="h-16 w-16 object-cover"
+                                    width={128}
+                                    height={128}
+                                    loading="lazy"
+                                  />
+                                </button>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
+                </motion.div>
               );
             })}
           </div>
@@ -632,21 +641,21 @@ export default function Home() {
                 className="group bg-card border border-border overflow-hidden hover:shadow-2xl transition-all duration-500"
               >
                 <div className="aspect-4/3 overflow-hidden">
-                    <button
-                      type="button"
-                      onClick={() => openImage(fabric.img, t(fabric.titleKey))}
-                      aria-label={`Open full screen ${t(fabric.titleKey)}`}
-                      className="block h-full w-full cursor-zoom-in"
-                    >
-                      <img
-                        src={fabric.img}
-                        alt={t(fabric.titleKey)}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        width={1200}
-                        height={800}
-                        loading="lazy"
-                      />
-                    </button>
+                  <button
+                    type="button"
+                    onClick={() => openImage(fabric.img, t(fabric.titleKey))}
+                    aria-label={`Open full screen ${t(fabric.titleKey)}`}
+                    className="block h-full w-full cursor-zoom-in"
+                  >
+                    <img
+                      src={fabric.img}
+                      alt={t(fabric.titleKey)}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      width={1200}
+                      height={800}
+                      loading="lazy"
+                    />
+                  </button>
                 </div>
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -838,13 +847,13 @@ export default function Home() {
                         </h4>
                         <div className="space-y-2 mb-4">
                           <div className="flex items-center justify-between gap-3">
-                            <a href={`tel:${PHONE_PRIMARY_TEL}`} className="block text-foreground font-semibold leading-relaxed hover:text-primary transition-colors">{PHONE_PRIMARY}</a>
+                            <a href={`tel:${PHONE_PRIMARY_TEL}`} className="block text-foreground font-semibold font-sans tracking-wide leading-relaxed hover:text-primary transition-colors">{PHONE_PRIMARY}</a>
                             <a href="https://wa.me/9779804833357" target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp" className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#25D366] text-white transition-transform duration-300 hover:scale-110">
                               <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4 fill-current"><path d="M20.52 3.48A11.58 11.58 0 0 0 12.07 0C5.41 0 .02 5.39.01 12.05c0 2.12.56 4.2 1.62 6.02L0 24l6.1-1.6a11.94 11.94 0 0 0 5.95 1.52h.01c6.66 0 12.05-5.39 12.05-12.05 0-3.23-1.26-6.26-3.59-8.39Zm-8.45 18.5h-.01a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.62.95.97-3.53-.23-.36a9.86 9.86 0 0 1-1.52-5.23C2.25 6.62 6.78 2.1 12.06 2.1c2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.9 6.98c0 5.28-4.53 10-10.88 10Zm5.96-7.76c-.34-.17-2.02-1-2.33-1.12-.31-.11-.53-.17-.75.17-.22.34-.86 1.12-1.05 1.35-.19.22-.39.25-.73.08-.34-.17-1.43-.53-2.72-1.69-1-.89-1.68-1.99-1.88-2.33-.2-.34-.02-.52.15-.69.16-.16.34-.41.51-.61.17-.2.23-.34.34-.57.11-.22.06-.42-.03-.59-.09-.17-.75-1.81-1.03-2.48-.27-.65-.55-.56-.75-.57h-.64c-.22 0-.59.08-.9.42s-1.18 1.15-1.18 2.79 1.2 3.22 1.36 3.44c.17.22 2.36 3.6 5.72 5.05.8.35 1.42.56 1.91.72.8.25 1.53.21 2.11.13.64-.1 2.02-.83 2.31-1.64.29-.8.29-1.48.2-1.64-.08-.16-.31-.25-.65-.42Z" /></svg>
                             </a>
                           </div>
                           <div className="flex items-center justify-between gap-3">
-                            <a href={`tel:${PHONE_SECONDARY_TEL}`} className="block text-foreground font-semibold leading-relaxed hover:text-primary transition-colors">{PHONE_SECONDARY}</a>
+                            <a href={`tel:${PHONE_SECONDARY_TEL}`} className="block text-foreground font-semibold font-sans tracking-wide leading-relaxed hover:text-primary transition-colors">{PHONE_SECONDARY}</a>
                             <a href="https://wa.me/9779812097433" target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp" className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#25D366] text-white transition-transform duration-300 hover:scale-110">
                               <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4 fill-current"><path d="M20.52 3.48A11.58 11.58 0 0 0 12.07 0C5.41 0 .02 5.39.01 12.05c0 2.12.56 4.2 1.62 6.02L0 24l6.1-1.6a11.94 11.94 0 0 0 5.95 1.52h.01c6.66 0 12.05-5.39 12.05-12.05 0-3.23-1.26-6.26-3.59-8.39Zm-8.45 18.5h-.01a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.62.95.97-3.53-.23-.36a9.86 9.86 0 0 1-1.52-5.23C2.25 6.62 6.78 2.1 12.06 2.1c2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.9 6.98c0 5.28-4.53 10-10.88 10Zm5.96-7.76c-.34-.17-2.02-1-2.33-1.12-.31-.11-.53-.17-.75.17-.22.34-.86 1.12-1.05 1.35-.19.22-.39.25-.73.08-.34-.17-1.43-.53-2.72-1.69-1-.89-1.68-1.99-1.88-2.33-.2-.34-.02-.52.15-.69.16-.16.34-.41.51-.61.17-.2.23-.34.34-.57.11-.22.06-.42-.03-.59-.09-.17-.75-1.81-1.03-2.48-.27-.65-.55-.56-.75-.57h-.64c-.22 0-.59.08-.9.42s-1.18 1.15-1.18 2.79 1.2 3.22 1.36 3.44c.17.22 2.36 3.6 5.72 5.05.8.35 1.42.56 1.91.72.8.25 1.53.21 2.11.13.64-.1 2.02-.83 2.31-1.64.29-.8.29-1.48.2-1.64-.08-.16-.31-.25-.65-.42Z" /></svg>
                             </a>
