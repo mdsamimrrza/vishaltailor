@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useLocation } from "wouter";
+import { useLocation, Link } from "wouter";
 import { Clock, Menu, Phone, X } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
@@ -165,17 +165,6 @@ export function Navbar({ links, onNavigate }: NavbarProps) {
             className="fixed right-0 z-50 flex w-[85%] max-w-sm flex-col bg-[#1a0505] text-white shadow-2xl transition-transform duration-300 lg:hidden"
             style={{ top: "var(--navbar-height)", height: "calc(100vh - var(--navbar-height))" }}
           >
-            <div className="flex items-center justify-between border-b border-[#C9A84C]/20 px-6 py-4">
-              <span className="text-base font-bold tracking-widest uppercase text-[#F5E6CA]">{t("name")}</span>
-              <button
-                type="button"
-                aria-label={t("menu_close")}
-                onClick={() => setMobileOpen(false)}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#C9A84C]/30 text-white transition-colors hover:bg-[#C9A84C] hover:text-[#4A0E0E]"
-              >
-                <X size={18} />
-              </button>
-            </div>
 
             <nav className="flex-1 overflow-y-auto px-6 py-8">
               <ul className="flex flex-col gap-1">
@@ -218,6 +207,16 @@ export function Navbar({ links, onNavigate }: NavbarProps) {
                   <Phone size={16} className="text-[#C9A84C]" />
                   <span className="font-medium font-sans tracking-wide">{PHONE_SECONDARY}</span>
                 </a>
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-white/10 flex justify-center pb-8">
+                <Link 
+                  href="/developers" 
+                  onClick={() => setMobileOpen(false)}
+                  className="text-[10px] uppercase tracking-[0.2em] text-white/40 hover:text-[#C9A84C] transition-colors font-semibold"
+                >
+                  Website Engineered by Reza Brothers
+                </Link>
               </div>
             </nav>
           </div>

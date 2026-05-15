@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { SectionHeader } from "@/components/SectionHeader";
@@ -974,10 +975,16 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="border-t border-background/10 pt-8 text-center">
+          <div className="border-t border-background/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
             <p className="text-background/50 font-light text-sm">
               &copy; {new Date().getFullYear()} {t("name")}. {t("footer_rights")}
             </p>
+            <Link 
+              href="/developers"
+              className="text-background/40 hover:text-secondary text-[11px] md:text-xs uppercase tracking-[0.2em] transition-colors font-semibold cursor-pointer"
+            >
+              Website Engineered by Reza Brothers
+            </Link>
           </div>
         </div>
       </footer>
