@@ -26,9 +26,17 @@ function PageLayout({ children }: { children: React.ReactNode }) {
   const isDevPage = location === "/developers";
   
   return (
-    <div style={{ paddingTop: isDevPage ? "0px" : "var(--navbar-height)" }}>
-      {children}
-    </div>
+    <>
+      <div style={{ paddingTop: isDevPage ? "0px" : "var(--navbar-height)" }}>
+        {children}
+      </div>
+      {!isDevPage && (
+        <>
+          <GuaranteeBanner />
+          <WhatsAppButton />
+        </>
+      )}
+    </>
   );
 }
 
@@ -43,8 +51,6 @@ function App() {
               <Router />
             </PageLayout>
           </WouterRouter>
-          <GuaranteeBanner />
-          <WhatsAppButton />
           <Toaster />
         </LanguageProvider>
       </TooltipProvider>

@@ -37,8 +37,8 @@ export default function Developers() {
       skills: ["React", "Tailwind CSS", "Spring Boot", "TypeScript", "PostgreSQL"],
       stats: [
         { label: "Experience", value: "3+ yrs" },
-        { label: "Projects", value: "12+" },
-        { label: "Focus", value: "Premium UI" }
+        { label: "Projects", value: "8+" },
+        { label: "Focus", value: "Enterprise" }
       ],
       email: "samimrrza1@gmail.com",
       github: "https://github.com/mdsamimrrza",
