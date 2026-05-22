@@ -4,7 +4,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 const features = [
   {
     icon: Scissors,
-    title: { ne: "Perfect Fit Guaranteed", hi: "Perfect Fit Guaranteed", en: "Perfect Fit Guaranteed" },
+    title: { ne: "उत्कृष्ट फिटिङ ग्यारेन्टी", hi: "परफेक्ट फिटिंग की गारंटी", en: "Perfect Fit Guaranteed" },
     description: {
       ne: "फिट सही नभए हामी निःशुल्क परिवर्तन गर्छौं।",
       hi: "फिट सही नहीं हो तो हम मुफ्त में बदलाव करते हैं।",
@@ -13,7 +13,7 @@ const features = [
   },
   {
     icon: Sparkles,
-    title: { ne: "50+ Premium Fabrics", hi: "50+ Premium Fabrics", en: "50+ Premium Fabrics" },
+    title: { ne: "५०+ प्रिमियम कपडाहरू", hi: "५०+ प्रीमियम फैब्रिक्स", en: "50+ Premium Fabrics" },
     description: {
       ne: "हाम्रो छानिएको कपडा संग्रहबाट छान्नुहोस् वा आफ्नो कपडा ल्याउनुहोस्।",
       hi: "हमारे चुने हुए कपड़ों में से चुनें या अपना कपड़ा लाएँ।",
@@ -22,16 +22,16 @@ const features = [
   },
   {
     icon: Award,
-    title: { ne: "30+ Years of Expertise", hi: "30+ Years of Expertise", en: "30+ Years of Expertise" },
+    title: { ne: "३०+ वर्षको अनुभव", hi: "३०+ वर्षों का अनुभव", en: "30+ Years of Expertise" },
     description: {
       ne: "मौलबी मन्सुरीको ३ दशकभन्दा बढी अनुभवले प्रत्येक सिलाइलाई उत्कृष्ट बनाउँछ।",
       hi: "मौलवी मंसूरी के 3 दशकों से अधिक अनुभव से हर सिलाई श्रेष्ठ बनती है।",
-      en: "Every stitch by our master tailor Maulvi Mansuri, trained over 3 decades.",
+      en: "Every stitch by our master tailor Molabi Mansuri, trained over 3 decades.",
     },
   },
   {
     icon: Clock,
-    title: { ne: "On-Time, Every Time", hi: "On-Time, Every Time", en: "On-Time, Every Time" },
+    title: { ne: "समयमै डेलिभरी, सधैंभरि", hi: "हमेशा समय पर डिलीवरी", en: "On-Time, Every Time" },
     description: {
       ne: "हामी डेलिभरी मितिमा अडिग रहन्छौं र त्यो वाचा पूरा गर्छौं।",
       hi: "हम डिलीवरी तिथि का पालन करते हैं और उस वादे को निभाते हैं।",
@@ -41,15 +41,14 @@ const features = [
 ];
 
 export function WhyChooseUs() {
-  const { language } = useLanguage();
-  const title = language === "ne" ? "हामीलाई किन छान्नुहोस्?" : language === "hi" ? "हमें क्यों चुनें?" : "Why Choose Us?";
+  const { t, language } = useLanguage();
 
   return (
     <section className="py-24 md:py-32 px-6 md:px-12 bg-background">
       <div className="max-w-7xl mx-auto">
         <div className="mb-16 text-center">
-          <p className="text-secondary text-sm tracking-widest uppercase mb-4">{title}</p>
-          <h2 className="text-4xl md:text-5xl font-bold text-primary">{title}</h2>
+          <p className="text-secondary text-sm tracking-widest uppercase mb-4">{t("whychoose_eyebrow")}</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-primary">{t("whychoose_title")}</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

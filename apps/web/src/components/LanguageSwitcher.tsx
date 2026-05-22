@@ -19,16 +19,16 @@ export function LanguageSwitcher() {
           <button
             key={lang.code}
             onClick={() => setLanguage(lang.code)}
-            className={`relative px-4 py-2 text-sm font-semibold transition-colors duration-300 rounded-full whitespace-nowrap ${
+            className={`relative px-4 py-2 text-sm font-semibold transition-colors duration-200 rounded-full whitespace-nowrap transform will-change-transform ${
               isActive
                 ? "text-primary-foreground"
-                : "text-foreground hover:text-primary"
+                : "text-foreground hover:text-primary hover:scale-105"
             }`}
           >
             {isActive && (
               <motion.div
                 layoutId="active-pill"
-                className="absolute inset-0 bg-primary rounded-full shadow-md"
+                className="absolute inset-0 bg-primary rounded-full shadow-md pointer-events-none"
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               />
             )}

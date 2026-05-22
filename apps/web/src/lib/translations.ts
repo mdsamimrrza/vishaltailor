@@ -139,7 +139,20 @@ export const translations: TranslationDictionary = {
     // Mobile menu
     menu_open: "मेनू खोल्नुहोस्",
     menu_close: "मेनू बन्द गर्नुहोस्",
-    menu_language: "भाषा छान्नुहोस्"
+    menu_language: "भाषा छान्नुहोस्",
+    ordered: "सिलाइएको: "
+    ,
+    // Developers
+    developers: "डेवलपर्स",
+    meet_developers: "डेवलपर्सलाई भेट्नुहोस्",
+
+    // Why Choose Us
+    whychoose_eyebrow: "हाम्रो विशेषता",
+    whychoose_title: "हामीलाई किन छान्नुहोस्?",
+
+    // FAQ
+    faq_eyebrow: "जिज्ञासा निवारण",
+    faq_title: "प्रायः सोधिने प्रश्न"
   },
   hi: {
     // Core details
@@ -273,12 +286,25 @@ export const translations: TranslationDictionary = {
     // Mobile menu
     menu_open: "मेनू खोलें",
     menu_close: "मेनू बंद करें",
-    menu_language: "भाषा चुनें"
+    menu_language: "भाषा चुनें",
+    ordered: "सिलाया गया: "
+    ,
+    // Developers
+    developers: "डेवलपर्स",
+    meet_developers: "डेवलपर्स से मिलें",
+
+    // Why Choose Us
+    whychoose_eyebrow: "हमारी विशेषता",
+    whychoose_title: "हमें क्यों चुनें?",
+
+    // FAQ
+    faq_eyebrow: "जिज्ञासा निवारण",
+    faq_title: "अक्सर पूछे जाने वाले प्रश्न"
   },
   en: {
     // Core details
     name: "New Vishal Tailors",
-    owner: "Maulvi Mansuri",
+    owner: "Molabi Mansuri",
     tagline: "Suit Specialist",
     description: "Premium tailoring for coat-pants, safari suits, shirts, jeans, sherwani, kurta-pajama, and lehenga-choli at honest, fair prices.",
     fabric: "Modern designer fabrics are available.",
@@ -294,7 +320,7 @@ export const translations: TranslationDictionary = {
     // About
     about_eyebrow: "The Master Craftsman",
     about_title: "About the Master",
-    about_desc: "For decades in the heart of Janakpur, Master Maulvi Mansuri has blended Mithila tradition with modern tailoring to craft exquisite garments. Every stitch reflects devotion and artistry.",
+    about_desc: "For decades in the heart of Janakpur, Master Molabi Mansuri has blended Mithila tradition with modern tailoring to craft exquisite garments. Every stitch reflects devotion and artistry.",
     about_quote: "“Cloth is joined by needle and thread, but a garment is woven by the heart.”",
     about_stat_years: "Years of Heritage",
     about_stat_garments: "Garments Crafted",
@@ -302,9 +328,9 @@ export const translations: TranslationDictionary = {
 
     // Owner portrait
     owner_section_eyebrow: "Our Owner",
-    owner_section_title: "Maulvi Mansuri",
+    owner_section_title: "Molabi Mansuri",
     owner_section_subtitle: "Founder & Master Tailor",
-    owner_section_desc: "A familiar name in every lane of Janakpur, Maulvi Mansuri has devoted his life to needle and thread. Every garment from his hands tells a story of respect, care and craftsmanship.",
+    owner_section_desc: "A familiar name in every lane of Janakpur, Molabi Mansuri has devoted his life to needle and thread. Every garment from his hands tells a story of respect, care and craftsmanship.",
     hero_image_alt: "Tailoring atelier in Janakpur Dham",
     master_work_image_alt: "Master tailor at work",
 
@@ -407,6 +433,19 @@ export const translations: TranslationDictionary = {
     // Mobile menu
     menu_open: "Open menu",
     menu_close: "Close menu",
-    menu_language: "Choose language"
+    menu_language: "Choose language",
+    ordered: "Ordered: "
+    ,
+    // Developers
+    developers: "Developers",
+    meet_developers: "Meet the Developers",
+
+    // Why Choose Us
+    whychoose_eyebrow: "Our Strengths",
+    whychoose_title: "Why Choose Us?",
+
+    // FAQ
+    faq_eyebrow: "Support & FAQ",
+    faq_title: "Frequently Asked Questions"
   }
 };

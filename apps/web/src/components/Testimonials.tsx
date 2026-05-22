@@ -18,7 +18,7 @@ export function Testimonials() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((testimonial) => (
-            <article key={testimonial.id} className="group rounded-2xl border border-white/10 bg-primary-foreground/5 p-8 shadow-[0_18px_60px_rgba(0,0,0,0.18)] transition-all duration-300 hover:-translate-y-1 hover:border-secondary/40 hover:shadow-[0_24px_80px_rgba(0,0,0,0.28)]">
+            <article key={testimonial.id} className="relative group rounded-2xl border border-white/10 bg-primary-foreground/5 p-8 shadow-[0_18px_60px_rgba(0,0,0,0.18)] transition-all duration-300 hover:-translate-y-1 hover:border-secondary/40 hover:shadow-[0_24px_80px_rgba(0,0,0,0.28)]">
               <div className="mb-6 flex items-start justify-between gap-4">
                 <div className="flex items-center gap-4">
                   <Avatar className="h-14 w-14 border border-secondary/30 ring-2 ring-secondary/10">
@@ -30,7 +30,7 @@ export function Testimonials() {
                     <p className="text-sm text-primary-foreground/70">{testimonial.location}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-1 text-secondary" aria-label={`${testimonial.rating} star rating`}>
+                <div className="absolute top-6 right-6 flex items-center gap-1 text-secondary" aria-label={`${testimonial.rating} star rating`}>
                   {Array.from({ length: 5 }).map((_, index) => (
                     <Star key={index} className={index < testimonial.rating ? "fill-current" : "opacity-35"} size={16} />
                   ))}
@@ -41,7 +41,7 @@ export function Testimonials() {
 
               <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-white/10 pt-5 text-xs uppercase tracking-[0.18em] text-primary-foreground/70">
                 <span>{testimonial.date}</span>
-                <span>Ordered: {testimonial.garmentOrdered}</span>
+                <span>{t("ordered")}{testimonial.garmentOrdered[language]}</span>
               </div>
             </article>
           ))}

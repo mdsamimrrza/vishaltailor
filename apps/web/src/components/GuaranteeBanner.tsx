@@ -11,7 +11,7 @@ export function GuaranteeBanner() {
         : "✂️ Free alterations if fit isn't perfect | 📦 On-time delivery guaranteed | 📞 Always reachable";
 
   return (
-    <div className="border-y border-[#C9A84C]/30 bg-[#C9A84C] px-6 py-3 text-center text-sm font-semibold text-[#4A0E0E] shadow-sm">
+    <div className="border-y border-[#C9A84C]/30 bg-[#C9A84C] px-4 py-3 md:py-4 text-center text-[11px] sm:text-xs md:text-sm font-bold text-[#4A0E0E] shadow-sm leading-relaxed tracking-wide">
       {text}
     </div>
   );

@@ -127,7 +127,7 @@
   }
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 0;
+    scroll-padding-top: var(--navbar-height, 80px);
   }
   @media (prefers-reduced-motion: reduce) {
     html {

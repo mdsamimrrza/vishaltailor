@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, Link } from "wouter";
-import { Clock, Menu, Phone, X } from "lucide-react";
+import { Clock, Menu, Phone, X, ExternalLink } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
@@ -133,9 +133,19 @@ export function Navbar({ links, onNavigate }: NavbarProps) {
                 </a>
               );
             })}
+            <a
+              href="/developers"
+              onClick={(event) => {
+                event.preventDefault();
+                handleNavigate("/developers");
+              }}
+              className="text-sm uppercase tracking-widest font-semibold text-[#C9A84C] transition-colors duration-300 transform transition-transform hover:-translate-y-0.5 hover:scale-105 hover:text-[#F5E6CA] hover:underline hover:decoration-[#C9A84C]"
+            >
+              {t("developers")}
+            </a>
           </div>
 
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <LanguageSwitcher />
           </div>
 
@@ -186,6 +196,21 @@ export function Navbar({ links, onNavigate }: NavbarProps) {
                     </li>
                   );
                 })}
+                
+                {/* Developer link: match other mobile nav items but keep gold color */}
+                <li>
+                  <a
+                    href="/developers"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      handleNavigate("/developers");
+                    }}
+                    className="block border-b border-white/10 py-3 text-lg font-semibold text-[#C9A84C] transition-colors transform transition-transform hover:translate-x-1 hover:text-[#F5E6CA] hover:underline hover:decoration-[#C9A84C]"
+                  >
+                    <ExternalLink size={16} className="inline mr-2 text-[#C9A84C]" />
+                    {t("developers")}
+                  </a>
+                </li>
               </ul>
 
               <div className="mt-8 flex items-center gap-2 text-sm text-white/80">
@@ -209,15 +234,7 @@ export function Navbar({ links, onNavigate }: NavbarProps) {
                 </a>
               </div>
 
-              <div className="mt-8 pt-6 border-t border-white/10 flex justify-center pb-8">
-                <Link 
-                  href="/developers" 
-                  onClick={() => setMobileOpen(false)}
-                  className="text-[10px] uppercase tracking-[0.2em] text-white/40 hover:text-[#C9A84C] transition-colors font-semibold"
-                >
-                  Website Engineered by Reza Brothers
-                </Link>
-              </div>
+              {/* removed duplicate pill-style developer button; link is now in the main list */}
             </nav>
           </div>
         </>

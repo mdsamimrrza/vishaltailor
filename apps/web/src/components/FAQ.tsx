@@ -66,17 +66,15 @@ const faqs = [
 ];
 
 export function FAQ() {
-  const { language } = useLanguage();
+  const { t, language } = useLanguage();
   const [value, setValue] = useState("item-0");
-
-  const title = language === "ne" ? "प्रायः सोधिने प्रश्न" : language === "hi" ? "अक्सर पूछे जाने वाले प्रश्न" : "Frequently Asked Questions";
 
   return (
     <section className="py-24 md:py-32 px-6 md:px-12 bg-background">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-12">
-          <p className="text-secondary text-sm tracking-widest uppercase mb-4">{title}</p>
-          <h2 className="text-4xl md:text-5xl font-bold text-primary">{title}</h2>
+          <p className="text-secondary text-sm tracking-widest uppercase mb-4">{t("faq_eyebrow")}</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-primary">{t("faq_title")}</h2>
         </div>
 
         <Accordion type="single" collapsible value={value} onValueChange={setValue} className="rounded-2xl border border-border bg-card px-6 shadow-[0_16px_60px_rgba(0,0,0,0.08)]">

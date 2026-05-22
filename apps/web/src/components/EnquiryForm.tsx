@@ -226,7 +226,7 @@ export function EnquiryForm({ variant = "inline", triggerLabel }: EnquiryFormPro
 
   return (
     <div className="rounded-3xl border border-border bg-card p-6 shadow-[0_16px_60px_rgba(0,0,0,0.08)] md:p-8">
-      <div className="mb-6">
+      <div className="mb-6 mt-2 md:mt-3">
         <h3 className="text-2xl font-bold text-primary">{labels.title}</h3>
       </div>
       {form}

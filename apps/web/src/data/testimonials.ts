@@ -6,7 +6,7 @@ export interface Testimonial {
   rating: number;
   text: { ne: string; hi: string; en: string };
   date: string;
-  garmentOrdered: string;
+  garmentOrdered: { ne: string; hi: string; en: string };
 }
 
 export const testimonials: Testimonial[] = [
@@ -18,10 +18,10 @@ export const testimonials: Testimonial[] = [
     text: {
       ne: "मेरो विवाहको शेरवानी जति सुन्दर थियो, फिट पनि त्यतिकै परफेक्ट थियो। मौलबी जीको काम साँच्चै उत्कृष्ट छ।",
       hi: "मेरी शादी की शेरवानी जितनी सुंदर थी, फिट भी उतनी ही परफेक्ट थी। मौलवी जी का काम सच में बेहतरीन है।",
-      en: "My wedding sherwani was as beautiful as it was perfectly fitted. Maulvi ji's work is truly excellent.",
+      en: "My wedding sherwani was as beautiful as it was perfectly fitted. Molabi ji's work is truly excellent.",
     },
     date: "March 2025",
-    garmentOrdered: "Wedding Sherwani",
+    garmentOrdered: { ne: "विवाह शेरवानी", hi: "वेडिंग शेरवानी", en: "Wedding Sherwani" },
   },
   {
     id: "2",
@@ -34,7 +34,7 @@ export const testimonials: Testimonial[] = [
       en: "Our family has stitched here for years. Once they take your measurements, every garment fits beautifully.",
     },
     date: "January 2025",
-    garmentOrdered: "Coat-Pant",
+    garmentOrdered: { ne: "कोट-प्यान्ट", hi: "कोट-पेंट", en: "Coat-Pant" },
   },
   {
     id: "3",
@@ -47,6 +47,6 @@ export const testimonials: Testimonial[] = [
       en: "There is no better place in town for a safari suit. Fair price and royal quality.",
     },
     date: "December 2024",
-    garmentOrdered: "Safari Suit",
+    garmentOrdered: { ne: "सफारी सूट", hi: "सफारी सूट", en: "Safari Suit" },
   },
 ];
