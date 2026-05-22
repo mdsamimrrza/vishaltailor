@@ -110,12 +110,12 @@ export function Navbar({ links, onNavigate }: NavbarProps) {
               event.preventDefault();
               handleNavigate("#");
             }}
-            className="min-w-0 flex-1 whitespace-nowrap text-[clamp(0.8rem,3.5vw,1.1rem)] font-bold leading-none tracking-[0.18em] uppercase text-[#F5E6CA] transition-colors duration-300"
+            className="min-w-0 flex-1 lg:flex-none whitespace-nowrap text-sm lg:text-base xl:text-lg font-bold leading-none tracking-[0.12em] xl:tracking-[0.18em] uppercase text-[#F5E6CA] transition-colors duration-300"
           >
             {t("name")}
           </a>
 
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-4 xl:gap-8">
             {links.map((link) => {
               const active = isActive(link.href);
 
@@ -127,22 +127,13 @@ export function Navbar({ links, onNavigate }: NavbarProps) {
                     event.preventDefault();
                     handleNavigate(link.href);
                   }}
-                  className={`text-sm uppercase tracking-widest font-semibold transition-colors duration-300 ${active ? "text-[#C9A84C] underline underline-offset-8" : "text-white hover:text-[#F5E6CA]"}`}
+                  className={`text-xs xl:text-sm uppercase tracking-wider xl:tracking-widest font-semibold transition-colors duration-300 ${active ? "text-[#C9A84C] underline underline-offset-8" : "text-white hover:text-[#F5E6CA]"}`}
                 >
                   {link.label}
                 </a>
               );
             })}
-            <a
-              href="/developers"
-              onClick={(event) => {
-                event.preventDefault();
-                handleNavigate("/developers");
-              }}
-              className="text-sm uppercase tracking-widest font-semibold text-[#C9A84C] transition-colors duration-300 transform transition-transform hover:-translate-y-0.5 hover:scale-105 hover:text-[#F5E6CA] hover:underline hover:decoration-[#C9A84C]"
-            >
-              {t("developers")}
-            </a>
+
           </div>
 
           <div className="hidden lg:block">

@@ -236,7 +236,7 @@ export function EnquiryForm({ variant = "inline", triggerLabel }: EnquiryFormPro
 
 function Field({ label, hint, error, children }: { label: string; hint?: string; error?: string; children: React.ReactNode }) {
   return (
-    <label className="space-y-2 text-sm font-medium text-foreground">
+    <label className="block space-y-2 text-sm font-medium text-foreground w-full">
       <span className="block text-xs uppercase tracking-widest text-foreground/70">{label}</span>
       {children}
       {hint ? <span className="block text-xs text-foreground/60">{hint}</span> : null}

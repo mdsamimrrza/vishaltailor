@@ -300,7 +300,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-radial-[at_50%_35%] from-transparent via-transparent to-black/35" />
         </div>
 
-        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto mt-20">
+        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto mt-4 sm:mt-6 md:mt-8 lg:mt-10">
           <AnimatePresence mode="wait">
             <motion.div
               key={language}
@@ -309,17 +309,17 @@ export default function Home() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <h2 className="text-secondary text-lg md:text-2xl mb-4 tracking-[0.2em] uppercase">
+              <h2 className="text-secondary text-lg md:text-2xl mb-3 md:mb-4 tracking-[0.2em] uppercase">
                 {t("tagline")}
               </h2>
-              <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold text-primary-foreground mb-8 drop-shadow-lg leading-tight">
+              <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold text-primary-foreground mb-6 md:mb-8 drop-shadow-lg leading-none">
                 {t("name")}
               </h1>
               <p className="text-xl md:text-2xl text-primary-foreground font-light max-w-2xl mx-auto leading-relaxed drop-shadow-md">
                 {t("description")}
               </p>
 
-              <div className="mt-12 flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
+              <div className="mt-8 md:mt-12 flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
                 <a
                   href="#visit"
                   onClick={(event) => {
