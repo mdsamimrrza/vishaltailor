@@ -23,7 +23,7 @@ const PHONE_SECONDARY_TEL = "+9779812097433";
 
 export function Navbar({ links, onNavigate }: NavbarProps) {
   const { t, language } = useLanguage();
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   const scrollY = useScrollPosition();
   const [mobileOpen, setMobileOpen] = useState(false);
   const navbarRef = useRef<HTMLElement | null>(null);
@@ -96,7 +96,11 @@ export function Navbar({ links, onNavigate }: NavbarProps) {
   }, [activeHash, location]);
 
   const handleNavigate = (href: string) => {
-    onNavigate(href);
+    if (href.startsWith("#")) {
+      onNavigate(href);
+    } else {
+      setLocation(href);
+    }
     setMobileOpen(false);
   };
 
@@ -133,7 +137,16 @@ export function Navbar({ links, onNavigate }: NavbarProps) {
                 </a>
               );
             })}
-
+            <a
+              href="/developers"
+              onClick={(event) => {
+                event.preventDefault();
+                handleNavigate("/developers");
+              }}
+              className="text-xs xl:text-sm uppercase tracking-wider xl:tracking-widest font-semibold text-[#C9A84C] transition-colors duration-300 transform transition-transform hover:-translate-y-0.5 hover:scale-105 hover:text-[#F5E6CA] hover:underline hover:decoration-[#C9A84C]"
+            >
+              {t("developers")}
+            </a>
           </div>
 
           <div className="hidden lg:block">
