@@ -23,7 +23,11 @@ import {
   MessageCircle,
   Sparkles,
   ExternalLink,
+  Search,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
+import { catalogueItems, CatalogueItem } from "@/data/catalogue";
 
 const PHONE_PRIMARY = "+977 980-4833357";
 const PHONE_PRIMARY_TEL = "+9779804833357";
@@ -48,18 +52,39 @@ type GarmentGroup = {
   variants: GarmentVariant[];
 };
 
+const slideVariants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? "100%" : "-100%",
+    opacity: 0
+  }),
+  center: {
+    x: 0,
+    opacity: 1
+  },
+  exit: (direction: number) => ({
+    x: direction < 0 ? "100%" : "-100%",
+    opacity: 0
+  })
+};
+
 export default function Home() {
   const { t, language } = useLanguage();
 
   const [activeImage, setActiveImage] = useState<ImagePreview | null>(null);
   const [selectedVariantIndex, setSelectedVariantIndex] = useState<Record<string, number>>({});
 
+  // Custom Catalogue states (Beginner-friendly)
+  const [cataloguePage, setCataloguePage] = useState(1);
+  const [catalogueFilter, setCatalogueFilter] = useState("all");
+  const [catalogueSearch, setCatalogueSearch] = useState("");
+  const [selectedCatalogueItem, setSelectedCatalogueItem] = useState<CatalogueItem | null>(null);
+
   useEffect(() => {
-    document.body.style.overflow = activeImage ? "hidden" : "";
+    document.body.style.overflow = (activeImage || selectedCatalogueItem) ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [activeImage]);
+  }, [activeImage, selectedCatalogueItem]);
 
   useEffect(() => {
     if (!activeImage) {
@@ -76,6 +101,40 @@ export default function Home() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [activeImage]);
 
+
+
+  // Scroll spy to update active hash on scroll
+  useEffect(() => {
+    const sectionIds = ["hero", "craft", "garments", "catalogue", "fabrics", "process", "visit"];
+    
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 250; // offset to detect before hitting top of the section
+
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            const hash = id === "hero" ? "#" : `#${id}`;
+            if (window.location.hash !== hash && !(hash === "#" && !window.location.hash)) {
+              window.history.replaceState(null, "", hash);
+              window.dispatchEvent(new HashChangeEvent("hashchange"));
+            }
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    // Run once on load/mount
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const scrollToSection = (href: string) => {
     if (!href.startsWith("#")) {
       return;
@@ -89,6 +148,7 @@ export default function Home() {
     }
 
     window.history.replaceState(null, "", href);
+    window.dispatchEvent(new HashChangeEvent("hashchange"));
     window.scrollTo({
       top: target.offsetTop,
       behavior: "smooth",
@@ -98,6 +158,7 @@ export default function Home() {
   const navLinks = [
     { href: "#craft", label: t("nav_craft") },
     { href: "#garments", label: t("nav_garments") },
+    { href: "#catalogue", label: t("nav_catalogue") },
     { href: "#fabrics", label: t("nav_fabrics") },
     { href: "#process", label: t("nav_process") },
     { href: "#visit", label: t("nav_visit") },
@@ -212,6 +273,84 @@ export default function Home() {
     return `https://wa.me/9779804833357?text=${encodeURIComponent(message)}`;
   };
 
+  // 1. Filter catalogue items based on category and search keyword (Beginner-friendly)
+  const filteredCatalogueItems = catalogueItems.filter((item) => {
+    // Category check
+    if (catalogueFilter !== "all" && item.category !== catalogueFilter) {
+      return false;
+    }
+
+    // Search check (case-insensitive search in English, Nepali, and Hindi titles/descriptions/tags)
+    if (catalogueSearch.trim() !== "") {
+      const keyword = catalogueSearch.toLowerCase();
+      
+      const inEn = item.nameEn.toLowerCase().includes(keyword) || item.descEn.toLowerCase().includes(keyword) || item.tagsEn.some(t => t.toLowerCase().includes(keyword)) || item.colorEn.toLowerCase().includes(keyword) || item.fabricEn.toLowerCase().includes(keyword) || item.fitEn.toLowerCase().includes(keyword);
+      const inNe = item.nameNe.toLowerCase().includes(keyword) || item.descNe.toLowerCase().includes(keyword) || item.tagsNe.some(t => t.toLowerCase().includes(keyword)) || item.colorNe.toLowerCase().includes(keyword) || item.fabricNe.toLowerCase().includes(keyword) || item.fitNe.toLowerCase().includes(keyword);
+      const inHi = item.nameHi.toLowerCase().includes(keyword) || item.descHi.toLowerCase().includes(keyword) || item.tagsHi.some(t => t.toLowerCase().includes(keyword)) || item.colorHi.toLowerCase().includes(keyword) || item.fabricHi.toLowerCase().includes(keyword) || item.fitHi.toLowerCase().includes(keyword);
+      
+      return inEn || inNe || inHi;
+    }
+
+    return true;
+  });
+
+  // 2. Pagination calculation (6 items per page)
+  const itemsPerPage = 6;
+  const totalCataloguePages = Math.max(1, Math.ceil(filteredCatalogueItems.length / itemsPerPage));
+  
+  // Safeguard page bounds
+  const currentPage = Math.min(cataloguePage, totalCataloguePages);
+  
+  // Get items for the current page
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedCatalogueItems = filteredCatalogueItems.slice(startIndex, endIndex);
+
+  // Generate WhatsApp inquiry link for catalogue items
+  const getCatalogueQuoteLink = (item: CatalogueItem) => {
+    const name = language === "ne" ? item.nameNe : language === "hi" ? item.nameHi : item.nameEn;
+    const message = `Hi New Vishal Tailors, I am interested in your custom catalogue design: ${name} (Design ID: ${item.id}). Could you please share more details about pricing and fabric options?`;
+    return `https://wa.me/9779804833357?text=${encodeURIComponent(message)}`;
+  };
+  const [slideDirection, setSlideDirection] = useState<number>(0);
+
+  const goToPrevItem = () => {
+    if (!selectedCatalogueItem || filteredCatalogueItems.length <= 1) return;
+    const currentIndex = filteredCatalogueItems.findIndex(item => item.id === selectedCatalogueItem.id);
+    if (currentIndex === -1) return;
+    const prevIndex = (currentIndex - 1 + filteredCatalogueItems.length) % filteredCatalogueItems.length;
+    setSlideDirection(-1);
+    setSelectedCatalogueItem(filteredCatalogueItems[prevIndex]);
+  };
+
+  const goToNextItem = () => {
+    if (!selectedCatalogueItem || filteredCatalogueItems.length <= 1) return;
+    const currentIndex = filteredCatalogueItems.findIndex(item => item.id === selectedCatalogueItem.id);
+    if (currentIndex === -1) return;
+    const nextIndex = (currentIndex + 1) % filteredCatalogueItems.length;
+    setSlideDirection(1);
+    setSelectedCatalogueItem(filteredCatalogueItems[nextIndex]);
+  };
+
+  useEffect(() => {
+    if (!selectedCatalogueItem) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setSelectedCatalogueItem(null);
+      } else if (event.key === "ArrowLeft") {
+        goToPrevItem();
+      } else if (event.key === "ArrowRight") {
+        goToNextItem();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedCatalogueItem, filteredCatalogueItems]);
+
   return (
     <div className="min-h-screen bg-background selection:bg-secondary selection:text-secondary-foreground">
       <AnimatePresence>
@@ -255,12 +394,158 @@ export default function Home() {
             </div>
           </motion.div>
         )}
+        {selectedCatalogueItem && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-100 bg-black/95 backdrop-blur-md overflow-hidden p-6 md:p-12 flex flex-col h-screen w-screen"
+          >
+            {/* Top Bar with Back Button and Shop Title */}
+            <div className="flex items-center justify-between gap-4 z-20 mb-4 md:mb-6 shrink-0">
+              <button
+                type="button"
+                onClick={() => setSelectedCatalogueItem(null)}
+                className="inline-flex items-center gap-1.5 md:gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 md:px-5 md:py-3 text-xs md:text-sm font-semibold uppercase tracking-[0.15em] md:tracking-[0.2em] text-white transition-colors hover:bg-white hover:text-primary shadow-lg cursor-pointer"
+              >
+                <ArrowLeft size={18} />
+                Back
+              </button>
+
+              <span className="text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.2em] md:tracking-[0.25em] text-[#C9A84C] font-bold text-right leading-tight max-w-[60%] sm:max-w-none">
+                {t("catalogue_signature_branding")}
+              </span>
+            </div>
+
+            {/* Content Split Layout */}
+            <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center justify-start lg:justify-center max-w-7xl mx-auto w-full flex-1 overflow-y-auto lg:overflow-hidden min-h-0 pr-1 select-none lg:select-text">
+              {/* Left Column - Full Image (no crop, contain aspect ratio) */}
+              <div className="w-full lg:w-1/2 h-[35vh] sm:h-[45vh] lg:h-full flex items-center justify-center relative shrink-0 min-h-0">
+                <div className="relative h-full w-full max-h-full max-w-full flex items-center justify-center shadow-2xl border border-white/10 bg-black/40 overflow-hidden">
+                  {/* Left Navigation Button */}
+                  {filteredCatalogueItems.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={goToPrevItem}
+                      className="absolute left-3 md:left-6 z-20 rounded-full border border-white/20 bg-black/60 p-2.5 md:p-3.5 text-white transition-all hover:bg-white hover:text-primary hover:scale-110 active:scale-95 cursor-pointer shadow-lg select-none"
+                      aria-label="Previous design"
+                    >
+                      <ChevronLeft size={20} className="md:w-6 md:h-6" />
+                    </button>
+                  )}
+
+                  {/* Right Navigation Button */}
+                  {filteredCatalogueItems.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={goToNextItem}
+                      className="absolute right-3 md:right-6 z-20 rounded-full border border-white/20 bg-black/60 p-2.5 md:p-3.5 text-white transition-all hover:bg-white hover:text-primary hover:scale-110 active:scale-95 cursor-pointer shadow-lg select-none"
+                      aria-label="Next design"
+                    >
+                      <ChevronRight size={20} className="md:w-6 md:h-6" />
+                    </button>
+                  )}
+
+                  <AnimatePresence mode="wait" custom={slideDirection}>
+                    <motion.div
+                      key={selectedCatalogueItem.id}
+                      custom={slideDirection}
+                      variants={slideVariants}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                      transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
+                      className="w-full h-full flex items-center justify-center p-4 relative"
+                    >
+                      <img
+                        src={selectedCatalogueItem.image}
+                        alt={language === "ne" ? selectedCatalogueItem.nameNe : language === "hi" ? selectedCatalogueItem.nameHi : selectedCatalogueItem.nameEn}
+                        className="max-h-full max-w-full object-contain"
+                        width={800}
+                        height={800}
+                        loading="eager"
+                      />
+                      {/* Design Code overlay badge */}
+                      <div className="absolute bottom-4 right-4 bg-black/85 border border-white/15 text-white text-xs font-mono px-3 py-1 z-10">
+                        {selectedCatalogueItem.id}
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+              </div>
+
+              {/* Right Column - Details */}
+              <div className="w-full lg:w-5/12 text-white flex-1 lg:h-full flex flex-col justify-start lg:justify-center pr-2 min-h-0 relative">
+                <AnimatePresence mode="wait" custom={slideDirection}>
+                  <motion.div
+                    key={selectedCatalogueItem.id}
+                    custom={slideDirection}
+                    variants={slideVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
+                    className="py-2 w-full lg:h-full flex flex-col justify-start lg:justify-center"
+                  >
+                    <span className="text-[10px] md:text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-bold font-mono">
+                      {selectedCatalogueItem.id}
+                    </span>
+                    <h3 className="text-xl sm:text-2xl md:text-4xl font-black text-white mt-1 mb-2 md:mb-4 drop-shadow-md leading-tight">
+                      {language === "ne" ? selectedCatalogueItem.nameNe : language === "hi" ? selectedCatalogueItem.nameHi : selectedCatalogueItem.nameEn}
+                    </h3>
+                    
+                    <p className="text-xs sm:text-sm md:text-base text-white/80 leading-relaxed font-light mb-4 md:mb-6 line-clamp-3 sm:line-clamp-none">
+                      {language === "ne" ? selectedCatalogueItem.descNe : language === "hi" ? selectedCatalogueItem.descHi : selectedCatalogueItem.descEn}
+                    </p>
+
+                    {/* Specifications Grid */}
+                    <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 md:gap-y-3 border-t border-white/10 pt-3 md:pt-4 mb-4 md:mb-6 text-[11px] sm:text-xs md:text-sm">
+                      <span className="text-[#C9A84C] font-bold">{t("catalogue_fit")}</span>
+                      <span className="text-white/90">{language === "ne" ? selectedCatalogueItem.fitNe : language === "hi" ? selectedCatalogueItem.fitHi : selectedCatalogueItem.fitEn}</span>
+
+                      <span className="text-[#C9A84C] font-bold">{t("catalogue_fabric")}</span>
+                      <span className="text-white/90">{language === "ne" ? selectedCatalogueItem.fabricNe : language === "hi" ? selectedCatalogueItem.fabricHi : selectedCatalogueItem.fabricEn}</span>
+
+                      <span className="text-[#C9A84C] font-bold">{t("catalogue_color")}</span>
+                      <span className="text-white/90">{language === "ne" ? selectedCatalogueItem.colorNe : language === "hi" ? selectedCatalogueItem.colorHi : selectedCatalogueItem.colorEn}</span>
+                    </div>
+
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-1.5 md:gap-2 mb-4 md:mb-6">
+                      {(language === "ne" ? selectedCatalogueItem.tagsNe : language === "hi" ? selectedCatalogueItem.tagsHi : selectedCatalogueItem.tagsEn).map((tag, idx) => (
+                        <span key={idx} className="bg-white/5 border border-white/15 px-2.5 py-0.5 text-[9px] sm:text-[10px] md:text-xs text-white/80 uppercase tracking-widest">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* WhatsApp Action */}
+                    <div className="pt-3 md:pt-4 border-t border-white/10">
+                      <p className="text-[9px] sm:text-[10px] md:text-xs italic text-[#C9A84C] mb-2 md:mb-3 font-sans font-semibold">
+                        * {t("catalogue_master_recommends")} Hand-measured & custom stitched.
+                      </p>
+                      <a
+                        href={getCatalogueQuoteLink(selectedCatalogueItem)}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex w-full items-center justify-center gap-3 bg-secondary text-secondary-foreground font-extrabold py-2.5 md:py-3.5 text-xs md:text-sm uppercase tracking-[0.15em] hover:bg-secondary/90 transition-colors shadow-lg"
+                      >
+                        {t("catalogue_inquire_whatsapp")}
+                      </a>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </div>
+          </motion.div>
+        )}
       </AnimatePresence>
 
       <Navbar links={navLinks} onNavigate={scrollToSection} />
 
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-[#3b0c0c]">
+      <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden bg-[#3b0c0c]">
         <div className="absolute inset-0 z-0">
           <motion.div
             initial={{ scale: 1.1 }}
@@ -603,6 +888,181 @@ export default function Home() {
               );
             })}
           </div>
+        </div>
+      </section>
+
+      {/* Custom Catalogue Section */}
+      <section id="catalogue" className="py-24 md:py-32 bg-background text-foreground relative overflow-hidden border-t border-border">
+        <div className="absolute inset-0 opacity-5 bg-[url('/images/fabric.png')] bg-cover mix-blend-overlay pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+          <div className="text-center mb-12">
+            <p className="text-secondary text-sm tracking-widest uppercase mb-4 font-bold">
+              {t("catalogue_eyebrow")}
+            </p>
+            <SectionHeader title={t("catalogue_title")} centered={true} />
+            <p className="text-foreground/80 text-lg mt-4 max-w-2xl mx-auto">
+              {t("catalogue_subtitle")}
+            </p>
+          </div>
+
+          {/* Search and Filter Controls */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10 pb-6 border-b border-border">
+            {/* Filter Tabs */}
+            <div className="flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setCatalogueFilter("all");
+                  setCataloguePage(1);
+                }}
+                className={`px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-colors border rounded-none ${catalogueFilter === "all" ? "bg-primary text-primary-foreground border-primary" : "bg-transparent text-primary border-primary/20 hover:border-primary"}`}
+              >
+                {t("catalogue_all")}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setCatalogueFilter("coatpant");
+                  setCataloguePage(1);
+                }}
+                className={`px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-colors border rounded-none ${catalogueFilter === "coatpant" ? "bg-primary text-primary-foreground border-primary" : "bg-transparent text-primary border-primary/20 hover:border-primary"}`}
+              >
+                {t("catalogue_coatpant")}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setCatalogueFilter("sherwani");
+                  setCataloguePage(1);
+                }}
+                className={`px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-colors border rounded-none ${catalogueFilter === "sherwani" ? "bg-primary text-primary-foreground border-primary" : "bg-transparent text-primary border-primary/20 hover:border-primary"}`}
+              >
+                {t("catalogue_sherwani")}
+              </button>
+            </div>
+
+            {/* Search Input */}
+            <div className="relative w-full md:max-w-xs">
+              <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-foreground/50">
+                <Search size={16} />
+              </span>
+              <input
+                type="text"
+                value={catalogueSearch}
+                onChange={(e) => {
+                  setCatalogueSearch(e.target.value);
+                  setCataloguePage(1);
+                }}
+                placeholder={t("catalogue_search_placeholder")}
+                className="w-full pl-10 pr-4 py-2.5 bg-white border border-border text-foreground placeholder-foreground/40 text-xs rounded-none outline-none focus:border-secondary transition-colors"
+              />
+            </div>
+          </div>
+
+          {/* Catalogue Grid */}
+          {paginatedCatalogueItems.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {paginatedCatalogueItems.map((item) => {
+                const name = language === "ne" ? item.nameNe : language === "hi" ? item.nameHi : item.nameEn;
+                const desc = language === "ne" ? item.descNe : language === "hi" ? item.descHi : item.descEn;
+                
+                return (
+                  <div
+                    key={item.id}
+                    onClick={() => setSelectedCatalogueItem(item)}
+                    className="group relative flex flex-col bg-card border border-border overflow-hidden hover:shadow-2xl hover:border-secondary/50 transition-all duration-500 shadow-lg cursor-pointer"
+                  >
+                    <div className="relative aspect-square overflow-hidden bg-black/5">
+                      <img
+                        src={item.image}
+                        alt={name}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100"
+                        width={400}
+                        height={400}
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-linear-to-t from-card via-transparent to-black/10 opacity-30" />
+                      
+                      {/* Shop signature watermark on list view */}
+                      <div className="absolute top-3 left-3 bg-primary text-primary-foreground text-[10px] font-black uppercase tracking-widest px-2.5 py-1 shadow-md">
+                        {t("catalogue_signature_branding")}
+                      </div>
+ 
+                      {/* Design Code Badge */}
+                      <div className="absolute bottom-3 right-3 bg-white/95 border border-border text-primary text-xs font-mono font-bold px-2.5 py-1 shadow-xs">
+                        {item.id}
+                      </div>
+                    </div>
+ 
+                    <div className="p-6 flex-1 flex flex-col justify-between">
+                      <div>
+                        <h4 className="text-lg md:text-xl font-bold text-primary group-hover:text-secondary transition-colors line-clamp-2 leading-tight">
+                          {name}
+                        </h4>
+                        <p className="mt-3 text-sm text-foreground/80 line-clamp-3 leading-relaxed">
+                          {desc}
+                        </p>
+                      </div>
+ 
+                      <div className="mt-6 pt-4 border-t border-border flex items-center justify-between">
+                        <span className="text-xs text-foreground/50 font-bold tracking-wider uppercase">
+                          {item.category === "coatpant" ? t("garments_coatpant") : t("garments_sherwani")}
+                        </span>
+                        <span className="text-xs text-secondary font-bold hover:text-primary transition-colors hover:underline">
+                          View details &rarr;
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="text-center py-16 bg-card border border-border">
+              <p className="text-foreground/60 text-sm">{t("catalogue_no_results")}</p>
+            </div>
+          )}
+
+          {/* Pagination Controls */}
+          {totalCataloguePages > 1 && (
+            <div className="mt-12 pt-6 border-t border-border flex flex-wrap items-center justify-center gap-2">
+              {/* Previous Button */}
+              <button
+                type="button"
+                disabled={currentPage === 1}
+                onClick={() => setCataloguePage((p) => Math.max(1, p - 1))}
+                className="px-3 py-2 border border-border text-xs font-bold text-primary hover:border-secondary hover:text-secondary disabled:opacity-30 disabled:text-foreground/40 disabled:hover:border-border transition-colors rounded-none"
+              >
+                &larr; Prev
+              </button>
+
+              {/* Page Number Buttons */}
+              {Array.from({ length: totalCataloguePages }).map((_, index) => {
+                const pageNumber = index + 1;
+                return (
+                  <button
+                    key={pageNumber}
+                    type="button"
+                    onClick={() => setCataloguePage(pageNumber)}
+                    className={`h-9 w-9 text-xs font-bold transition-colors border rounded-none ${currentPage === pageNumber ? "bg-primary text-primary-foreground border-primary" : "bg-transparent text-primary border-border hover:border-secondary hover:text-secondary"}`}
+                  >
+                    {pageNumber}
+                  </button>
+                );
+              })}
+
+              {/* Next Button */}
+              <button
+                type="button"
+                disabled={currentPage === totalCataloguePages}
+                onClick={() => setCataloguePage((p) => Math.min(totalCataloguePages, p + 1))}
+                className="px-3 py-2 border border-border text-xs font-bold text-primary hover:border-secondary hover:text-secondary disabled:opacity-30 disabled:text-foreground/40 disabled:hover:border-border transition-colors rounded-none"
+              >
+                Next &rarr;
+              </button>
+            </div>
+          )}
         </div>
       </section>
 

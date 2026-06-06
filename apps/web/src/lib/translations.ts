@@ -152,7 +152,26 @@ export const translations: TranslationDictionary = {
 
     // FAQ
     faq_eyebrow: "जिज्ञासा निवारण",
-    faq_title: "प्रायः सोधिने प्रश्न"
+    faq_title: "प्रायः सोधिने प्रश्न",
+
+    // Catalogue
+    nav_catalogue: "डिजाइन क्याटलग",
+    catalogue_eyebrow: "हस्तनिर्मित क्याटलग",
+    catalogue_title: "कस्टम डिजाइन क्याटलग",
+    catalogue_subtitle: "न्यू विशाल टेलर्सद्वारा विशेष रूपमा डिजाइन र नापमा सिलाइएका ६० उत्कृष्ट कस्टमाइज्ड परिधानहरू।",
+    catalogue_search_placeholder: "डिजाइन नाम, रङ, कपडा वा फिट खोज्नुहोस्...",
+    catalogue_all: "सबै संग्रह",
+    catalogue_coatpant: "कोट-पेन्ट",
+    catalogue_sherwani: "शेरवानी",
+    catalogue_page: "पृष्ठ",
+    catalogue_of: "को",
+    catalogue_no_results: "तपाईंको खोजीसँग मिल्दो कुनै पनि डिजाइन भेटिएन।",
+    catalogue_inquire_whatsapp: "व्हाट्सएपमा सोधपुछ गर्नुहोस्",
+    catalogue_signature_branding: "न्यू विशाल टेलर्स सिग्नेचर",
+    catalogue_master_recommends: "मास्टरको सिफारिस:",
+    catalogue_fit: "फिट:",
+    catalogue_fabric: "कपडा:",
+    catalogue_color: "रङ:"
   },
   hi: {
     // Core details
@@ -299,7 +318,26 @@ export const translations: TranslationDictionary = {
 
     // FAQ
     faq_eyebrow: "जिज्ञासा निवारण",
-    faq_title: "अक्सर पूछे जाने वाले प्रश्न"
+    faq_title: "अक्सर पूछे जाने वाले प्रश्न",
+
+    // Catalogue
+    nav_catalogue: "डिज़ाइन कैटलॉग",
+    catalogue_eyebrow: "हस्तनिर्मित कैटलॉग",
+    catalogue_title: "कस्टम डिज़ाइन कैटलॉग",
+    catalogue_subtitle: "न्यू विशाल टेलर्स द्वारा विशेष रूप से डिजाइन और नाप पर सिले गए 60 उत्कृष्ट कस्टमाइज्ड परिधान।",
+    catalogue_search_placeholder: "डिज़ाइन का नाम, रंग, कपड़ा या फिट खोजें...",
+    catalogue_all: "सभी संग्रह",
+    catalogue_coatpant: "कोट-पैंट",
+    catalogue_sherwani: "शेरवानी",
+    catalogue_page: "प्रष्ठ",
+    catalogue_of: "का",
+    catalogue_no_results: "आपकी खोज से मेल खाता कोई डिज़ाइन नहीं मिला।",
+    catalogue_inquire_whatsapp: "व्हाट्सएप पर पूछताछ करें",
+    catalogue_signature_branding: "न्यू विशाल टेलर्स सिग्नेचर",
+    catalogue_master_recommends: "मास्टर की सिफारिश:",
+    catalogue_fit: "फिट:",
+    catalogue_fabric: "कपड़ा:",
+    catalogue_color: "रंग:"
   },
   en: {
     // Core details
@@ -446,6 +484,25 @@ export const translations: TranslationDictionary = {
 
     // FAQ
     faq_eyebrow: "Support & FAQ",
-    faq_title: "Frequently Asked Questions"
+    faq_title: "Frequently Asked Questions",
+
+    // Catalogue
+    nav_catalogue: "Design Catalogue",
+    catalogue_eyebrow: "Bespoke Catalogue",
+    catalogue_title: "Our Custom Catalogue",
+    catalogue_subtitle: "Explore 60 bespoke designs, crafted and signature-tailored to your exact measurements by New Vishal Tailors.",
+    catalogue_search_placeholder: "Search designs, colors, fabrics, or fits...",
+    catalogue_all: "All Designs",
+    catalogue_coatpant: "Coat-Pant Collection",
+    catalogue_sherwani: "Sherwani Collection",
+    catalogue_page: "Page",
+    catalogue_of: "of",
+    catalogue_no_results: "No designs found matching your search query.",
+    catalogue_inquire_whatsapp: "Inquire on WhatsApp",
+    catalogue_signature_branding: "New Vishal Tailors Signature",
+    catalogue_master_recommends: "Master's Recommendation:",
+    catalogue_fit: "Fit:",
+    catalogue_fabric: "Fabric:",
+    catalogue_color: "Color:"
   }
 };
