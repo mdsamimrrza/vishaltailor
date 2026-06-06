@@ -555,10 +555,7 @@ export default function Home() {
                         <h3 className="text-2xl md:text-3xl font-bold text-white drop-shadow-md">
                           {t(garment.titleKey)}
                         </h3>
-                        <p className="mt-2 text-sm font-semibold text-secondary">
-                          {t(selectedVariant.priceKey)}
-                        </p>
-                        <p className="mt-1 text-xs uppercase tracking-[0.2em] text-white/80">
+                        <p className="mt-2 text-xs uppercase tracking-[0.2em] text-white/80">
                           {t(selectedVariant.deliveryKey)}
                         </p>
                         <p className="mt-4 text-sm leading-relaxed text-white/85">

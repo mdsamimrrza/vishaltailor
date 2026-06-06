@@ -137,16 +137,6 @@ export function Navbar({ links, onNavigate }: NavbarProps) {
                 </a>
               );
             })}
-            <a
-              href="/developers"
-              onClick={(event) => {
-                event.preventDefault();
-                handleNavigate("/developers");
-              }}
-              className="text-xs xl:text-sm uppercase tracking-wider xl:tracking-widest font-semibold text-[#C9A84C] transition-colors duration-300 transform transition-transform hover:-translate-y-0.5 hover:scale-105 hover:text-[#F5E6CA] hover:underline hover:decoration-[#C9A84C]"
-            >
-              {t("developers")}
-            </a>
           </div>
 
           <div className="hidden lg:block">
