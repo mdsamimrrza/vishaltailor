@@ -466,147 +466,146 @@ export default function Home() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-100 bg-black/95 backdrop-blur-md overflow-y-auto lg:overflow-hidden p-6 md:p-12 flex flex-col lg:h-screen w-screen"
+            className="fixed inset-0 z-100 bg-[#0d0d0d] flex flex-col lg:flex-row lg:overflow-hidden w-screen h-screen"
           >
-            {/* Top Bar with Back Button and Shop Title */}
-            <div className="flex items-center justify-between gap-4 z-20 mb-4 md:mb-6 shrink-0">
-              <button
-                type="button"
-                onClick={() => setSelectedCatalogueItem(null)}
-                className="inline-flex items-center gap-1.5 md:gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 md:px-5 md:py-3 text-xs md:text-sm font-semibold uppercase tracking-[0.15em] md:tracking-[0.2em] text-white transition-colors hover:bg-white hover:text-primary shadow-lg cursor-pointer"
-              >
-                <ArrowLeft size={18} />
-                Back
-              </button>
+            {/* ── MOBILE / TABLET: top image, bottom content ── */}
+            {/* ── DESKTOP: left image, right content ── */}
 
-              <span className="text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.2em] md:tracking-[0.25em] text-[#C9A84C] font-bold text-right leading-tight max-w-[60%] sm:max-w-none">
-                {t("catalogue_signature_branding")}
-              </span>
+            {/* Image Panel */}
+            <div className="relative w-full lg:w-1/2 h-[45vh] lg:h-full shrink-0 overflow-hidden bg-black">
+              {/* Prev / Next nav */}
+              {filteredCatalogueItems.length > 1 && (
+                <button
+                  type="button"
+                  onClick={goToPrevItem}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 z-20 rounded-full border border-white/20 bg-black/60 p-2.5 text-white transition-all hover:bg-white hover:text-primary hover:scale-110 active:scale-95 cursor-pointer shadow-lg"
+                  aria-label="Previous design"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+              )}
+              {filteredCatalogueItems.length > 1 && (
+                <button
+                  type="button"
+                  onClick={goToNextItem}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 z-20 rounded-full border border-white/20 bg-black/60 p-2.5 text-white transition-all hover:bg-white hover:text-primary hover:scale-110 active:scale-95 cursor-pointer shadow-lg"
+                  aria-label="Next design"
+                >
+                  <ChevronRight size={20} />
+                </button>
+              )}
+
+              <AnimatePresence mode="wait" custom={slideDirection}>
+                <motion.img
+                  key={selectedCatalogueItem.id}
+                  custom={slideDirection}
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
+                  src={selectedCatalogueItem.image}
+                  alt={language === "ne" ? selectedCatalogueItem.nameNe : language === "hi" ? selectedCatalogueItem.nameHi : selectedCatalogueItem.nameEn}
+                  className="absolute inset-0 w-full h-full object-contain object-center cursor-zoom-in"
+                  width={800}
+                  height={800}
+                  loading="eager"
+                  onClick={() => openImage(
+                    selectedCatalogueItem.image,
+                    language === "ne" ? selectedCatalogueItem.nameNe : language === "hi" ? selectedCatalogueItem.nameHi : selectedCatalogueItem.nameEn
+                  )}
+                />
+              </AnimatePresence>
+
+              {/* Bottom gradient fade into content */}
+              <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#0d0d0d] to-transparent pointer-events-none lg:hidden" />
+
+              {/* Top bar: back + branding */}
+              <div className="absolute top-0 inset-x-0 z-30 flex items-center justify-between px-4 pt-4 pb-2 bg-gradient-to-b from-black/80 to-transparent">
+                <button
+                  type="button"
+                  onClick={() => setSelectedCatalogueItem(null)}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/50 backdrop-blur-sm px-4 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white transition-colors hover:bg-white hover:text-primary shadow-lg cursor-pointer"
+                >
+                  <ArrowLeft size={16} />
+                  Back
+                </button>
+                <span className="text-[10px] uppercase tracking-[0.18em] text-[#C9A84C] font-bold text-right leading-tight max-w-[55%]">
+                  {t("catalogue_signature_branding")}
+                </span>
+              </div>
+
+              {/* Design code badge */}
+              <div className="absolute bottom-3 right-3 z-20 bg-black/80 border border-white/15 text-white text-[10px] font-mono px-2.5 py-1">
+                {selectedCatalogueItem.id}
+              </div>
             </div>
 
-            {/* Content Split Layout */}
-            <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center justify-start lg:justify-center max-w-7xl mx-auto w-full lg:flex-1 lg:overflow-hidden lg:min-h-0 pr-1 select-none lg:select-text">
-              {/* Left Column - Full Image (no crop, contain aspect ratio) */}
-              <div className="w-full lg:w-1/2 h-[55vh] md:h-[65vh] lg:h-full flex items-center justify-center relative shrink-0">
-                <div className="relative h-full w-full max-h-full max-w-full flex items-center justify-center shadow-2xl border border-white/10 bg-black/40 overflow-hidden">
-                  {/* Left Navigation Button */}
-                  {filteredCatalogueItems.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={goToPrevItem}
-                      className="absolute left-3 md:left-6 z-20 rounded-full border border-white/20 bg-black/60 p-2.5 md:p-3.5 text-white transition-all hover:bg-white hover:text-primary hover:scale-110 active:scale-95 cursor-pointer shadow-lg select-none"
-                      aria-label="Previous design"
-                    >
-                      <ChevronLeft size={20} className="md:w-6 md:h-6" />
-                    </button>
-                  )}
+            {/* Content Panel */}
+            <div className="w-full lg:w-5/12 flex-1 overflow-y-auto lg:overflow-y-auto text-white flex flex-col">
+              <AnimatePresence mode="wait" custom={slideDirection}>
+                <motion.div
+                  key={selectedCatalogueItem.id}
+                  custom={slideDirection}
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
+                  className="flex flex-col flex-1 px-5 pt-4 pb-8 md:px-8 md:pt-6 lg:px-10 lg:py-12 lg:justify-center"
+                >
+                  {/* ID eyebrow — hidden on mobile (shown on image instead) */}
+                  <span className="hidden lg:block text-[10px] uppercase tracking-[0.2em] text-[#C9A84C] font-bold font-mono mb-1">
+                    {selectedCatalogueItem.id}
+                  </span>
 
-                  {/* Right Navigation Button */}
-                  {filteredCatalogueItems.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={goToNextItem}
-                      className="absolute right-3 md:right-6 z-20 rounded-full border border-white/20 bg-black/60 p-2.5 md:p-3.5 text-white transition-all hover:bg-white hover:text-primary hover:scale-110 active:scale-95 cursor-pointer shadow-lg select-none"
-                      aria-label="Next design"
-                    >
-                      <ChevronRight size={20} className="md:w-6 md:h-6" />
-                    </button>
-                  )}
+                  {/* Title */}
+                  <h3 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-black text-white mt-0 mb-2 leading-tight">
+                    {language === "ne" ? selectedCatalogueItem.nameNe : language === "hi" ? selectedCatalogueItem.nameHi : selectedCatalogueItem.nameEn}
+                  </h3>
 
-                  <AnimatePresence mode="wait" custom={slideDirection}>
-                    <motion.div
-                      key={selectedCatalogueItem.id}
-                      custom={slideDirection}
-                      variants={slideVariants}
-                      initial="enter"
-                      animate="center"
-                      exit="exit"
-                      transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
-                      className="w-full h-full flex items-center justify-center p-4 relative"
-                    >
-                      <img
-                        src={selectedCatalogueItem.image}
-                        alt={language === "ne" ? selectedCatalogueItem.nameNe : language === "hi" ? selectedCatalogueItem.nameHi : selectedCatalogueItem.nameEn}
-                        className="w-full h-full object-contain cursor-zoom-in hover:opacity-90 transition-opacity"
-                        width={800}
-                        height={800}
-                        loading="eager"
-                        onClick={() => openImage(
-                          selectedCatalogueItem.image,
-                          language === "ne" ? selectedCatalogueItem.nameNe : language === "hi" ? selectedCatalogueItem.nameHi : selectedCatalogueItem.nameEn
-                        )}
-                      />
-                      {/* Design Code overlay badge */}
-                      <div className="absolute bottom-4 right-4 bg-black/85 border border-white/15 text-white text-xs font-mono px-3 py-1 z-10">
-                        {selectedCatalogueItem.id}
-                      </div>
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-              </div>
+                  {/* Description */}
+                  <p className="text-sm md:text-base text-white/75 leading-relaxed font-light mb-5">
+                    {language === "ne" ? selectedCatalogueItem.descNe : language === "hi" ? selectedCatalogueItem.descHi : selectedCatalogueItem.descEn}
+                  </p>
 
-              {/* Right Column - Details */}
-              <div className="w-full lg:w-5/12 text-white lg:flex-1 lg:h-full flex flex-col justify-start lg:justify-center pr-2 lg:min-h-0 relative">
-                <AnimatePresence mode="wait" custom={slideDirection}>
-                  <motion.div
-                    key={selectedCatalogueItem.id}
-                    custom={slideDirection}
-                    variants={slideVariants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
-                    className="py-2 w-full lg:h-full flex flex-col justify-start lg:justify-center"
-                  >
-                    <span className="text-[10px] md:text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-bold font-mono">
-                      {selectedCatalogueItem.id}
-                    </span>
-                    <h3 className="text-xl sm:text-2xl md:text-4xl font-black text-white mt-1 mb-2 md:mb-4 drop-shadow-md leading-tight">
-                      {language === "ne" ? selectedCatalogueItem.nameNe : language === "hi" ? selectedCatalogueItem.nameHi : selectedCatalogueItem.nameEn}
-                    </h3>
-                    
-                    <p className="text-xs sm:text-sm md:text-base text-white/80 leading-relaxed font-light mb-4 md:mb-6 line-clamp-3 sm:line-clamp-none">
-                      {language === "ne" ? selectedCatalogueItem.descNe : language === "hi" ? selectedCatalogueItem.descHi : selectedCatalogueItem.descEn}
+                  {/* Specifications */}
+                  <div className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-2 border-t border-white/10 pt-4 mb-5 text-sm">
+                    <span className="text-[#C9A84C] font-bold">{t("catalogue_fit")}</span>
+                    <span className="text-white/90">{language === "ne" ? selectedCatalogueItem.fitNe : language === "hi" ? selectedCatalogueItem.fitHi : selectedCatalogueItem.fitEn}</span>
+
+                    <span className="text-[#C9A84C] font-bold">{t("catalogue_fabric")}</span>
+                    <span className="text-white/90">{language === "ne" ? selectedCatalogueItem.fabricNe : language === "hi" ? selectedCatalogueItem.fabricHi : selectedCatalogueItem.fabricEn}</span>
+
+                    <span className="text-[#C9A84C] font-bold">{t("catalogue_color")}</span>
+                    <span className="text-white/90">{language === "ne" ? selectedCatalogueItem.colorNe : language === "hi" ? selectedCatalogueItem.colorHi : selectedCatalogueItem.colorEn}</span>
+                  </div>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {(language === "ne" ? selectedCatalogueItem.tagsNe : language === "hi" ? selectedCatalogueItem.tagsHi : selectedCatalogueItem.tagsEn).map((tag, idx) => (
+                      <span key={idx} className="bg-white/5 border border-white/15 px-3 py-1 text-[10px] text-white/80 uppercase tracking-widest">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* CTA — pinned to bottom via mt-auto */}
+                  <div className="mt-auto border-t border-white/10 pt-4">
+                    <p className="text-[10px] italic text-[#C9A84C] mb-3 font-semibold">
+                      * {t("catalogue_master_recommends")} Hand-measured &amp; custom stitched.
                     </p>
-
-                    {/* Specifications Grid */}
-                    <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 md:gap-y-3 border-t border-white/10 pt-3 md:pt-4 mb-4 md:mb-6 text-[11px] sm:text-xs md:text-sm">
-                      <span className="text-[#C9A84C] font-bold">{t("catalogue_fit")}</span>
-                      <span className="text-white/90">{language === "ne" ? selectedCatalogueItem.fitNe : language === "hi" ? selectedCatalogueItem.fitHi : selectedCatalogueItem.fitEn}</span>
-
-                      <span className="text-[#C9A84C] font-bold">{t("catalogue_fabric")}</span>
-                      <span className="text-white/90">{language === "ne" ? selectedCatalogueItem.fabricNe : language === "hi" ? selectedCatalogueItem.fabricHi : selectedCatalogueItem.fabricEn}</span>
-
-                      <span className="text-[#C9A84C] font-bold">{t("catalogue_color")}</span>
-                      <span className="text-white/90">{language === "ne" ? selectedCatalogueItem.colorNe : language === "hi" ? selectedCatalogueItem.colorHi : selectedCatalogueItem.colorEn}</span>
-                    </div>
-
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-1.5 md:gap-2 mb-4 md:mb-6">
-                      {(language === "ne" ? selectedCatalogueItem.tagsNe : language === "hi" ? selectedCatalogueItem.tagsHi : selectedCatalogueItem.tagsEn).map((tag, idx) => (
-                        <span key={idx} className="bg-white/5 border border-white/15 px-2.5 py-0.5 text-[9px] sm:text-[10px] md:text-xs text-white/80 uppercase tracking-widest">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* WhatsApp Action */}
-                    <div className="pt-3 md:pt-4 border-t border-white/10">
-                      <p className="text-[9px] sm:text-[10px] md:text-xs italic text-[#C9A84C] mb-2 md:mb-3 font-sans font-semibold">
-                        * {t("catalogue_master_recommends")} Hand-measured & custom stitched.
-                      </p>
-                      <a
-                        href={getCatalogueQuoteLink(selectedCatalogueItem)}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex w-full items-center justify-center gap-3 bg-secondary text-secondary-foreground font-extrabold py-2.5 md:py-3.5 text-xs md:text-sm uppercase tracking-[0.15em] hover:bg-secondary/90 transition-colors shadow-lg"
-                      >
-                        {t("catalogue_inquire_whatsapp")}
-                      </a>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
+                    <a
+                      href={getCatalogueQuoteLink(selectedCatalogueItem)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex w-full items-center justify-center gap-3 bg-secondary text-secondary-foreground font-extrabold py-4 text-sm uppercase tracking-[0.18em] hover:bg-secondary/90 transition-colors shadow-lg"
+                    >
+                      {t("catalogue_inquire_whatsapp")}
+                    </a>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
             </div>
           </motion.div>
         )}
