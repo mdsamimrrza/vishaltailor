@@ -26,6 +26,8 @@ import {
   Search,
   ChevronLeft,
   ChevronRight,
+  ZoomIn,
+  ZoomOut,
 } from "lucide-react";
 import { catalogueItems, CatalogueItem } from "@/data/catalogue";
 
@@ -71,6 +73,7 @@ export default function Home() {
   const { t, language } = useLanguage();
 
   const [activeImage, setActiveImage] = useState<ImagePreview | null>(null);
+  const [zoomScale, setZoomScale] = useState(1);
   const [selectedVariantIndex, setSelectedVariantIndex] = useState<Record<string, number>>({});
 
   // Custom Catalogue states (Beginner-friendly)
@@ -264,9 +267,18 @@ export default function Home() {
 
   const openImage = (src: string, alt: string) => {
     setActiveImage({ src, alt });
+    setZoomScale(1);
   };
 
-  const closeImage = () => setActiveImage(null);
+  const closeImage = () => {
+    setActiveImage(null);
+    setZoomScale(1);
+  };
+
+  const handleImageClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setZoomScale((prev) => (prev === 1 ? 2 : 1));
+  };
 
   const getQuoteLink = (garmentName: string) => {
     const message = `Hi, I'm interested in a ${garmentName}. Can you share more details?`;
@@ -356,20 +368,55 @@ export default function Home() {
       <AnimatePresence>
         {activeImage && (
           <motion.div
+            key="active-image-modal"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-100 bg-black/95 backdrop-blur-md px-4 py-6 md:px-8 md:py-8"
+            className="fixed inset-0 z-[110] bg-black/95 backdrop-blur-md px-4 py-6 md:px-8 md:py-8 flex flex-col justify-between"
           >
-            <button
-              type="button"
-              onClick={closeImage}
-              className="relative z-20 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-white hover:text-primary"
-            >
-              <ArrowLeft size={18} />
-              Back
-            </button>
+            {/* Control Bar */}
+            <div className="relative z-20 flex flex-col sm:flex-row sm:items-center justify-between gap-4 w-full select-none">
+              <button
+                type="button"
+                onClick={closeImage}
+                className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-white hover:text-primary cursor-pointer shadow-lg self-start"
+              >
+                <ArrowLeft size={18} />
+                Back
+              </button>
+
+              {/* Zoom Controls */}
+              <div className="inline-flex items-center gap-3 bg-white/5 border border-white/10 px-4 py-2 rounded-full shadow-lg backdrop-blur-sm self-start sm:self-auto">
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setZoomScale(prev => Math.max(1, prev - 0.5));
+                  }}
+                  disabled={zoomScale <= 1}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition-colors hover:bg-white hover:text-primary cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                  aria-label="Zoom out"
+                >
+                  <ZoomOut size={16} />
+                </button>
+                <span className="text-white text-xs font-mono font-bold tracking-widest min-w-14 text-center">
+                  {zoomScale.toFixed(1)}x
+                </span>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setZoomScale(prev => Math.min(3, prev + 0.5));
+                  }}
+                  disabled={zoomScale >= 3}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition-colors hover:bg-white hover:text-primary cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                  aria-label="Zoom in"
+                >
+                  <ZoomIn size={16} />
+                </button>
+              </div>
+            </div>
 
             <button
               type="button"
@@ -378,29 +425,48 @@ export default function Home() {
               className="absolute inset-0 z-0 cursor-zoom-out"
             />
 
-            <div className="pointer-events-none absolute inset-x-4 top-24 bottom-6 z-10 flex items-center justify-center md:inset-x-8 md:top-28 md:bottom-8">
+            <div className="pointer-events-none absolute inset-x-4 top-24 bottom-16 z-10 flex items-center justify-center md:inset-x-8 md:top-28 md:bottom-20 overflow-hidden">
               <motion.img
                 initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
+                animate={zoomScale === 1 ? { opacity: 1, scale: 1, x: 0, y: 0 } : { opacity: 1, scale: zoomScale }}
                 exit={{ opacity: 0, scale: 0.98 }}
                 transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                 src={activeImage.src}
                 alt={activeImage.alt}
-                className="pointer-events-auto max-h-full max-w-full object-contain shadow-[0_30px_120px_rgba(0,0,0,0.45)]"
+                className={`pointer-events-auto max-h-full max-w-full object-contain shadow-[0_30px_120px_rgba(0,0,0,0.45)] select-none transition-shadow ${
+                  zoomScale > 1 ? "cursor-zoom-out touch-none" : "cursor-zoom-in"
+                }`}
                 width={900}
                 height={1200}
                 loading="eager"
+                onClick={handleImageClick}
+                drag={zoomScale > 1}
+                dragConstraints={{
+                  left: -300 * (zoomScale - 1),
+                  right: 300 * (zoomScale - 1),
+                  top: -400 * (zoomScale - 1),
+                  bottom: 400 * (zoomScale - 1)
+                }}
+                dragElastic={0.1}
+                dragMomentum={true}
               />
             </div>
+
+            {zoomScale > 1 && (
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 bg-black/60 border border-white/15 px-4 py-2 text-white text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] rounded-full pointer-events-none select-none backdrop-blur-xs shadow-md">
+                Drag to explore fabric details
+              </div>
+            )}
           </motion.div>
         )}
         {selectedCatalogueItem && (
           <motion.div
+            key="catalogue-details-modal"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-100 bg-black/95 backdrop-blur-md overflow-hidden p-6 md:p-12 flex flex-col h-screen w-screen"
+            className="fixed inset-0 z-100 bg-black/95 backdrop-blur-md overflow-y-auto lg:overflow-hidden p-6 md:p-12 flex flex-col lg:h-screen w-screen"
           >
             {/* Top Bar with Back Button and Shop Title */}
             <div className="flex items-center justify-between gap-4 z-20 mb-4 md:mb-6 shrink-0">
@@ -419,9 +485,9 @@ export default function Home() {
             </div>
 
             {/* Content Split Layout */}
-            <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center justify-start lg:justify-center max-w-7xl mx-auto w-full flex-1 overflow-y-auto lg:overflow-hidden min-h-0 pr-1 select-none lg:select-text">
+            <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center justify-start lg:justify-center max-w-7xl mx-auto w-full lg:flex-1 lg:overflow-hidden lg:min-h-0 pr-1 select-none lg:select-text">
               {/* Left Column - Full Image (no crop, contain aspect ratio) */}
-              <div className="w-full lg:w-1/2 h-[35vh] sm:h-[45vh] lg:h-full flex items-center justify-center relative shrink-0 min-h-0">
+              <div className="w-full lg:w-1/2 h-[55vh] md:h-[65vh] lg:h-full flex items-center justify-center relative shrink-0">
                 <div className="relative h-full w-full max-h-full max-w-full flex items-center justify-center shadow-2xl border border-white/10 bg-black/40 overflow-hidden">
                   {/* Left Navigation Button */}
                   {filteredCatalogueItems.length > 1 && (
@@ -461,10 +527,14 @@ export default function Home() {
                       <img
                         src={selectedCatalogueItem.image}
                         alt={language === "ne" ? selectedCatalogueItem.nameNe : language === "hi" ? selectedCatalogueItem.nameHi : selectedCatalogueItem.nameEn}
-                        className="max-h-full max-w-full object-contain"
+                        className="w-full h-full object-contain cursor-zoom-in hover:opacity-90 transition-opacity"
                         width={800}
                         height={800}
                         loading="eager"
+                        onClick={() => openImage(
+                          selectedCatalogueItem.image,
+                          language === "ne" ? selectedCatalogueItem.nameNe : language === "hi" ? selectedCatalogueItem.nameHi : selectedCatalogueItem.nameEn
+                        )}
                       />
                       {/* Design Code overlay badge */}
                       <div className="absolute bottom-4 right-4 bg-black/85 border border-white/15 text-white text-xs font-mono px-3 py-1 z-10">
@@ -476,7 +546,7 @@ export default function Home() {
               </div>
 
               {/* Right Column - Details */}
-              <div className="w-full lg:w-5/12 text-white flex-1 lg:h-full flex flex-col justify-start lg:justify-center pr-2 min-h-0 relative">
+              <div className="w-full lg:w-5/12 text-white lg:flex-1 lg:h-full flex flex-col justify-start lg:justify-center pr-2 lg:min-h-0 relative">
                 <AnimatePresence mode="wait" custom={slideDirection}>
                   <motion.div
                     key={selectedCatalogueItem.id}
