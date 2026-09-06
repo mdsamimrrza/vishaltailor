@@ -49,6 +49,15 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        // Split stable vendor libs so they download in parallel and stay cached across deploys
+        manualChunks: {
+          react: ["react", "react-dom", "wouter"],
+          motion: ["framer-motion"],
+        },
+      },
+    },
   },
   server: {
     port,

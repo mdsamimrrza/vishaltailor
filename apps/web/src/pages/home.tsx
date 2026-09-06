@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { Link } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -6,8 +6,9 @@ import { SectionHeader } from "@/components/SectionHeader";
 import { Navbar } from "@/components/Navbar";
 import { WhyChooseUs } from "@/components/WhyChooseUs";
 import { Testimonials } from "@/components/Testimonials";
-import { FAQ } from "@/components/FAQ";
-import { EnquiryForm } from "@/components/EnquiryForm";
+// Below-the-fold, form-heavy chunks load in the background after first paint
+const FAQ = lazy(() => import("@/components/FAQ").then((m) => ({ default: m.FAQ })));
+const EnquiryForm = lazy(() => import("@/components/EnquiryForm").then((m) => ({ default: m.EnquiryForm })));
 import { OptimizedImage } from "@/components/OptimizedImage";
 import { getStatusText, isOpenNow } from "@/utils/businessHours";
 import {
@@ -29,7 +30,7 @@ import {
   ZoomIn,
   ZoomOut,
 } from "lucide-react";
-import { catalogueItems, CatalogueItem } from "@/data/catalogue";
+import { catalogueItems, CatalogueCategory, CatalogueItem } from "@/data/catalogue";
 
 const PHONE_PRIMARY = "+977 980-4833357";
 const PHONE_PRIMARY_TEL = "+9779804833357";
@@ -52,6 +53,27 @@ type GarmentVariant = {
 type GarmentGroup = {
   titleKey: string;
   variants: GarmentVariant[];
+};
+
+// Catalogue filter tabs (label key + matching item category) — rendered with .map below
+const catalogueCategories: { key: "all" | CatalogueCategory; labelKey: string }[] = [
+  { key: "all", labelKey: "catalogue_all" },
+  { key: "coatpant", labelKey: "catalogue_coatpant" },
+  { key: "sherwani", labelKey: "catalogue_sherwani" },
+  { key: "shirt", labelKey: "catalogue_shirt" },
+  { key: "safari", labelKey: "catalogue_safari" },
+  { key: "kurtapajama", labelKey: "catalogue_kurtapajama" },
+  { key: "khandress", labelKey: "catalogue_khandress" },
+];
+
+// Short category label shown on each catalogue card footer
+const catalogueCategoryLabels: Record<CatalogueCategory, string> = {
+  coatpant: "garments_coatpant",
+  sherwani: "garments_sherwani",
+  shirt: "catalogue_cat_shirt",
+  safari: "garments_safari",
+  kurtapajama: "garments_kurta",
+  khandress: "catalogue_cat_khandress",
 };
 
 const slideVariants = {
@@ -173,7 +195,7 @@ export default function Home() {
       variants: [
         {
           labelKey: "garments_coatpant",
-          image: "/images/coatpant.png",
+          image: "/images/catalogue/coatpant.webp",
           priceKey: "garments_coatpant_price",
           deliveryKey: "garments_coatpant_delivery",
           descKey: "garments_coatpant_desc",
@@ -185,7 +207,7 @@ export default function Home() {
       variants: [
         {
           labelKey: "garments_safari",
-          image: "/images/Safari Suits.png",
+          image: "/images/safari-suits.webp",
           priceKey: "garments_safari_price",
           deliveryKey: "garments_safari_delivery",
           descKey: "garments_safari_desc",
@@ -197,7 +219,7 @@ export default function Home() {
       variants: [
         {
           labelKey: "garments_pants",
-          image: "/images/Shirts & Pants.png",
+          image: "/images/shirts-and-pants.webp",
           priceKey: "garments_pants_price",
           deliveryKey: "garments_pants_delivery",
           descKey: "garments_pants_desc",
@@ -209,7 +231,7 @@ export default function Home() {
       variants: [
         {
           labelKey: "garments_kurta",
-          image: "/images/Kurta-Pajama.png",
+          image: "/images/kurta-pajama.webp",
           priceKey: "garments_kurta_price",
           deliveryKey: "garments_kurta_delivery",
           descKey: "garments_kurta_desc",
@@ -221,7 +243,7 @@ export default function Home() {
       variants: [
         {
           labelKey: "garments_sherwani",
-          image: "/images/Sherwani.png",
+          image: "/images/catalogue/sherwani.webp",
           priceKey: "garments_sherwani_price",
           deliveryKey: "garments_sherwani_delivery",
           descKey: "garments_sherwani_desc",
@@ -233,7 +255,7 @@ export default function Home() {
       variants: [
         {
           labelKey: "garments_bandi",
-          image: "/images/Bandi.png",
+          image: "/images/bandi.webp",
           priceKey: "garments_bandi_price",
           deliveryKey: "garments_bandi_delivery",
           descKey: "garments_bandi_desc",
@@ -243,9 +265,9 @@ export default function Home() {
   ];
 
   const fabrics = [
-    { titleKey: "fabric_silk_title", descKey: "fabric_silk_desc", img: "/images/Premium Suiting.png" },
-    { titleKey: "fabric_cotton_title", descKey: "fabric_cotton_desc", img: "/images/Shirting Cotton.png" },
-    { titleKey: "fabric_wool_title", descKey: "fabric_wool_desc", img: "/images/tools.png" },
+    { titleKey: "fabric_silk_title", descKey: "fabric_silk_desc", img: "/images/premium-suiting.webp" },
+    { titleKey: "fabric_cotton_title", descKey: "fabric_cotton_desc", img: "/images/shirting-cotton.webp" },
+    { titleKey: "fabric_wool_title", descKey: "fabric_wool_desc", img: "/images/tools.webp" },
   ];
 
   const processSteps = [
@@ -286,7 +308,8 @@ export default function Home() {
   };
 
   // 1. Filter catalogue items based on category and search keyword (Beginner-friendly)
-  const filteredCatalogueItems = catalogueItems.filter((item) => {
+  // useMemo keeps the same array between re-renders so pagination & modal navigation stay stable
+  const filteredCatalogueItems = useMemo(() => catalogueItems.filter((item) => {
     // Category check
     if (catalogueFilter !== "all" && item.category !== catalogueFilter) {
       return false;
@@ -295,16 +318,16 @@ export default function Home() {
     // Search check (case-insensitive search in English, Nepali, and Hindi titles/descriptions/tags)
     if (catalogueSearch.trim() !== "") {
       const keyword = catalogueSearch.toLowerCase();
-      
+
       const inEn = item.nameEn.toLowerCase().includes(keyword) || item.descEn.toLowerCase().includes(keyword) || item.tagsEn.some(t => t.toLowerCase().includes(keyword)) || item.colorEn.toLowerCase().includes(keyword) || item.fabricEn.toLowerCase().includes(keyword) || item.fitEn.toLowerCase().includes(keyword);
       const inNe = item.nameNe.toLowerCase().includes(keyword) || item.descNe.toLowerCase().includes(keyword) || item.tagsNe.some(t => t.toLowerCase().includes(keyword)) || item.colorNe.toLowerCase().includes(keyword) || item.fabricNe.toLowerCase().includes(keyword) || item.fitNe.toLowerCase().includes(keyword);
       const inHi = item.nameHi.toLowerCase().includes(keyword) || item.descHi.toLowerCase().includes(keyword) || item.tagsHi.some(t => t.toLowerCase().includes(keyword)) || item.colorHi.toLowerCase().includes(keyword) || item.fabricHi.toLowerCase().includes(keyword) || item.fitHi.toLowerCase().includes(keyword);
-      
+
       return inEn || inNe || inHi;
     }
 
     return true;
-  });
+  }), [catalogueFilter, catalogueSearch]);
 
   // 2. Pagination calculation (6 items per page)
   const itemsPerPage = 6;
@@ -362,6 +385,17 @@ export default function Home() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [selectedCatalogueItem, filteredCatalogueItems]);
+
+  useEffect(() => {
+    if (selectedCatalogueItem || activeImage) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [selectedCatalogueItem, activeImage]);
 
   return (
     <div className="min-h-screen bg-background selection:bg-secondary selection:text-secondary-foreground">
@@ -466,7 +500,7 @@ export default function Home() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-100 bg-[#0d0d0d] overflow-y-auto lg:overflow-hidden w-screen h-screen"
+            className="fixed inset-0 z-100 bg-[#0d0d0d] overflow-y-auto lg:overflow-hidden overscroll-contain"
           >
             {/* Inner wrapper: stacked on mobile, side-by-side on desktop */}
             <div className="flex flex-col lg:flex-row lg:h-full min-h-full">
@@ -628,30 +662,25 @@ export default function Home() {
           >
             <button
               type="button"
-              onClick={() => openImage(window.innerWidth < 768 ? "/images/hero-mobile.png" : "/images/hero.png", t("hero_image_alt"))}
+              onClick={() => openImage(window.innerWidth < 768 ? "/images/hero-mobile.webp" : "/images/hero.webp", t("hero_image_alt"))}
               aria-label={`Open full screen ${t("hero_image_alt")}`}
               className="block h-full w-full cursor-zoom-in"
             >
-              <OptimizedImage
-                src="/images/hero.png"
-                webpSrc="/images/hero.webp"
-                placeholderSrc="/images/hero.png"
-                alt={t("hero_image_alt")}
-                className="hidden md:block h-full w-full object-cover opacity-85"
-                width={1600}
-                height={900}
-                loading="eager"
-                fetchPriority="high"
-              />
-              <OptimizedImage
-                src="/images/hero-mobile.png"
-                alt={t("hero_image_alt")}
-                className="md:hidden h-full w-full object-cover opacity-85"
-                width={900}
-                height={1600}
-                loading="eager"
-                fetchPriority="high"
-              />
+              {/* Single <picture>: the browser downloads only the variant matching its screen width */}
+              <picture>
+                <source media="(min-width: 768px)" srcSet="/images/hero.webp" type="image/webp" />
+                <source media="(max-width: 767px)" srcSet="/images/hero-mobile.webp" type="image/webp" />
+                <img
+                  src="/images/hero.webp"
+                  alt={t("hero_image_alt")}
+                  className="h-full w-full object-cover opacity-85"
+                  width={1600}
+                  height={900}
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                />
+              </picture>
             </button>
           </motion.div>
           <div className="absolute inset-0 bg-linear-to-t from-[#3b0c0c]/90 via-[#3b0c0c]/45 to-black/55" />
@@ -716,12 +745,13 @@ export default function Home() {
           >
             <div className="absolute inset-0 bg-primary translate-x-4 translate-y-4 -z-10" />
             <img
-              src="/images/hands.png"
+              src="/images/hands.webp"
               alt={t("master_work_image_alt")}
               className="w-full h-full object-cover shadow-2xl"
-              width={800}
-              height={1067}
+              width={700}
+              height={1000}
               loading="lazy"
+              decoding="async"
             />
           </motion.div>
 
@@ -814,14 +844,16 @@ export default function Home() {
               <div className="absolute inset-0 bg-primary -translate-x-3 -translate-y-3 -z-10" />
               <button
                 type="button"
-                onClick={() => openImage("/images/molbi_nadaf.png", t("owner_section_title"))}
+                onClick={() => openImage("/images/molbi_nadaf.webp", t("owner_section_title"))}
                 className="group relative block h-full w-full overflow-hidden shadow-2xl"
                 aria-label="Open full screen portrait"
               >
                 <img
-                  src="/images/molbi_nadaf.png"
+                  src="/images/molbi_nadaf.webp"
                   alt={t("owner_section_title")}
                   className="relative w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute inset-x-0 bottom-0 flex justify-center bg-linear-to-t from-black/75 via-black/20 to-transparent px-5 pb-6 pt-10">
                   <span className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-5 py-2 text-center text-[11px] font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-sm transition-colors group-hover:bg-white group-hover:text-primary">
@@ -845,7 +877,7 @@ export default function Home() {
 
       {/* Garments */}
       <section id="garments" className="py-24 md:py-32 bg-primary text-primary-foreground relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[url('/images/fabric.png')] bg-cover mix-blend-overlay pointer-events-none" />
+        <div className="absolute inset-0 opacity-10 bg-[url('/images/fabric.webp')] bg-cover mix-blend-overlay pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
           <div className="text-center mb-16">
@@ -966,7 +998,7 @@ export default function Home() {
 
       {/* Custom Catalogue Section */}
       <section id="catalogue" className="py-24 md:py-32 bg-background text-foreground relative overflow-hidden border-t border-border">
-        <div className="absolute inset-0 opacity-5 bg-[url('/images/fabric.png')] bg-cover mix-blend-overlay pointer-events-none" />
+        <div className="absolute inset-0 opacity-5 bg-[url('/images/fabric.webp')] bg-cover mix-blend-overlay pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
           <div className="text-center mb-12">
@@ -983,36 +1015,19 @@ export default function Home() {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10 pb-6 border-b border-border">
             {/* Filter Tabs */}
             <div className="flex flex-wrap gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setCatalogueFilter("all");
-                  setCataloguePage(1);
-                }}
-                className={`px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-colors border rounded-none ${catalogueFilter === "all" ? "bg-primary text-primary-foreground border-primary" : "bg-transparent text-primary border-primary/20 hover:border-primary"}`}
-              >
-                {t("catalogue_all")}
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setCatalogueFilter("coatpant");
-                  setCataloguePage(1);
-                }}
-                className={`px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-colors border rounded-none ${catalogueFilter === "coatpant" ? "bg-primary text-primary-foreground border-primary" : "bg-transparent text-primary border-primary/20 hover:border-primary"}`}
-              >
-                {t("catalogue_coatpant")}
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setCatalogueFilter("sherwani");
-                  setCataloguePage(1);
-                }}
-                className={`px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-colors border rounded-none ${catalogueFilter === "sherwani" ? "bg-primary text-primary-foreground border-primary" : "bg-transparent text-primary border-primary/20 hover:border-primary"}`}
-              >
-                {t("catalogue_sherwani")}
-              </button>
+              {catalogueCategories.map((cat) => (
+                <button
+                  key={cat.key}
+                  type="button"
+                  onClick={() => {
+                    setCatalogueFilter(cat.key);
+                    setCataloguePage(1);
+                  }}
+                  className={`px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-colors border rounded-none ${catalogueFilter === cat.key ? "bg-primary text-primary-foreground border-primary" : "bg-transparent text-primary border-primary/20 hover:border-primary"}`}
+                >
+                  {t(cat.labelKey)}
+                </button>
+              ))}
             </div>
 
             {/* Search Input */}
@@ -1048,12 +1063,13 @@ export default function Home() {
                   >
                     <div className="relative aspect-square overflow-hidden bg-black/5">
                       <img
-                        src={item.image}
+                        src={item.thumb}
                         alt={name}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100"
-                        width={400}
-                        height={400}
+                        width={520}
+                        height={520}
                         loading="lazy"
+                        decoding="async"
                       />
                       <div className="absolute inset-0 bg-linear-to-t from-card via-transparent to-black/10 opacity-30" />
                       
@@ -1080,7 +1096,7 @@ export default function Home() {
  
                       <div className="mt-6 pt-4 border-t border-border flex items-center justify-between">
                         <span className="text-xs text-foreground/50 font-bold tracking-wider uppercase">
-                          {item.category === "coatpant" ? t("garments_coatpant") : t("garments_sherwani")}
+                          {t(catalogueCategoryLabels[item.category])}
                         </span>
                         <span className="text-xs text-secondary font-bold hover:text-primary transition-colors hover:underline">
                           View details &rarr;
@@ -1290,7 +1306,9 @@ export default function Home() {
                   {t("visit_subtitle")}
                 </p>
                 <div className="mt-8 flex justify-center">
-                  <EnquiryForm variant="modal" triggerLabel={language === "ne" ? "अपोइन्टमेन्ट बुक गर्नुहोस्" : language === "hi" ? "अपॉइंटमेंट बुक करें" : "Book Appointment"} />
+                  <Suspense fallback={null}>
+                    <EnquiryForm variant="modal" triggerLabel={language === "ne" ? "अपोइन्टमेन्ट बुक गर्नुहोस्" : language === "hi" ? "अपॉइंटमेंट बुक करें" : "Book Appointment"} />
+                  </Suspense>
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -1444,8 +1462,10 @@ export default function Home() {
 
             <div className="lg:col-span-5">
               <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-2">
-                <EnquiryForm variant="inline" />
-                <FAQ />
+                <Suspense fallback={null}>
+                  <EnquiryForm variant="inline" />
+                  <FAQ />
+                </Suspense>
               </div>
             </div>
           </div>

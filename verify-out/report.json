@@ -1,0 +1,288 @@
+{
+  "consoleErrors": [],
+  "failedRequests": [],
+  "brokenImages": [],
+  "imageRequests": [
+    {
+      "url": "hero.webp",
+      "status": 200,
+      "kb": 56
+    },
+    {
+      "url": "fabric.webp",
+      "status": 200,
+      "kb": 58
+    },
+    {
+      "url": "hands.webp",
+      "status": 200,
+      "kb": 50
+    },
+    {
+      "url": "molbi_nadaf.webp",
+      "status": 200,
+      "kb": 130
+    },
+    {
+      "url": "icon-192.png",
+      "status": 200,
+      "kb": 7
+    },
+    {
+      "url": "coatpant.webp",
+      "status": 200,
+      "kb": 83
+    },
+    {
+      "url": "safari-suits.webp",
+      "status": 200,
+      "kb": 16
+    },
+    {
+      "url": "shirts-and-pants.webp",
+      "status": 200,
+      "kb": 17
+    },
+    {
+      "url": "kurta-pajama.webp",
+      "status": 200,
+      "kb": 37
+    },
+    {
+      "url": "sherwani.webp",
+      "status": 200,
+      "kb": 152
+    },
+    {
+      "url": "bandi.webp",
+      "status": 200,
+      "kb": 69
+    },
+    {
+      "url": "su-01-th.webp",
+      "status": 200,
+      "kb": 12
+    },
+    {
+      "url": "su-02-th.webp",
+      "status": 200,
+      "kb": 8
+    },
+    {
+      "url": "su-03-th.webp",
+      "status": 200,
+      "kb": 16
+    },
+    {
+      "url": "su-04-th.webp",
+      "status": 200,
+      "kb": 16
+    },
+    {
+      "url": "su-05-th.webp",
+      "status": 200,
+      "kb": 17
+    },
+    {
+      "url": "su-06-th.webp",
+      "status": 200,
+      "kb": 11
+    },
+    {
+      "url": "kp-01-th.webp",
+      "status": 200,
+      "kb": 29
+    },
+    {
+      "url": "kp-02-th.webp",
+      "status": 200,
+      "kb": 15
+    },
+    {
+      "url": "kp-03-th.webp",
+      "status": 200,
+      "kb": 17
+    },
+    {
+      "url": "kp-04-th.webp",
+      "status": 200,
+      "kb": 23
+    },
+    {
+      "url": "kd-02-th.webp",
+      "status": 200,
+      "kb": 16
+    },
+    {
+      "url": "kd-01-th.webp",
+      "status": 200,
+      "kb": 16
+    },
+    {
+      "url": "kd-03-th.webp",
+      "status": 200,
+      "kb": 9
+    },
+    {
+      "url": "kd-06-th.webp",
+      "status": 200,
+      "kb": 11
+    },
+    {
+      "url": "kd-04-th.webp",
+      "status": 200,
+      "kb": 7
+    },
+    {
+      "url": "kd-05-th.webp",
+      "status": 200,
+      "kb": 12
+    },
+    {
+      "url": "su-01.webp",
+      "status": 200,
+      "kb": 19
+    },
+    {
+      "url": "su-02.webp",
+      "status": 200,
+      "kb": 15
+    },
+    {
+      "url": "premium-suiting.webp",
+      "status": 200,
+      "kb": 51
+    },
+    {
+      "url": "shirting-cotton.webp",
+      "status": 200,
+      "kb": 98
+    },
+    {
+      "url": "tools.webp",
+      "status": 200,
+      "kb": 43
+    },
+    {
+      "url": "hero-mobile.webp",
+      "status": 200,
+      "kb": 51
+    },
+    {
+      "url": "hero-mobile.webp",
+      "status": 304,
+      "kb": 0
+    },
+    {
+      "url": "hero-mobile.webp",
+      "status": 304,
+      "kb": 0
+    },
+    {
+      "url": "fabric.webp",
+      "status": 200,
+      "kb": 58
+    },
+    {
+      "url": "hero.webp",
+      "status": 304,
+      "kb": 0
+    },
+    {
+      "url": "hands.webp",
+      "status": 304,
+      "kb": 0
+    },
+    {
+      "url": "molbi_nadaf.webp",
+      "status": 304,
+      "kb": 0
+    },
+    {
+      "url": "coatpant.webp",
+      "status": 304,
+      "kb": 0
+    },
+    {
+      "url": "safari-suits.webp",
+      "status": 304,
+      "kb": 0
+    },
+    {
+      "url": "shirts-and-pants.webp",
+      "status": 304,
+      "kb": 0
+    },
+    {
+      "url": "kurta-pajama.webp",
+      "status": 304,
+      "kb": 0
+    },
+    {
+      "url": "sherwani.webp",
+      "status": 304,
+      "kb": 0
+    },
+    {
+      "url": "bandi.webp",
+      "status": 304,
+      "kb": 0
+    },
+    {
+      "url": "su-01-th.webp",
+      "status": 304,
+      "kb": 0
+    },
+    {
+      "url": "su-02-th.webp",
+      "status": 304,
+      "kb": 0
+    },
+    {
+      "url": "su-03-th.webp",
+      "status": 304,
+      "kb": 0
+    },
+    {
+      "url": "su-04-th.webp",
+      "status": 304,
+      "kb": 0
+    },
+    {
+      "url": "su-05-th.webp",
+      "status": 304,
+      "kb": 0
+    },
+    {
+      "url": "su-06-th.webp",
+      "status": 304,
+      "kb": 0
+    },
+    {
+      "url": "premium-suiting.webp",
+      "status": 304,
+      "kb": 0
+    },
+    {
+      "url": "shirting-cotton.webp",
+      "status": 304,
+      "kb": 0
+    },
+    {
+      "url": "tools.webp",
+      "status": 304,
+      "kb": 0
+    },
+    {
+      "url": "icon-192.png",
+      "status": 304,
+      "kb": 0
+    },
+    {
+      "url": "su-01.webp",
+      "status": 304,
+      "kb": 0
+    }
+  ],
+  "totalBytes": 2779194
+}

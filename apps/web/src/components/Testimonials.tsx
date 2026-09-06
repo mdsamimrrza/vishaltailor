@@ -8,7 +8,7 @@ export function Testimonials() {
 
   return (
     <section className="py-24 md:py-32 px-6 md:px-12 bg-primary text-primary-foreground relative overflow-hidden">
-      <div className="absolute inset-0 opacity-5 bg-[url('/images/hands.png')] bg-cover mix-blend-overlay pointer-events-none" />
+      <div className="absolute inset-0 opacity-5 bg-[url('/images/hands.webp')] bg-cover mix-blend-overlay pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-16">
