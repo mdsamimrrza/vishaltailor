@@ -29,6 +29,8 @@ import {
   ChevronRight,
   ZoomIn,
   ZoomOut,
+  Download,
+  Smartphone,
 } from "lucide-react";
 import { catalogueItems, CatalogueCategory, CatalogueItem } from "@/data/catalogue";
 
@@ -1456,6 +1458,35 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
+
+                  {/* APK Download */}
+                  <div className="bg-card border border-border p-8 hover:border-secondary transition-colors duration-500 group">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary group-hover:bg-secondary group-hover:text-secondary-foreground transition-colors duration-500 shrink-0">
+                        <Smartphone size={22} />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="text-xs uppercase tracking-widest text-foreground/80 mb-2">
+                          {t("visit_apk_title")}
+                        </h4>
+                        <p className="text-foreground/90 text-sm mb-4">{t("visit_apk_subtitle")}</p>
+                        <a
+                          href="https://github.com/mdsamimrrza/vishaltailorapk/releases/latest/download/app-arm64-v8a-release.apk"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground font-bold py-3 px-6 text-sm uppercase tracking-[0.18em] hover:bg-secondary/90 transition-colors shadow-lg"
+                          aria-label={t("visit_apk_download")}
+                        >
+                          <Download size={18} />
+                          <span>{t("visit_apk_download")}</span>
+                        </a>
+                        <p className="mt-3 text-xs text-foreground/50 uppercase tracking-wider">
+                          {t("visit_apk_note")}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
                 </motion.div>
               </AnimatePresence>
             </motion.div>
@@ -1525,6 +1556,26 @@ export default function Home() {
                     <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4 fill-current"><path d="M20.52 3.48A11.58 11.58 0 0 0 12.07 0C5.41 0 .02 5.39.01 12.05c0 2.12.56 4.2 1.62 6.02L0 24l6.1-1.6a11.94 11.94 0 0 0 5.95 1.52h.01c6.66 0 12.05-5.39 12.05-12.05 0-3.23-1.26-6.26-3.59-8.39Zm-8.45 18.5h-.01a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.62.95.97-3.53-.23-.36a9.86 9.86 0 0 1-1.52-5.23C2.25 6.62 6.78 2.1 12.06 2.1c2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.9 6.98c0 5.28-4.53 10-10.88 10Zm5.96-7.76c-.34-.17-2.02-1-2.33-1.12-.31-.11-.53-.17-.75.17-.22.34-.86 1.12-1.05 1.35-.19.22-.39.25-.73.08-.34-.17-1.43-.53-2.72-1.69-1-.89-1.68-1.99-1.88-2.33-.2-.34-.02-.52.15-.69.16-.16.34-.41.51-.61.17-.2.23-.34.34-.57.11-.22.06-.42-.03-.59-.09-.17-.75-1.81-1.03-2.48-.27-.65-.55-.56-.75-.57h-.64c-.22 0-.59.08-.9.42s-1.18 1.15-1.18 2.79 1.2 3.22 1.36 3.44c.17.22 2.36 3.6 5.72 5.05.8.35 1.42.56 1.91.72.8.25 1.53.21 2.11.13.64-.1 2.02-.83 2.31-1.64.29-.8.29-1.48.2-1.64-.08-.16-.31-.25-.65-.42Z" /></svg>
                   </a>
                 </div>
+              </div>
+
+              {/* APK Download in Footer */}
+              <div className="mt-6 pt-6 border-t border-background/10">
+                <h5 className="text-xs uppercase tracking-widest text-secondary mb-3 font-semibold">
+                  {t("footer_apk_title")}
+                </h5>
+                <a
+                  href="https://github.com/mdsamimrrza/vishaltailorapk/releases/latest/download/app-arm64-v8a-release.apk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground font-bold py-2 px-4 text-xs uppercase tracking-[0.15em] hover:bg-secondary/90 transition-colors shadow-lg"
+                  aria-label={t("footer_apk_download")}
+                >
+                  <Download size={14} />
+                  <span>{t("footer_apk_download")}</span>
+                </a>
+                <p className="mt-2 text-[10px] text-background/40 uppercase tracking-wider">
+                  {t("footer_apk_note")}
+                </p>
               </div>
             </div>
           </div>

@@ -117,6 +117,10 @@ export const translations: TranslationDictionary = {
     visit_location: "ठेगाना",
     visit_phone: "फोन",
     visit_hours: "खुल्ने समय",
+    visit_apk_title: "हाम्रो एप डाउनलोड गर्नुहोस्",
+    visit_apk_subtitle: "अपोइन्टमेन्ट बुक गर्नुहोस्, अर्डर ट्रयाक गर्नुहोस्, र डिजाइनहरू हेर्नुहोस्।",
+    visit_apk_download: "एन्ड्रोइडका लागि डाउनलोड गर्नुहोस्",
+    visit_apk_note: "केवल एन्ड्रोइड — प्रत्यक्ष APK इन्स्टल",
     hours_weekday: "आइतबार – शुक्रबार",
     hours_weekday_time: "बिहान ९ – बेलुका ८",
     hours_saturday: "शनिबार",
@@ -134,6 +138,9 @@ export const translations: TranslationDictionary = {
     footer_tagline: "जनकपुरको हृदयबाट सिलाइएको परम्परा।",
     footer_explore: "अन्वेषण गर्नुहोस्",
     footer_contact: "सम्पर्क",
+    footer_apk_title: "हाम्रो एप डाउनलोड गर्नुहोस्",
+    footer_apk_download: "एन्ड्रोइडका लागि डाउनलोड गर्नुहोस्",
+    footer_apk_note: "केवल एन्ड्रोइड — प्रत्यक्ष APK इन्स्टल",
     footer_rights: "सर्वाधिकार सुरक्षित।",
 
     // Mobile menu
@@ -289,6 +296,10 @@ export const translations: TranslationDictionary = {
     visit_location: "पता",
     visit_phone: "फोन",
     visit_hours: "खुलने का समय",
+    visit_apk_title: "हमारा ऐप डाउनलोड करें",
+    visit_apk_subtitle: "अपॉइंटमेंट बुक करें, ऑर्डर ट्रैक करें और डिज़ाइन देखें।",
+    visit_apk_download: "Android के लिए डाउनलोड",
+    visit_apk_note: "केवल Android — सीधा APK इंस्टॉल",
     hours_weekday: "रविवार – शुक्रवार",
     hours_weekday_time: "सुबह 9 – शाम 8",
     hours_saturday: "शनिवार",
@@ -306,6 +317,9 @@ export const translations: TranslationDictionary = {
     footer_tagline: "जनकपुर के हृदय से सिली हुई परंपरा।",
     footer_explore: "अन्वेषण",
     footer_contact: "संपर्क",
+    footer_apk_title: "हमारा ऐप डाउनलोड करें",
+    footer_apk_download: "Android के लिए डाउनलोड",
+    footer_apk_note: "केवल Android — सीधा APK इंस्टॉल",
     footer_rights: "सर्वाधिकार सुरक्षित।",
 
     // Mobile menu
@@ -461,6 +475,10 @@ export const translations: TranslationDictionary = {
     visit_location: "Address",
     visit_phone: "Phone",
     visit_hours: "Opening Hours",
+    visit_apk_title: "Download Our App",
+    visit_apk_subtitle: "Book appointments, track orders, and browse designs on the go.",
+    visit_apk_download: "Download for Android",
+    visit_apk_note: "Android only — direct APK install",
     hours_weekday: "Sunday – Friday",
     hours_weekday_time: "9 AM – 8 PM",
     hours_saturday: "Saturday",
@@ -478,6 +496,9 @@ export const translations: TranslationDictionary = {
     footer_tagline: "Tradition stitched from the heart of Janakpur.",
     footer_explore: "Explore",
     footer_contact: "Contact",
+    footer_apk_title: "Download Our App",
+    footer_apk_download: "Download for Android",
+    footer_apk_note: "Android only — direct APK install",
     footer_rights: "All rights reserved.",
 
     // Mobile menu
