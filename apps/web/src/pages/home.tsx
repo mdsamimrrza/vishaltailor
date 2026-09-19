@@ -1471,7 +1471,7 @@ export default function Home() {
                         </h4>
                         <p className="text-foreground/90 text-sm mb-4">{t("visit_apk_subtitle")}</p>
                         <a
-                          href="https://github.com/mdsamimrrza/vishaltailorapk/releases/latest/download/app-arm64-v8a-release.apk"
+                          href="https://github.com/mdsamimrrza/vishaltailorapk/releases/latest/download/VishalTailor.apk"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground font-bold py-3 px-6 text-sm uppercase tracking-[0.18em] hover:bg-secondary/90 transition-colors shadow-lg"
@@ -1564,7 +1564,7 @@ export default function Home() {
                   {t("footer_apk_title")}
                 </h5>
                 <a
-                  href="https://github.com/mdsamimrrza/vishaltailorapk/releases/latest/download/app-arm64-v8a-release.apk"
+                  href="https://github.com/mdsamimrrza/vishaltailorapk/releases/latest/download/VishalTailor.apk"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground font-bold py-2 px-4 text-xs uppercase tracking-[0.15em] hover:bg-secondary/90 transition-colors shadow-lg"
